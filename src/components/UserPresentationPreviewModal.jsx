@@ -16,6 +16,9 @@ import {
   FiZap,
   FiSettings,
   FiCpu,
+  FiMaximize2,
+  FiMinimize2,
+  FiX,
 } from "react-icons/fi";
 import toast from "react-hot-toast";
 import "react-responsive-modal/styles.css";
@@ -225,6 +228,135 @@ const GammaPreviewCard = ({
   const cardStyle = fontFamily ? { fontFamily } : undefined;
   const toneStyle = toneColor ? { color: toneColor } : undefined;
 
+  const VariantLayout = () => {
+    switch (variant.id) {
+      case "exec-title":
+      case "startup-story":
+      case "cause-narrative":
+        return (
+          <div className="flex h-full flex-col justify-between">
+            <div>
+              <p className="line-clamp-2 text-base font-semibold text-white">
+                {variant.title}
+              </p>
+              <p className="mt-1 line-clamp-1 text-[11px] text-slate-200">
+                {variant.subtitle}
+              </p>
+            </div>
+            <div className="mt-4 grid grid-cols-5 gap-3">
+              <div className="col-span-3 space-y-2">
+                <div className="h-2 w-4/5 rounded-full bg-white/25" />
+                <div className="h-2 w-full rounded-full bg-white/18" />
+                <div className="h-2 w-3/5 rounded-full bg-white/12" />
+              </div>
+              <div className="col-span-2">
+                <div className="h-20 rounded-xl border border-white/15 bg-white/10" />
+                <div className="mt-2 h-6 rounded-lg border border-white/10 bg-white/5" />
+              </div>
+            </div>
+          </div>
+        );
+      case "exec-metrics":
+      case "startup-pitch":
+      case "cause-impact":
+        return (
+          <div className="flex h-full flex-col">
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <p className="truncate text-sm font-semibold text-white">
+                  {variant.title}
+                </p>
+                <p className="mt-1 truncate text-[11px] text-slate-200">
+                  {variant.subtitle}
+                </p>
+              </div>
+              <div className="h-7 w-10 rounded-lg border border-white/15 bg-white/10" />
+            </div>
+            <div className="mt-4 grid grid-cols-4 gap-2">
+              {["KPI 1", "KPI 2", "KPI 3", "KPI 4"].map((k) => (
+                <div
+                  key={k}
+                  className="rounded-xl border border-white/15 bg-white/10 p-2"
+                >
+                  <div className="h-2 w-10 rounded-full bg-white/20" />
+                  <div className="mt-2 h-3 w-12 rounded-full bg-white/30" />
+                </div>
+              ))}
+            </div>
+            <div className="mt-3 h-10 rounded-xl border border-white/15 bg-white/10" />
+          </div>
+        );
+      case "exec-split":
+      case "tech-diagram":
+      case "startup-demo":
+      case "bina-grid":
+        return (
+          <div className="grid h-full grid-cols-5 gap-3">
+            <div className="col-span-3">
+              <p className="truncate text-sm font-semibold text-white">
+                {variant.title}
+              </p>
+              <p className="mt-1 truncate text-[11px] text-slate-200">
+                {variant.subtitle}
+              </p>
+              <div className="mt-4 space-y-2">
+                {variant.bullets.slice(0, 3).map((line) => (
+                  <div key={line} className="flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-white/60" />
+                    <span className="h-2 w-full rounded-full bg-white/20" />
+                  </div>
+                ))}
+              </div>
+              <div className="mt-3 flex gap-2">
+                <span className="h-1.5 w-10 rounded-full bg-white/40" />
+                <span className="h-1.5 w-8 rounded-full bg-white/28" />
+                <span className="h-1.5 w-6 rounded-full bg-white/18" />
+              </div>
+            </div>
+            <div className="col-span-2 space-y-2">
+              <div className="h-10 rounded-xl border border-white/15 bg-white/10" />
+              <div className="h-24 rounded-xl border border-white/15 bg-white/10" />
+              <div className="h-8 rounded-xl border border-white/10 bg-white/5" />
+            </div>
+          </div>
+        );
+      case "tech-brief":
+      case "tech-checklist":
+      case "cause-call":
+      case "bina-focus":
+      case "bina-labs":
+      default:
+        return (
+          <div className="flex h-full flex-col">
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <p className="truncate text-sm font-semibold text-white">
+                  {variant.title}
+                </p>
+                <p className="mt-1 truncate text-[11px] text-slate-200">
+                  {variant.subtitle}
+                </p>
+              </div>
+              <div className="h-7 w-10 rounded-lg border border-white/15 bg-white/10" />
+            </div>
+            <div className="mt-4 space-y-2">
+              {variant.bullets.slice(0, 3).map((line) => (
+                <div key={line} className="flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-md border border-white/20 bg-white/10" />
+                  <span className="h-2 w-full rounded-full bg-white/20" />
+                </div>
+              ))}
+            </div>
+            <div className="mt-4 grid grid-cols-3 gap-2">
+              <div className="h-10 rounded-xl border border-white/15 bg-white/10" />
+              <div className="h-10 rounded-xl border border-white/15 bg-white/10" />
+              <div className="h-10 rounded-xl border border-white/15 bg-white/10" />
+            </div>
+          </div>
+        );
+    }
+  };
+
   return (
     <button
       type="button"
@@ -265,37 +397,7 @@ const GammaPreviewCard = ({
             className={`relative overflow-hidden rounded-xl border border-slate-800 bg-gradient-to-br ${themeAccent}`}
           >
             <div className="aspect-video bg-black/25 p-4">
-              <div className="flex items-start justify-between gap-3">
-                <div className="min-w-0">
-                  <p className="truncate text-sm font-semibold text-white">
-                    {variant.title}
-                  </p>
-                  <p className="mt-1 truncate text-[11px] text-slate-200">
-                    {variant.subtitle}
-                  </p>
-                </div>
-                <div className="h-7 w-10 rounded-lg border border-white/15 bg-white/10" />
-              </div>
-
-              <div className="mt-3 grid grid-cols-5 gap-3">
-                <div className="col-span-3 space-y-2">
-                  {variant.bullets.slice(0, 3).map((line) => (
-                    <div key={line} className="flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-white/60" />
-                      <span className="h-2 w-full rounded-full bg-white/25" />
-                    </div>
-                  ))}
-                </div>
-                <div className="col-span-2">
-                  <div className="h-full rounded-xl border border-white/15 bg-white/10" />
-                </div>
-              </div>
-
-              <div className="mt-3 flex gap-2">
-                <span className="h-1.5 w-10 rounded-full bg-white/45" />
-                <span className="h-1.5 w-8 rounded-full bg-white/30" />
-                <span className="h-1.5 w-6 rounded-full bg-white/20" />
-              </div>
+              <VariantLayout />
             </div>
           </div>
         </div>
@@ -343,6 +445,8 @@ const UserPresentationPreviewModal = ({
   scopeLoading = false,
 }) => {
   const [step, setStep] = useState(1);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [selectedOutlineSlideId, setSelectedOutlineSlideId] = useState(null);
   const [config, setConfig] = useState({
     topics: DEFAULT_PRESENTATION_SCOPE_TEMPLATE,
     slideCount: 10,
@@ -385,6 +489,8 @@ const UserPresentationPreviewModal = ({
           ),
       }));
       setStep(1);
+      setIsFullscreen(false);
+      setSelectedOutlineSlideId(null);
     }
   }, [isOpen, initialConfig]);
 
@@ -416,47 +522,244 @@ const UserPresentationPreviewModal = ({
     setIsOpen(false);
   };
 
-  const modalStyles = {
-    modal:
-      "rounded-none shadow-2xl max-w-none w-screen h-screen m-0 border-0 bg-[#0B0E14] p-0 overflow-hidden",
-    modalContainer: "p-0",
-    overlay: "bg-black/70",
-    closeIcon: "hidden",
-  };
+  const deckOutline = useMemo(() => {
+    const totalSlides = Math.max(1, Number(config.slideCount) || 1);
+    const cadence = config.includeMCQs ? config.mcqCadence : "none";
+    const mcqEvery =
+      cadence === "every_3" ? 3 : cadence === "every_6" ? 6 : 5;
+
+    const slides = [];
+
+    const tellCount = Math.min(2, Math.max(1, Math.round(totalSlides * 0.2)));
+    const showCount = Math.max(1, Math.round(totalSlides * 0.2));
+    const reserved = tellCount + showCount + (config.includeTrainingEnvironments ? 1 : 0);
+    const remaining = Math.max(0, totalSlides - reserved);
+    const doCount = config.includeTrainingEnvironments ? 1 : 0;
+    const extraTell = remaining > 0 ? Math.min(2, remaining) : 0;
+    const extraShow = remaining - extraTell > 0 ? 1 : 0;
+
+    const tellSlides = tellCount + extraTell;
+    const showSlides = showCount + extraShow;
+
+    let index = 1;
+    const pushSlide = (s) => {
+      slides.push(s);
+      index += 1;
+    };
+
+    const makeId = (prefix, n) => `${prefix}-${n}`;
+    const benefitHeadlineExamples = [
+      "Secure the perimeter fast",
+      "Reduce latency sustainably",
+      "Ship with confidence",
+      "Align teams on outcomes",
+      "Make failures observable",
+    ];
+
+    const createContent = (type, n) => {
+      const headlineBase =
+        benefitHeadlineExamples[(n - 1) % benefitHeadlineExamples.length];
+      const headline = config.enforceBenefitHeadlines
+        ? headlineBase
+        : `Topic slide ${n}`;
+
+      const bullets =
+        config.enforceFiveByFive
+          ? ["Key idea", "Proof point", "Next step"]
+          : ["Key idea and context", "Proof point with metrics", "Next step and action items"];
+
+      const visual =
+        type === "Show"
+          ? config.showSlideVisualPreference === "terminal_first"
+            ? "Terminal recording"
+            : config.showSlideVisualPreference === "code_first"
+              ? "Code walkthrough"
+              : "Architecture diagram"
+          : "Minimal diagram";
+
+      return { headline, bullets, visual };
+    };
+
+    for (let i = 0; i < tellSlides; i += 1) {
+      pushSlide({
+        id: makeId("tell", index),
+        section: "Tell",
+        type: "Concept",
+        order: index,
+        content: createContent("Tell", index),
+      });
+      if (config.includeMCQs && index % mcqEvery === 0) {
+        pushSlide({
+          id: makeId("mcq", index),
+          section: "Reset",
+          type: "MCQ",
+          order: index,
+          content: {
+            headline: "Knowledge check",
+            bullets: ["1 question", "Instant feedback", "Instructor stats"],
+            visual: config.linkQuizStatsSidebar ? "Quiz stats sidebar" : "Inline results",
+          },
+        });
+      }
+    }
+
+    for (let i = 0; i < showSlides; i += 1) {
+      pushSlide({
+        id: makeId("show", index),
+        section: "Show",
+        type: "Demonstration",
+        order: index,
+        content: createContent("Show", index),
+      });
+      if (config.includeBridgeLabs && config.includeTrainingEnvironments) {
+        pushSlide({
+          id: makeId("bridge", index),
+          section: "Bridge",
+          type: "Training task",
+          order: index,
+          content: {
+            headline: "Apply it in a lab",
+            bullets: ["Open sandbox", "Run commands", "Verify output"],
+            visual: "Lab checklist",
+          },
+        });
+      }
+      if (config.includeMCQs && index % mcqEvery === 0) {
+        pushSlide({
+          id: makeId("mcq", index),
+          section: "Reset",
+          type: "MCQ",
+          order: index,
+          content: {
+            headline: "Knowledge check",
+            bullets: ["1 question", "Instant feedback", "Instructor stats"],
+            visual: config.linkQuizStatsSidebar ? "Quiz stats sidebar" : "Inline results",
+          },
+        });
+      }
+    }
+
+    if (doCount) {
+      pushSlide({
+        id: makeId("do", index),
+        section: "Do",
+        type: "Application",
+        order: index,
+        content: {
+          headline: "Practice in the environment",
+          bullets: ["Task brief", "Steps", "Success criteria"],
+          visual: config.trainingEnvironmentMode === "thought_experiments"
+            ? "Thought experiment"
+            : "Lab / sandbox",
+        },
+      });
+    }
+
+    return slides.slice(0, totalSlides);
+  }, [
+    config.slideCount,
+    config.includeMCQs,
+    config.mcqCadence,
+    config.linkQuizStatsSidebar,
+    config.enforceBenefitHeadlines,
+    config.enforceFiveByFive,
+    config.showSlideVisualPreference,
+    config.includeBridgeLabs,
+    config.includeTrainingEnvironments,
+    config.trainingEnvironmentMode,
+  ]);
+
+  const selectedOutlineSlide = useMemo(() => {
+    const fallback = deckOutline[0] || null;
+    if (!selectedOutlineSlideId) return fallback;
+    return deckOutline.find((s) => s.id === selectedOutlineSlideId) || fallback;
+  }, [deckOutline, selectedOutlineSlideId]);
+
+  const modalStyles = useMemo(() => {
+    if (isFullscreen) {
+      return {
+        modal:
+          "rounded-none shadow-2xl max-w-none w-screen h-screen m-0 border-0 bg-[#0B0E14] p-0 overflow-hidden",
+        modalContainer: "p-0",
+        overlay: "bg-black/70",
+        closeIcon: "hidden",
+      };
+    }
+    return {
+      modal:
+        "rounded-2xl shadow-2xl max-w-6xl w-[96vw] h-[92vh] mx-4 border border-slate-800 bg-[#0B0E14] p-0 overflow-hidden",
+      modalContainer: "py-3",
+      overlay: "bg-black/70",
+      closeIcon: "hidden",
+    };
+  }, [isFullscreen]);
 
   return (
     <Modal
       open={Boolean(isOpen)}
-      onClose={() => !loading && setIsOpen(false)}
+      onClose={() => setIsOpen(false)}
       center
       classNames={modalStyles}
     >
       <div className="flex h-full min-h-0 flex-col">
         <div className="border-b border-slate-800 p-6">
-          <div className="mx-auto flex max-w-2xl items-center justify-between">
-            {[1, 2, 3].map((num) => (
-              <div key={num} className="flex items-center gap-2">
-                <div
-                  className={`flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold transition-all ${
-                    step === num
-                      ? "bg-primary text-secondary ring-4 ring-primary/20"
-                      : step > num
-                        ? "bg-primary-gradient text-white"
-                        : "bg-slate-800 text-slate-500"
-                  }`}
-                >
-                  {step > num ? <FaCheckCircle /> : num}
-                </div>
-                <span
-                  className={`text-xs font-bold uppercase tracking-widest ${
-                    step === num ? "text-primary" : "text-slate-500"
-                  }`}
-                >
-                  {num === 1 ? "Context" : num === 2 ? "Visuals" : "Logic"}
-                </span>
-                {num < 3 && <div className="ml-2 h-[2px] w-12 bg-slate-800" />}
+          <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="hidden sm:block">
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
+                  Presentation Builder
+                </p>
+                <p className="mt-1 text-sm font-semibold text-slate-100">
+                  Configure scope, visuals, and logic.
+                </p>
               </div>
-            ))}
+              <div className="flex items-center justify-between">
+                {[1, 2, 3].map((num) => (
+                  <div key={num} className="flex items-center gap-2">
+                    <div
+                      className={`flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold transition-all ${
+                        step === num
+                          ? "bg-primary text-secondary ring-4 ring-primary/20"
+                          : step > num
+                            ? "bg-primary-gradient text-white"
+                            : "bg-slate-800 text-slate-500"
+                      }`}
+                    >
+                      {step > num ? <FaCheckCircle /> : num}
+                    </div>
+                    <span
+                      className={`text-xs font-bold uppercase tracking-widest ${
+                        step === num ? "text-primary" : "text-slate-500"
+                      }`}
+                    >
+                      {num === 1 ? "Context" : num === 2 ? "Visuals" : "Logic"}
+                    </span>
+                    {num < 3 && (
+                      <div className="ml-2 h-[2px] w-10 bg-slate-800" />
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setIsFullscreen((v) => !v)}
+                className="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-black/30 px-3 py-2 text-xs font-semibold text-slate-200 transition hover:border-primary hover:text-white"
+              >
+                {isFullscreen ? <FiMinimize2 /> : <FiMaximize2 />}
+                {isFullscreen ? "Exit full screen" : "Full screen"}
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsOpen(false)}
+                className="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-black/30 px-3 py-2 text-xs font-semibold text-slate-200 transition hover:border-slate-500 hover:text-white"
+              >
+                <FiX />
+                Close
+              </button>
+            </div>
           </div>
         </div>
 
@@ -999,16 +1302,16 @@ const UserPresentationPreviewModal = ({
                     </div>
                   </div>
 
-                  <div className="flex flex-col justify-between gap-4 rounded-2xl border border-slate-800 bg-[#070A10] p-4">
+                  <div className="rounded-2xl border border-slate-800 bg-[#070A10] p-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <FiImage className="text-primary" />
                         <div>
                           <p className="text-sm font-bold text-slate-100">
-                            Visual Density
+                            Visual Density &amp; Deck Structure
                           </p>
                           <p className="text-xs text-slate-500">
-                            Images per slide
+                            Full outline of sections, slides, and hierarchy
                           </p>
                         </div>
                       </div>
@@ -1044,18 +1347,151 @@ const UserPresentationPreviewModal = ({
                       </div>
                     </div>
 
-                    <div className="rounded-2xl border border-slate-800 bg-black/20 p-4">
+                    <div className="mt-4 grid grid-cols-1 gap-4 xl:grid-cols-5">
+                      <div className="xl:col-span-3">
+                        <div className="rounded-2xl border border-slate-800 bg-black/20 p-3">
+                          <div className="flex items-center justify-between">
+                            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
+                              Deck Outline
+                            </p>
+                            <p className="text-xs font-semibold text-slate-300">
+                              {deckOutline.length} slides
+                            </p>
+                          </div>
+
+                          <div className="mt-3 max-h-[360px] space-y-1 overflow-y-auto pr-1">
+                            {deckOutline.map((s) => {
+                              const active = selectedOutlineSlide?.id === s.id;
+                              const badge =
+                                s.section === "Tell"
+                                  ? "bg-cyan-500/10 text-cyan-200 border-cyan-500/20"
+                                  : s.section === "Show"
+                                    ? "bg-indigo-500/10 text-indigo-200 border-indigo-500/20"
+                                    : s.section === "Do"
+                                      ? "bg-emerald-500/10 text-emerald-200 border-emerald-500/20"
+                                      : s.section === "Reset"
+                                        ? "bg-amber-500/10 text-amber-200 border-amber-500/20"
+                                        : "bg-slate-500/10 text-slate-200 border-slate-500/20";
+                              return (
+                                <button
+                                  key={s.id}
+                                  type="button"
+                                  onClick={() => setSelectedOutlineSlideId(s.id)}
+                                  className={`flex w-full items-start justify-between gap-3 rounded-xl border px-3 py-2 text-left transition ${
+                                    active
+                                      ? "border-primary bg-primary/5"
+                                      : "border-slate-800 bg-transparent hover:border-slate-700"
+                                  }`}
+                                >
+                                  <div className="min-w-0">
+                                    <p className="truncate text-sm font-semibold text-slate-100">
+                                      {String(s.order).padStart(2, "0")}.{" "}
+                                      {s.content.headline}
+                                    </p>
+                                    <p className="mt-1 truncate text-[11px] text-slate-400">
+                                      {s.type} • {s.content.visual}
+                                    </p>
+                                  </div>
+                                  <span
+                                    className={`mt-0.5 shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-bold ${badge}`}
+                                  >
+                                    {s.section}
+                                  </span>
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="xl:col-span-2">
+                        <div className="rounded-2xl border border-slate-800 bg-black/20 p-4">
+                          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
+                            Selected Slide
+                          </p>
+                          {selectedOutlineSlide ? (
+                            <div className="mt-3 space-y-3">
+                              <div>
+                                <p className="text-sm font-semibold text-slate-100">
+                                  {selectedOutlineSlide.content.headline}
+                                </p>
+                                <p className="mt-1 text-xs text-slate-400">
+                                  {selectedOutlineSlide.section} •{" "}
+                                  {selectedOutlineSlide.type}
+                                </p>
+                              </div>
+
+                              <div className="rounded-xl border border-slate-800 bg-black/10 p-3">
+                                <p className="text-xs font-semibold text-slate-200">
+                                  Content hierarchy
+                                </p>
+                                <ul className="mt-2 space-y-2 text-xs text-slate-300">
+                                  {selectedOutlineSlide.content.bullets
+                                    .slice(0, 3)
+                                    .map((b) => (
+                                      <li key={b} className="flex items-center gap-2">
+                                        <span className="h-1.5 w-1.5 rounded-full bg-slate-300/70" />
+                                        <span>{b}</span>
+                                      </li>
+                                    ))}
+                                </ul>
+                                <div className="mt-3 flex items-center justify-between text-[11px] text-slate-400">
+                                  <span>
+                                    Images/slide:{" "}
+                                    <span className="font-semibold text-slate-200">
+                                      {config.imageCount}
+                                    </span>
+                                  </span>
+                                  <span>
+                                    Notes:{" "}
+                                    <span className="font-semibold text-slate-200">
+                                      {config.includeSpeakerNotes ? "Speaker" : ""}
+                                      {config.includeSpeakerNotes &&
+                                      config.includeStudentNotes
+                                        ? " + "
+                                        : ""}
+                                      {config.includeStudentNotes ? "Student" : ""}
+                                      {!config.includeSpeakerNotes &&
+                                      !config.includeStudentNotes
+                                        ? "None"
+                                        : ""}
+                                    </span>
+                                  </span>
+                                </div>
+                              </div>
+
+                              <div className="rounded-xl border border-slate-800 bg-black/10 p-3">
+                                <p className="text-xs font-semibold text-slate-200">
+                                  Visual guidance
+                                </p>
+                                <p className="mt-1 text-xs text-slate-400">
+                                  {config.showSlideVisualPreference
+                                    .replaceAll("_", " ")
+                                    .replaceAll("  ", " ")}
+                                </p>
+                              </div>
+                            </div>
+                          ) : (
+                            <p className="mt-3 text-sm text-slate-400">
+                              Select a slide in the outline.
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mt-4 rounded-2xl border border-slate-800 bg-black/20 p-4">
                       <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
-                        Quick Summary
+                        Summary
                       </p>
-                      <div className="mt-3 space-y-2 text-sm text-slate-200">
-                        <div className="flex items-center justify-between">
+                      <div className="mt-3 grid grid-cols-1 gap-3 text-sm text-slate-200 sm:grid-cols-3">
+                        <div className="flex items-center justify-between rounded-xl border border-slate-800 bg-black/10 px-3 py-2">
                           <span className="text-slate-400">Theme</span>
                           <span className="font-semibold">
                             {config.presentationStyle}
                           </span>
                         </div>
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between rounded-xl border border-slate-800 bg-black/10 px-3 py-2">
                           <span className="text-slate-400">Preview</span>
                           <span className="font-semibold">
                             {presentationThemePreviews[config.presentationStyle]
@@ -1064,11 +1500,9 @@ const UserPresentationPreviewModal = ({
                               )?.label || "—"}
                           </span>
                         </div>
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between rounded-xl border border-slate-800 bg-black/10 px-3 py-2">
                           <span className="text-slate-400">Image Spec</span>
-                          <span className="font-semibold">
-                            {config.imageStyle}
-                          </span>
+                          <span className="font-semibold">{config.imageStyle}</span>
                         </div>
                       </div>
                     </div>
