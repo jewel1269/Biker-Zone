@@ -396,7 +396,7 @@ const GammaPreviewCard = ({
           <div
             className={`relative overflow-hidden rounded-xl border border-slate-800 bg-gradient-to-br ${themeAccent}`}
           >
-            <div className="aspect-video bg-black/25 p-4">
+            <div className="aspect-video bg-gray-900/95 p-4">
               <VariantLayout />
             </div>
           </div>
@@ -408,7 +408,7 @@ const GammaPreviewCard = ({
           <div
             className={`overflow-hidden rounded-xl border border-slate-700 bg-gradient-to-br ${themeAccent}`}
           >
-            <div className="aspect-video bg-black/20 p-6">
+            <div className="aspect-video bg-gray-900/95 p-6">
               <p className="text-lg font-semibold text-white">{variant.title}</p>
               <p className="mt-2 text-sm text-slate-100">{variant.subtitle}</p>
               <div className="mt-5 grid grid-cols-5 gap-4">
@@ -1363,7 +1363,7 @@ const UserPresentationPreviewModal = ({
                             <div
                               className={`overflow-hidden rounded-xl border border-slate-800 bg-gradient-to-br ${accent}`}
                             >
-                              <div className="aspect-video bg-black/25 p-3">
+                              <div className="aspect-video bg-gray-900/95 p-3">
                                 <div className="h-3 w-16 rounded-full bg-white/25" />
                                 <div className="mt-2 h-2 w-24 rounded-full bg-white/20" />
                                 <div className="mt-3 grid grid-cols-3 gap-2">
