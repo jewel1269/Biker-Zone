@@ -361,7 +361,7 @@ const GammaPreviewCard = ({
     <button
       type="button"
       onClick={onSelect}
-      className={`group relative w-full rounded-2xl border bg-[#070A10] p-3 text-left transition-all ${
+      className={`group relative w-[280px] shrink-0 rounded-2xl border bg-[#070A10] p-3 text-left transition-all sm:w-[320px] md:w-full md:shrink ${
         isSelected
           ? "border-primary ring-2 ring-primary/30"
           : "border-slate-800 hover:border-slate-700"
@@ -403,7 +403,7 @@ const GammaPreviewCard = ({
         </div>
       </div>
 
-      <div className="pointer-events-none absolute left-0 top-full z-50 mt-3 w-[520px] max-w-[80vw] translate-y-1 opacity-0 transition-all duration-150 group-hover:translate-y-0 group-hover:opacity-100">
+      <div className="pointer-events-none absolute left-0 top-full z-50 mt-3 hidden w-[520px] max-w-[80vw] translate-y-1 opacity-0 transition-all duration-150 group-hover:translate-y-0 group-hover:opacity-100 md:block">
         <div className="rounded-2xl border border-slate-700 bg-[#04070D] p-4 shadow-2xl shadow-black/60">
           <div
             className={`overflow-hidden rounded-xl border border-slate-700 bg-gradient-to-br ${themeAccent}`}
@@ -710,8 +710,8 @@ const UserPresentationPreviewModal = ({
     }
     return {
       modal:
-        `rounded-2xl shadow-2xl max-w-6xl w-[96vw] h-[92vh] mx-4 border ${uiChrome.panelBorder} ${uiChrome.appBg} p-0 overflow-hidden`,
-      modalContainer: "py-3",
+        `rounded-2xl shadow-2xl max-w-6xl w-[96vw] h-[94vh] mx-2 border ${uiChrome.panelBorder} ${uiChrome.appBg} p-0 overflow-hidden sm:mx-4 sm:h-[92vh]`,
+      modalContainer: "py-2 sm:py-3",
       overlay: "bg-black/70",
       closeIcon: "hidden",
     };
@@ -757,7 +757,7 @@ const UserPresentationPreviewModal = ({
         }
       `}</style>
       <div className="flex h-full min-h-0 flex-col">
-        <div className={`border-b ${uiChrome.panelBorder} p-6`}>
+        <div className={`border-b ${uiChrome.panelBorder} p-4 sm:p-6`}>
           <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <div className="hidden sm:block">
@@ -768,7 +768,7 @@ const UserPresentationPreviewModal = ({
                   Configure scope, visuals, and logic.
                 </p>
               </div>
-              <div className="flex items-center justify-between">
+              <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                 {[1, 2, 3].map((num) => (
                   <div key={num} className="flex items-center gap-2">
                     <div
@@ -783,14 +783,14 @@ const UserPresentationPreviewModal = ({
                       {step > num ? <FaCheckCircle /> : num}
                     </div>
                     <span
-                      className={`text-xs font-bold uppercase tracking-widest ${
+                      className={`hidden text-xs font-bold uppercase tracking-widest sm:inline ${
                         step === num ? "text-primary" : "text-slate-500"
                       }`}
                     >
                       {num === 1 ? "Context" : num === 2 ? "Visuals" : "Logic"}
                     </span>
                     {num < 3 && (
-                      <div className="ml-2 h-[2px] w-10 bg-slate-800" />
+                      <div className="ml-2 hidden h-[2px] w-10 bg-slate-800 sm:block" />
                     )}
                   </div>
                 ))}
@@ -808,7 +808,9 @@ const UserPresentationPreviewModal = ({
                 }`}
               >
                 {isFullscreen ? <FiMinimize2 /> : <FiMaximize2 />}
-                {isFullscreen ? "Exit full screen" : "Full screen"}
+                <span className="hidden sm:inline">
+                  {isFullscreen ? "Exit full screen" : "Full screen"}
+                </span>
               </button>
               <button
                 type="button"
@@ -820,17 +822,17 @@ const UserPresentationPreviewModal = ({
                 }`}
               >
                 <FiX />
-                Close
+                <span className="hidden sm:inline">Close</span>
               </button>
             </div>
           </div>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-8">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-8">
           {step === 1 && (
             <div className="animate-in fade-in slide-in-from-right-4 duration-300">
               <div className="mb-6">
-                <h3 className="flex items-center gap-2 text-xl font-bold">
+                <h3 className="flex items-center gap-2 text-lg font-bold sm:text-xl">
                   <FiTarget className="text-primary" /> Define Purpose
                 </h3>
                 <p className="text-sm text-slate-400">
@@ -1217,7 +1219,7 @@ const UserPresentationPreviewModal = ({
           {step === 2 && (
             <div className="animate-in fade-in slide-in-from-right-4 duration-300">
               <div className="mb-6">
-                <h3 className="flex items-center gap-2 text-xl font-bold">
+                <h3 className="flex items-center gap-2 text-lg font-bold sm:text-xl">
                   <FiLayout className="text-primary" /> Aesthetic Architecture
                 </h3>
                 <p className="text-sm text-slate-400">
@@ -1289,7 +1291,7 @@ const UserPresentationPreviewModal = ({
                           Choose the slide look (Gamma-style).
                         </p>
                       </div>
-                      <p className="text-xs text-slate-500">
+                      <p className="hidden text-xs text-slate-500 sm:block">
                         Hover to enlarge • Click to select
                       </p>
                     </div>
@@ -1452,8 +1454,8 @@ const UserPresentationPreviewModal = ({
                           <div
                             className={`mt-3 space-y-1 overflow-y-auto pr-1 ${
                               isCompactModal
-                                ? "upm-scroll-y max-h-[260px]"
-                                : "upm-scroll-y max-h-[360px]"
+                              ? "upm-scroll-y max-h-[32vh] sm:max-h-[260px]"
+                              : "upm-scroll-y max-h-[42vh] lg:max-h-[360px]"
                             }`}
                           >
                             {deckOutline.map((s) => {
@@ -1611,7 +1613,7 @@ const UserPresentationPreviewModal = ({
           {step === 3 && (
             <div className="animate-in fade-in slide-in-from-right-4 duration-300">
               <div className="mb-6">
-                <h3 className="flex items-center gap-2 text-xl font-bold">
+                <h3 className="flex items-center gap-2 text-lg font-bold sm:text-xl">
                   <FiZap className="text-primary" /> Intelligence &amp; Logic
                 </h3>
                 <p className="text-sm text-slate-400">
@@ -1922,7 +1924,7 @@ const UserPresentationPreviewModal = ({
           )}
         </div>
 
-        <div className="flex items-center justify-between border-t border-slate-800 bg-slate-900/50 p-6">
+        <div className="flex items-center justify-between border-t border-slate-800 bg-slate-900/50 p-4 sm:p-6">
           <button
             type="button"
             onClick={() => (step === 1 ? setIsOpen(false) : prevStep())}
