@@ -190,22 +190,22 @@ const presentationThemePreviews = {
 
 const imageStylePreviews = {
   "Photorealistic Business": {
-    accent: "from-slate-200/20 via-slate-400/10 to-slate-900/70",
+    accent: "from-slate-200/35 via-slate-400/18 to-slate-900/75",
     title: "Photorealistic Business",
     caption: "Natural light, office scenes, realistic texture.",
   },
   "Minimalist Vector": {
-    accent: "from-cyan-300/25 via-blue-500/15 to-slate-950/80",
+    accent: "from-cyan-300/45 via-blue-500/22 to-slate-950/82",
     title: "Minimalist Vector",
     caption: "Flat forms, limited palette, simplified silhouettes.",
   },
   "3D Abstract Render": {
-    accent: "from-violet-400/25 via-fuchsia-500/18 to-slate-950/80",
+    accent: "from-violet-400/45 via-fuchsia-500/22 to-slate-950/82",
     title: "3D Abstract Render",
     caption: "Depth, reflections, volumetric gradients.",
   },
   "Cinematic Photography": {
-    accent: "from-amber-300/20 via-orange-500/15 to-slate-950/85",
+    accent: "from-amber-300/40 via-orange-500/20 to-slate-950/85",
     title: "Cinematic Photography",
     caption: "Dramatic lighting and rich tonal contrast.",
   },
@@ -416,7 +416,7 @@ const GammaPreviewCard = ({
           <div className="absolute left-1 top-1 h-full w-full rounded-xl border border-slate-800 bg-[#0B0E14] opacity-55" />
 
           <div
-            className={`relative overflow-hidden rounded-xl border border-slate-800 bg-gradient-to-br ${themeAccent}`}
+            className={`relative overflow-hidden rounded-xl border border-slate-800 bg-gradient-to-br ${variantAccent}`}
           >
             <div className={`aspect-video bg-gradient-to-br ${variantAccent} p-4`}>
               <div className="h-full rounded-xl border border-white/10 bg-gray-900/80 p-4">
@@ -430,7 +430,7 @@ const GammaPreviewCard = ({
       <div className="pointer-events-none absolute left-0 top-full z-50 mt-3 hidden w-[520px] max-w-[80vw] translate-y-1 opacity-0 transition-all duration-150 group-hover:translate-y-0 group-hover:opacity-100 md:block">
         <div className="rounded-2xl border border-slate-700 bg-[#04070D] p-4 shadow-2xl shadow-black/60">
           <div
-            className={`overflow-hidden rounded-xl border border-slate-700 bg-gradient-to-br ${themeAccent}`}
+            className={`overflow-hidden rounded-xl border border-slate-700 bg-gradient-to-br ${variantAccent}`}
           >
             <div className={`aspect-video bg-gradient-to-br ${variantAccent} p-6`}>
               <div className="h-full rounded-2xl border border-white/10 bg-gray-900/80 p-6">
