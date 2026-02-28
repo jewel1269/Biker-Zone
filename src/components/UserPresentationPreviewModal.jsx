@@ -675,11 +675,34 @@ const UserPresentationPreviewModal = ({
     return deckOutline.find((s) => s.id === selectedOutlineSlideId) || fallback;
   }, [deckOutline, selectedOutlineSlideId]);
 
+  const isCompactModal = !isFullscreen;
+
+  const uiChrome = useMemo(() => {
+    if (isFullscreen) {
+      return {
+        appBg: "bg-slate-950",
+        surface: "bg-slate-950",
+        panel: "bg-slate-950/60",
+        panelBorder: "border-slate-800",
+        softPanel: "bg-slate-900/30",
+        softBorder: "border-slate-800",
+      };
+    }
+    return {
+      appBg: "bg-gradient-to-br from-primary/10 via-slate-950 to-slate-950",
+      surface: "bg-gradient-to-br from-primary/6 via-slate-950 to-slate-950",
+      panel: "bg-gradient-to-br from-primary/8 via-slate-950/80 to-slate-950/80",
+      panelBorder: "border-primary/20",
+      softPanel: "bg-primary/5",
+      softBorder: "border-primary/15",
+    };
+  }, [isFullscreen]);
+
   const modalStyles = useMemo(() => {
     if (isFullscreen) {
       return {
         modal:
-          "rounded-none shadow-2xl max-w-none w-screen h-screen m-0 border-0 bg-[#0B0E14] p-0 overflow-hidden",
+          `rounded-none shadow-2xl max-w-none w-screen h-screen m-0 border-0 ${uiChrome.appBg} p-0 overflow-hidden`,
         modalContainer: "p-0",
         overlay: "bg-black/70",
         closeIcon: "hidden",
@@ -687,12 +710,12 @@ const UserPresentationPreviewModal = ({
     }
     return {
       modal:
-        "rounded-2xl shadow-2xl max-w-6xl w-[96vw] h-[92vh] mx-4 border border-slate-800 bg-[#0B0E14] p-0 overflow-hidden",
+        `rounded-2xl shadow-2xl max-w-6xl w-[96vw] h-[92vh] mx-4 border ${uiChrome.panelBorder} ${uiChrome.appBg} p-0 overflow-hidden`,
       modalContainer: "py-3",
       overlay: "bg-black/70",
       closeIcon: "hidden",
     };
-  }, [isFullscreen]);
+  }, [isFullscreen, uiChrome.appBg, uiChrome.panelBorder]);
 
   return (
     <Modal
@@ -702,7 +725,7 @@ const UserPresentationPreviewModal = ({
       classNames={modalStyles}
     >
       <div className="flex h-full min-h-0 flex-col">
-        <div className="border-b border-slate-800 p-6">
+        <div className={`border-b ${uiChrome.panelBorder} p-6`}>
           <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <div className="hidden sm:block">
@@ -746,7 +769,11 @@ const UserPresentationPreviewModal = ({
               <button
                 type="button"
                 onClick={() => setIsFullscreen((v) => !v)}
-                className="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-black/30 px-3 py-2 text-xs font-semibold text-slate-200 transition hover:border-primary hover:text-white"
+                className={`inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-xs font-semibold text-slate-200 transition hover:border-primary hover:text-white ${
+                  isCompactModal
+                    ? "border-primary/20 bg-primary/10"
+                    : "border-slate-700 bg-slate-900/30"
+                }`}
               >
                 {isFullscreen ? <FiMinimize2 /> : <FiMaximize2 />}
                 {isFullscreen ? "Exit full screen" : "Full screen"}
@@ -754,7 +781,11 @@ const UserPresentationPreviewModal = ({
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
-                className="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-black/30 px-3 py-2 text-xs font-semibold text-slate-200 transition hover:border-slate-500 hover:text-white"
+                className={`inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-xs font-semibold text-slate-200 transition hover:text-white ${
+                  isCompactModal
+                    ? "border-primary/20 bg-primary/10 hover:border-primary/40"
+                    : "border-slate-700 bg-slate-900/30 hover:border-slate-500"
+                }`}
               >
                 <FiX />
                 Close
@@ -865,7 +896,9 @@ const UserPresentationPreviewModal = ({
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-slate-800 bg-[#070A10] p-5">
+                <div
+                  className={`rounded-2xl border p-5 ${uiChrome.softBorder} ${uiChrome.softPanel}`}
+                >
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
@@ -891,7 +924,7 @@ const UserPresentationPreviewModal = ({
                       className={`flex cursor-pointer items-center justify-between rounded-xl border p-4 transition-all ${
                         config.enforceTellShowDo
                           ? "border-primary bg-primary/5"
-                          : "border-slate-800 bg-black/10"
+                          : `${uiChrome.softBorder} ${uiChrome.softPanel}`
                       }`}
                     >
                       <div>
@@ -927,7 +960,7 @@ const UserPresentationPreviewModal = ({
                       className={`flex cursor-pointer items-center justify-between rounded-xl border p-4 transition-all ${
                         config.enforceFiveByFive
                           ? "border-primary bg-primary/5"
-                          : "border-slate-800 bg-black/10"
+                          : `${uiChrome.softBorder} ${uiChrome.softPanel}`
                       }`}
                     >
                       <div>
@@ -963,7 +996,7 @@ const UserPresentationPreviewModal = ({
                       className={`flex cursor-pointer items-center justify-between rounded-xl border p-4 transition-all ${
                         config.enforceBenefitHeadlines
                           ? "border-primary bg-primary/5"
-                          : "border-slate-800 bg-black/10"
+                          : `${uiChrome.softBorder} ${uiChrome.softPanel}`
                       }`}
                     >
                       <div>
@@ -989,7 +1022,9 @@ const UserPresentationPreviewModal = ({
                       </div>
                     </div>
 
-                    <div className="rounded-xl border border-slate-800 bg-black/10 p-4">
+                    <div
+                      className={`rounded-xl border p-4 ${uiChrome.softBorder} ${uiChrome.softPanel}`}
+                    >
                       <p className="text-sm font-bold text-slate-100">
                         Demonstration (“Show”) Preference
                       </p>
@@ -1035,7 +1070,9 @@ const UserPresentationPreviewModal = ({
                   </div>
 
                   <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-3">
-                    <div className="rounded-xl border border-slate-800 bg-black/10 p-4">
+                    <div
+                      className={`rounded-xl border p-4 ${uiChrome.softBorder} ${uiChrome.softPanel}`}
+                    >
                       <p className="text-sm font-bold text-slate-100">
                         Knowledge Check Cadence
                       </p>
@@ -1084,7 +1121,7 @@ const UserPresentationPreviewModal = ({
                       className={`flex cursor-pointer items-center justify-between rounded-xl border p-4 transition-all ${
                         config.includeBridgeLabs
                           ? "border-primary bg-primary/5"
-                          : "border-slate-800 bg-black/10"
+                          : `${uiChrome.softBorder} ${uiChrome.softPanel}`
                       }`}
                     >
                       <div>
@@ -1120,7 +1157,7 @@ const UserPresentationPreviewModal = ({
                       className={`flex cursor-pointer items-center justify-between rounded-xl border p-4 transition-all ${
                         config.linkQuizStatsSidebar
                           ? "border-primary bg-primary/5"
-                          : "border-slate-800 bg-black/10"
+                          : `${uiChrome.softBorder} ${uiChrome.softPanel}`
                       }`}
                     >
                       <div>
@@ -1164,12 +1201,22 @@ const UserPresentationPreviewModal = ({
               </div>
 
               <div className="space-y-6">
-                <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
-                  <div className="lg:col-span-1">
+                <div
+                  className={`grid grid-cols-1 gap-5 ${
+                    isCompactModal ? "" : "lg:grid-cols-3"
+                  }`}
+                >
+                  <div className={isCompactModal ? "" : "lg:col-span-1"}>
                     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
                       Presentation Theme
                     </p>
-                    <div className="mt-3 space-y-2">
+                    <div
+                      className={`mt-3 ${
+                        isCompactModal
+                          ? "flex gap-2 overflow-x-auto pb-1"
+                          : "space-y-2"
+                      }`}
+                    >
                       {Object.keys(presentationThemePreviews).map((themeKey) => {
                         const isActive = config.presentationStyle === themeKey;
                         return (
@@ -1188,8 +1235,13 @@ const UserPresentationPreviewModal = ({
                             className={`flex w-full items-center justify-between rounded-xl border px-3 py-2 text-left text-sm transition ${
                               isActive
                                 ? "border-primary bg-primary/5 text-white"
-                                : "border-slate-800 bg-transparent text-slate-300 hover:border-slate-700"
+                                : `bg-transparent text-slate-300 hover:border-primary/30 ${uiChrome.softBorder}`
                             }`}
+                            style={
+                              isCompactModal
+                                ? { minWidth: 220 }
+                                : undefined
+                            }
                           >
                             <span className="font-semibold">{themeKey}</span>
                             <span className="text-xs text-slate-500">
@@ -1201,7 +1253,7 @@ const UserPresentationPreviewModal = ({
                     </div>
                   </div>
 
-                  <div className="lg:col-span-2">
+                  <div className={isCompactModal ? "" : "lg:col-span-2"}>
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
@@ -1216,7 +1268,13 @@ const UserPresentationPreviewModal = ({
                       </p>
                     </div>
 
-                    <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-3">
+                    <div
+                      className={`mt-4 ${
+                        isCompactModal
+                          ? "flex gap-3 overflow-x-auto pb-1"
+                          : "grid grid-cols-1 gap-3 md:grid-cols-3"
+                      }`}
+                    >
                       {(presentationThemePreviews[config.presentationStyle]
                         ?.variants || []
                       ).map((variant) => (
@@ -1250,7 +1308,9 @@ const UserPresentationPreviewModal = ({
                 </div>
 
                 <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-                  <div className="space-y-3 rounded-2xl border border-slate-800 bg-[#070A10] p-4">
+                  <div
+                    className={`space-y-3 rounded-2xl border p-4 ${uiChrome.panelBorder} ${uiChrome.panel}`}
+                  >
                     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
                       AI Image Specification
                     </p>
@@ -1271,7 +1331,7 @@ const UserPresentationPreviewModal = ({
                             className={`group rounded-2xl border p-3 text-left transition ${
                               selected
                                 ? "border-primary ring-2 ring-primary/30"
-                                : "border-slate-800 hover:border-slate-700"
+                                : `${uiChrome.softBorder} hover:border-primary/30`
                             }`}
                           >
                             <div
@@ -1302,7 +1362,9 @@ const UserPresentationPreviewModal = ({
                     </div>
                   </div>
 
-                  <div className="rounded-2xl border border-slate-800 bg-[#070A10] p-4">
+                  <div
+                    className={`rounded-2xl border p-4 ${uiChrome.panelBorder} ${uiChrome.panel}`}
+                  >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <FiImage className="text-primary" />
@@ -1347,9 +1409,15 @@ const UserPresentationPreviewModal = ({
                       </div>
                     </div>
 
-                    <div className="mt-4 grid grid-cols-1 gap-4 xl:grid-cols-5">
-                      <div className="xl:col-span-3">
-                        <div className="rounded-2xl border border-slate-800 bg-black/20 p-3">
+                    <div
+                      className={`mt-4 grid grid-cols-1 gap-4 ${
+                        isCompactModal ? "" : "xl:grid-cols-5"
+                      }`}
+                    >
+                      <div className={isCompactModal ? "" : "xl:col-span-3"}>
+                        <div
+                          className={`rounded-2xl border p-3 ${uiChrome.softBorder} ${uiChrome.softPanel}`}
+                        >
                           <div className="flex items-center justify-between">
                             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
                               Deck Outline
@@ -1359,7 +1427,11 @@ const UserPresentationPreviewModal = ({
                             </p>
                           </div>
 
-                          <div className="mt-3 max-h-[360px] space-y-1 overflow-y-auto pr-1">
+                          <div
+                            className={`mt-3 space-y-1 overflow-y-auto pr-1 ${
+                              isCompactModal ? "max-h-[260px]" : "max-h-[360px]"
+                            }`}
+                          >
                             {deckOutline.map((s) => {
                               const active = selectedOutlineSlide?.id === s.id;
                               const badge =
@@ -1380,7 +1452,7 @@ const UserPresentationPreviewModal = ({
                                   className={`flex w-full items-start justify-between gap-3 rounded-xl border px-3 py-2 text-left transition ${
                                     active
                                       ? "border-primary bg-primary/5"
-                                      : "border-slate-800 bg-transparent hover:border-slate-700"
+                                      : `${uiChrome.softBorder} bg-transparent hover:border-primary/30`
                                   }`}
                                 >
                                   <div className="min-w-0">
@@ -1404,8 +1476,10 @@ const UserPresentationPreviewModal = ({
                         </div>
                       </div>
 
-                      <div className="xl:col-span-2">
-                        <div className="rounded-2xl border border-slate-800 bg-black/20 p-4">
+                      <div className={isCompactModal ? "" : "xl:col-span-2"}>
+                        <div
+                          className={`rounded-2xl border p-4 ${uiChrome.softBorder} ${uiChrome.softPanel}`}
+                        >
                           <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
                             Selected Slide
                           </p>
@@ -1421,7 +1495,9 @@ const UserPresentationPreviewModal = ({
                                 </p>
                               </div>
 
-                              <div className="rounded-xl border border-slate-800 bg-black/10 p-3">
+                              <div
+                                className={`rounded-xl border p-3 ${uiChrome.softBorder} ${uiChrome.softPanel}`}
+                              >
                                 <p className="text-xs font-semibold text-slate-200">
                                   Content hierarchy
                                 </p>
@@ -1460,7 +1536,9 @@ const UserPresentationPreviewModal = ({
                                 </div>
                               </div>
 
-                              <div className="rounded-xl border border-slate-800 bg-black/10 p-3">
+                              <div
+                                className={`rounded-xl border p-3 ${uiChrome.softBorder} ${uiChrome.softPanel}`}
+                              >
                                 <p className="text-xs font-semibold text-slate-200">
                                   Visual guidance
                                 </p>
@@ -1480,7 +1558,9 @@ const UserPresentationPreviewModal = ({
                       </div>
                     </div>
 
-                    <div className="mt-4 rounded-2xl border border-slate-800 bg-black/20 p-4">
+                    <div
+                      className={`mt-4 rounded-2xl border p-4 ${uiChrome.softBorder} ${uiChrome.softPanel}`}
+                    >
                       <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
                         Summary
                       </p>
