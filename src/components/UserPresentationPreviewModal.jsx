@@ -353,9 +353,20 @@ const UserPresentationPreviewModal = ({
     imageStyle: "Photorealistic Business",
     aspectRatio: "16:9",
     includeMCQs: true,
+    mcqCadence: "auto_4_5",
+    linkQuizStatsSidebar: true,
+    enforceTellShowDo: true,
+    enforceFiveByFive: true,
+    enforceBenefitHeadlines: true,
+    showSlideVisualPreference: "architecture_code_analogy",
+    includeBridgeLabs: true,
     includeTrainingEnvironments: false,
+    trainingEnvironmentMode: "labs_or_sandbox",
+    trainingEnvironmentGuidance: "",
     includeSpeakerNotes: true,
+    speakerNotesGuidance: "",
     includeStudentNotes: true,
+    studentNotesGuidance: "",
   });
 
   useEffect(() => {
@@ -407,8 +418,8 @@ const UserPresentationPreviewModal = ({
 
   const modalStyles = {
     modal:
-      "rounded-2xl shadow-2xl max-w-6xl w-[96vw] h-[92vh] mx-4 border border-slate-800 bg-[#0B0E14] p-0 overflow-hidden",
-    modalContainer: "py-3",
+      "rounded-none shadow-2xl max-w-none w-screen h-screen m-0 border-0 bg-[#0B0E14] p-0 overflow-hidden",
+    modalContainer: "p-0",
     overlay: "bg-black/70",
     closeIcon: "hidden",
   };
@@ -548,6 +559,289 @@ const UserPresentationPreviewModal = ({
                     >
                       <FiPlus />
                     </button>
+                  </div>
+                </div>
+
+                <div className="rounded-2xl border border-slate-800 bg-[#070A10] p-5">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
+                        Generation Blueprint
+                      </p>
+                      <p className="mt-1 text-sm font-semibold text-slate-100">
+                        Configure how the AI structures learning.
+                      </p>
+                      <p className="mt-1 text-xs text-slate-400">
+                        Defaults follow “Tell, Show, Do” + the 5×5 rule.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
+                    <div
+                      onClick={() =>
+                        setConfig((prev) => ({
+                          ...prev,
+                          enforceTellShowDo: !prev.enforceTellShowDo,
+                        }))
+                      }
+                      className={`flex cursor-pointer items-center justify-between rounded-xl border p-4 transition-all ${
+                        config.enforceTellShowDo
+                          ? "border-primary bg-primary/5"
+                          : "border-slate-800 bg-black/10"
+                      }`}
+                    >
+                      <div>
+                        <p className="text-sm font-bold text-slate-100">
+                          Tell, Show, Do
+                        </p>
+                        <p className="mt-1 text-xs text-slate-400">
+                          Concept slides → demonstration → training task trigger.
+                        </p>
+                      </div>
+                      <div
+                        className={`relative h-6 w-12 rounded-full transition-colors ${
+                          config.enforceTellShowDo
+                            ? "bg-primary-dark"
+                            : "border border-primary/20 bg-transparent"
+                        }`}
+                      >
+                        <div
+                          className={`absolute top-1 h-4 w-4 rounded-full bg-white transition-all ${
+                            config.enforceTellShowDo ? "left-7" : "left-1"
+                          }`}
+                        />
+                      </div>
+                    </div>
+
+                    <div
+                      onClick={() =>
+                        setConfig((prev) => ({
+                          ...prev,
+                          enforceFiveByFive: !prev.enforceFiveByFive,
+                        }))
+                      }
+                      className={`flex cursor-pointer items-center justify-between rounded-xl border p-4 transition-all ${
+                        config.enforceFiveByFive
+                          ? "border-primary bg-primary/5"
+                          : "border-slate-800 bg-black/10"
+                      }`}
+                    >
+                      <div>
+                        <p className="text-sm font-bold text-slate-100">
+                          5×5 Rule
+                        </p>
+                        <p className="mt-1 text-xs text-slate-400">
+                          Max 3 bullets, max 5 words per bullet.
+                        </p>
+                      </div>
+                      <div
+                        className={`relative h-6 w-12 rounded-full transition-colors ${
+                          config.enforceFiveByFive
+                            ? "bg-primary-dark"
+                            : "border border-primary/20 bg-transparent"
+                        }`}
+                      >
+                        <div
+                          className={`absolute top-1 h-4 w-4 rounded-full bg-white transition-all ${
+                            config.enforceFiveByFive ? "left-7" : "left-1"
+                          }`}
+                        />
+                      </div>
+                    </div>
+
+                    <div
+                      onClick={() =>
+                        setConfig((prev) => ({
+                          ...prev,
+                          enforceBenefitHeadlines: !prev.enforceBenefitHeadlines,
+                        }))
+                      }
+                      className={`flex cursor-pointer items-center justify-between rounded-xl border p-4 transition-all ${
+                        config.enforceBenefitHeadlines
+                          ? "border-primary bg-primary/5"
+                          : "border-slate-800 bg-black/10"
+                      }`}
+                    >
+                      <div>
+                        <p className="text-sm font-bold text-slate-100">
+                          Benefit-driven Headlines
+                        </p>
+                        <p className="mt-1 text-xs text-slate-400">
+                          “Securing the perimeter” not “Firewall rules”.
+                        </p>
+                      </div>
+                      <div
+                        className={`relative h-6 w-12 rounded-full transition-colors ${
+                          config.enforceBenefitHeadlines
+                            ? "bg-primary-dark"
+                            : "border border-primary/20 bg-transparent"
+                        }`}
+                      >
+                        <div
+                          className={`absolute top-1 h-4 w-4 rounded-full bg-white transition-all ${
+                            config.enforceBenefitHeadlines ? "left-7" : "left-1"
+                          }`}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="rounded-xl border border-slate-800 bg-black/10 p-4">
+                      <p className="text-sm font-bold text-slate-100">
+                        Demonstration (“Show”) Preference
+                      </p>
+                      <p className="mt-1 text-xs text-slate-400">
+                        The AI will prefer these visual types on Tell slides.
+                      </p>
+                      <select
+                        value={config.showSlideVisualPreference}
+                        onChange={(e) =>
+                          setConfig((prev) => ({
+                            ...prev,
+                            showSlideVisualPreference: e.target.value,
+                          }))
+                        }
+                        className="mt-3 w-full rounded-xl border border-slate-700 bg-transparent p-3 text-sm text-black outline-none focus:border-primary dark:text-white"
+                      >
+                        <option
+                          value="architecture_code_analogy"
+                          className="bg-slate-800 text-black dark:text-white"
+                        >
+                          Architecture + Code + Analogy
+                        </option>
+                        <option
+                          value="architecture_first"
+                          className="bg-slate-800 text-black dark:text-white"
+                        >
+                          Architecture first
+                        </option>
+                        <option
+                          value="code_first"
+                          className="bg-slate-800 text-black dark:text-white"
+                        >
+                          Code walkthrough first
+                        </option>
+                        <option
+                          value="terminal_first"
+                          className="bg-slate-800 text-black dark:text-white"
+                        >
+                          Terminal recording first
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-3">
+                    <div className="rounded-xl border border-slate-800 bg-black/10 p-4">
+                      <p className="text-sm font-bold text-slate-100">
+                        Knowledge Check Cadence
+                      </p>
+                      <p className="mt-1 text-xs text-slate-400">
+                        MCQ slide insertion timing.
+                      </p>
+                      <select
+                        value={config.mcqCadence}
+                        onChange={(e) =>
+                          setConfig((prev) => ({
+                            ...prev,
+                            mcqCadence: e.target.value,
+                          }))
+                        }
+                        className="mt-3 w-full rounded-xl border border-slate-700 bg-transparent p-3 text-sm text-black outline-none focus:border-primary dark:text-white"
+                        disabled={!config.includeMCQs}
+                      >
+                        <option
+                          value="auto_4_5"
+                          className="bg-slate-800 text-black dark:text-white"
+                        >
+                          Auto (every 4–5 slides)
+                        </option>
+                        <option
+                          value="every_3"
+                          className="bg-slate-800 text-black dark:text-white"
+                        >
+                          Every 3 slides
+                        </option>
+                        <option
+                          value="every_6"
+                          className="bg-slate-800 text-black dark:text-white"
+                        >
+                          Every 6 slides
+                        </option>
+                      </select>
+                    </div>
+
+                    <div
+                      onClick={() =>
+                        setConfig((prev) => ({
+                          ...prev,
+                          includeBridgeLabs: !prev.includeBridgeLabs,
+                        }))
+                      }
+                      className={`flex cursor-pointer items-center justify-between rounded-xl border p-4 transition-all ${
+                        config.includeBridgeLabs
+                          ? "border-primary bg-primary/5"
+                          : "border-slate-800 bg-black/10"
+                      }`}
+                    >
+                      <div>
+                        <p className="text-sm font-bold text-slate-100">
+                          Bridge Slides
+                        </p>
+                        <p className="mt-1 text-xs text-slate-400">
+                          Insert a training task after deep dives.
+                        </p>
+                      </div>
+                      <div
+                        className={`relative h-6 w-12 rounded-full transition-colors ${
+                          config.includeBridgeLabs
+                            ? "bg-primary-dark"
+                            : "border border-primary/20 bg-transparent"
+                        }`}
+                      >
+                        <div
+                          className={`absolute top-1 h-4 w-4 rounded-full bg-white transition-all ${
+                            config.includeBridgeLabs ? "left-7" : "left-1"
+                          }`}
+                        />
+                      </div>
+                    </div>
+
+                    <div
+                      onClick={() =>
+                        setConfig((prev) => ({
+                          ...prev,
+                          linkQuizStatsSidebar: !prev.linkQuizStatsSidebar,
+                        }))
+                      }
+                      className={`flex cursor-pointer items-center justify-between rounded-xl border p-4 transition-all ${
+                        config.linkQuizStatsSidebar
+                          ? "border-primary bg-primary/5"
+                          : "border-slate-800 bg-black/10"
+                      }`}
+                    >
+                      <div>
+                        <p className="text-sm font-bold text-slate-100">
+                          Real-time Quiz Stats
+                        </p>
+                        <p className="mt-1 text-xs text-slate-400">
+                          Link MCQs to instructor visibility.
+                        </p>
+                      </div>
+                      <div
+                        className={`relative h-6 w-12 rounded-full transition-colors ${
+                          config.linkQuizStatsSidebar
+                            ? "bg-primary-dark"
+                            : "border border-primary/20 bg-transparent"
+                        }`}
+                      >
+                        <div
+                          className={`absolute top-1 h-4 w-4 rounded-full bg-white transition-all ${
+                            config.linkQuizStatsSidebar ? "left-7" : "left-1"
+                          }`}
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -921,6 +1215,66 @@ const UserPresentationPreviewModal = ({
                   </div>
                 </div>
 
+                {config.includeTrainingEnvironments && (
+                  <div className="rounded-2xl border border-slate-800 bg-[#070A10] p-4">
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
+                      Training Environment Details
+                    </p>
+                    <div className="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-2">
+                      <div>
+                        <label className="text-xs font-semibold text-slate-200">
+                          Mode
+                        </label>
+                        <select
+                          value={config.trainingEnvironmentMode}
+                          onChange={(e) =>
+                            setConfig((prev) => ({
+                              ...prev,
+                              trainingEnvironmentMode: e.target.value,
+                            }))
+                          }
+                          className="mt-2 w-full rounded-xl border border-slate-700 bg-transparent p-3 text-sm text-black outline-none focus:border-primary dark:text-white"
+                        >
+                          <option
+                            value="labs_or_sandbox"
+                            className="bg-slate-800 text-black dark:text-white"
+                          >
+                            Labs / Sandbox
+                          </option>
+                          <option
+                            value="thought_experiments"
+                            className="bg-slate-800 text-black dark:text-white"
+                          >
+                            Visual thought experiments
+                          </option>
+                          <option
+                            value="mixed"
+                            className="bg-slate-800 text-black dark:text-white"
+                          >
+                            Mixed (auto)
+                          </option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="text-xs font-semibold text-slate-200">
+                          Guidance (optional)
+                        </label>
+                        <textarea
+                          value={config.trainingEnvironmentGuidance}
+                          onChange={(e) =>
+                            setConfig((prev) => ({
+                              ...prev,
+                              trainingEnvironmentGuidance: e.target.value,
+                            }))
+                          }
+                          placeholder="Add lab goals, tools, constraints, or copy-paste commands."
+                          className="mt-2 h-24 w-full rounded-xl border border-slate-700 bg-transparent p-3 text-sm outline-none transition-all focus:border-primary"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 <div className="mt-6 space-y-3 rounded-2xl border border-slate-700 bg-slate-900/40 p-4">
                   <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
                     Notes Integration
@@ -961,6 +1315,25 @@ const UserPresentationPreviewModal = ({
                     </div>
                   </div>
 
+                  {config.includeSpeakerNotes && (
+                    <div className="rounded-xl border border-slate-800 bg-black/10 p-3">
+                      <label className="text-xs font-semibold text-slate-200">
+                        Speaker Notes Guidance (optional)
+                      </label>
+                      <textarea
+                        value={config.speakerNotesGuidance}
+                        onChange={(e) =>
+                          setConfig((prev) => ({
+                            ...prev,
+                            speakerNotesGuidance: e.target.value,
+                          }))
+                        }
+                        placeholder="Add internal talking points, delivery cues, and live demo gotchas."
+                        className="mt-2 h-24 w-full rounded-xl border border-slate-700 bg-transparent p-3 text-sm outline-none transition-all focus:border-primary"
+                      />
+                    </div>
+                  )}
+
                   <div
                     onClick={() =>
                       setConfig({
@@ -994,6 +1367,25 @@ const UserPresentationPreviewModal = ({
                       />
                     </div>
                   </div>
+
+                  {config.includeStudentNotes && (
+                    <div className="rounded-xl border border-slate-800 bg-black/10 p-3">
+                      <label className="text-xs font-semibold text-slate-200">
+                        Student Notes Guidance (optional)
+                      </label>
+                      <textarea
+                        value={config.studentNotesGuidance}
+                        onChange={(e) =>
+                          setConfig((prev) => ({
+                            ...prev,
+                            studentNotesGuidance: e.target.value,
+                          }))
+                        }
+                        placeholder="Add doc links, repos, and copy-paste commands students should use."
+                        className="mt-2 h-24 w-full rounded-xl border border-slate-700 bg-transparent p-3 text-sm outline-none transition-all focus:border-primary"
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
