@@ -216,6 +216,27 @@ const getDefaultThemeVariantId = (themeKey) => {
   return variants[0]?.id || "";
 };
 
+const variantAccentById = {
+  "exec-title": "from-indigo-500/45 via-sky-500/35 to-slate-950/80",
+  "exec-metrics": "from-emerald-500/40 via-teal-500/30 to-slate-950/80",
+  "exec-split": "from-amber-500/45 via-orange-500/30 to-slate-950/80",
+  "tech-brief": "from-cyan-500/45 via-blue-500/25 to-slate-950/80",
+  "tech-diagram": "from-violet-500/45 via-fuchsia-500/25 to-slate-950/80",
+  "tech-checklist": "from-slate-500/25 via-slate-400/15 to-slate-950/85",
+  "startup-story": "from-rose-500/45 via-red-500/25 to-slate-950/85",
+  "startup-pitch": "from-fuchsia-500/40 via-purple-500/25 to-slate-950/85",
+  "startup-demo": "from-lime-500/35 via-emerald-500/20 to-slate-950/85",
+  "cause-narrative": "from-emerald-500/40 via-teal-500/25 to-slate-950/82",
+  "cause-impact": "from-sky-500/40 via-indigo-500/25 to-slate-950/82",
+  "cause-call": "from-amber-500/40 via-rose-500/20 to-slate-950/82",
+  "bina-focus": "from-cyan-500/35 via-indigo-500/20 to-slate-950/90",
+  "bina-grid": "from-slate-500/25 via-cyan-500/18 to-slate-950/90",
+  "bina-labs": "from-emerald-500/35 via-cyan-500/18 to-slate-950/90",
+};
+
+const getVariantAccent = (variantId, fallbackAccent) =>
+  variantAccentById[variantId] || fallbackAccent || "from-slate-500/20 to-slate-950/80";
+
 const GammaPreviewCard = ({
   isSelected,
   onSelect,
@@ -227,6 +248,7 @@ const GammaPreviewCard = ({
 }) => {
   const cardStyle = fontFamily ? { fontFamily } : undefined;
   const toneStyle = toneColor ? { color: toneColor } : undefined;
+  const variantAccent = getVariantAccent(variant.id, themeAccent);
 
   const VariantLayout = () => {
     switch (variant.id) {
@@ -396,8 +418,10 @@ const GammaPreviewCard = ({
           <div
             className={`relative overflow-hidden rounded-xl border border-slate-800 bg-gradient-to-br ${themeAccent}`}
           >
-            <div className="aspect-video bg-gray-900/95 p-4">
-              <VariantLayout />
+            <div className={`aspect-video bg-gradient-to-br ${variantAccent} p-4`}>
+              <div className="h-full rounded-xl border border-white/10 bg-gray-900/80 p-4">
+                <VariantLayout />
+              </div>
             </div>
           </div>
         </div>
@@ -408,7 +432,8 @@ const GammaPreviewCard = ({
           <div
             className={`overflow-hidden rounded-xl border border-slate-700 bg-gradient-to-br ${themeAccent}`}
           >
-            <div className="aspect-video bg-gray-900/95 p-6">
+            <div className={`aspect-video bg-gradient-to-br ${variantAccent} p-6`}>
+              <div className="h-full rounded-2xl border border-white/10 bg-gray-900/80 p-6">
               <p className="text-lg font-semibold text-white">{variant.title}</p>
               <p className="mt-2 text-sm text-slate-100">{variant.subtitle}</p>
               <div className="mt-5 grid grid-cols-5 gap-4">
@@ -423,6 +448,7 @@ const GammaPreviewCard = ({
                 <div className="col-span-2">
                   <div className="h-full rounded-2xl border border-white/15 bg-white/10" />
                 </div>
+              </div>
               </div>
             </div>
           </div>
@@ -1365,16 +1391,23 @@ const UserPresentationPreviewModal = ({
                             <div
                               className={`overflow-hidden rounded-xl border border-slate-800 bg-gradient-to-br ${accent}`}
                             >
-                              <div className="aspect-video bg-gray-900/95 p-3">
-                                <div className="h-3 w-16 rounded-full bg-white/25" />
-                                <div className="mt-2 h-2 w-24 rounded-full bg-white/20" />
-                                <div className="mt-3 grid grid-cols-3 gap-2">
-                                  <div className="col-span-2 space-y-2">
-                                    <div className="h-2 w-full rounded-full bg-white/20" />
-                                    <div className="h-2 w-4/5 rounded-full bg-white/15" />
-                                    <div className="h-2 w-3/5 rounded-full bg-white/10" />
+                              <div className="aspect-video p-3">
+                                <div className="h-full rounded-xl border border-white/10 bg-gray-900/70 p-3">
+                                  <div className="flex items-start justify-between gap-2">
+                                    <div className="space-y-2">
+                                      <div className="h-3 w-20 rounded-full bg-white/25" />
+                                      <div className="h-2 w-28 rounded-full bg-white/18" />
+                                    </div>
+                                    <div className="h-7 w-10 rounded-lg border border-white/15 bg-white/10" />
                                   </div>
-                                  <div className="rounded-lg border border-white/15 bg-white/10" />
+                                  <div className="mt-3 grid grid-cols-3 gap-2">
+                                    <div className="col-span-2 space-y-2">
+                                      <div className="h-2 w-full rounded-full bg-white/20" />
+                                      <div className="h-2 w-4/5 rounded-full bg-white/15" />
+                                      <div className="h-2 w-3/5 rounded-full bg-white/10" />
+                                    </div>
+                                    <div className="rounded-lg border border-white/15 bg-white/10" />
+                                  </div>
                                 </div>
                               </div>
                             </div>
