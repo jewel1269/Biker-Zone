@@ -40,152 +40,296 @@ const isValidScopeContent = (value) => {
 
 const presentationThemePreviews = {
   "Executive Corporate": {
-    accent: "from-indigo-500/45 via-blue-500/40 to-slate-800/70",
-    headingClass: "text-[12px] font-black uppercase tracking-[0.2em]",
+    accent: "from-indigo-500/30 via-blue-500/20 to-slate-900/70",
     fontFamily: 'Cambria, Georgia, "Times New Roman", serif',
     toneColor: "#a5b4fc",
-    heading: "Executive Impact",
-    subheading: "Data-driven strategic alignment",
-    body: "Clear hierarchy with high-contrast business visuals.",
+    variants: [
+      {
+        id: "exec-title",
+        label: "Executive Title",
+        title: "Quarterly Business Review",
+        subtitle: "Strategic priorities and alignment",
+        bullets: [
+          "Revenue drivers and margin levers",
+          "Risk posture and mitigation plan",
+          "Next-quarter execution roadmap",
+        ],
+      },
+      {
+        id: "exec-metrics",
+        label: "Metrics Focus",
+        title: "Performance Snapshot",
+        subtitle: "Key outcomes and indicators",
+        bullets: ["ARR +12%", "Churn 2.1%", "NPS 51", "Pipeline $4.2M"],
+      },
+      {
+        id: "exec-split",
+        label: "Visual Split",
+        title: "Customer Impact",
+        subtitle: "What changed and why it matters",
+        bullets: ["Before/after comparison", "Proof points", "Action items"],
+      },
+    ],
   },
   "Minimalist Tech": {
-    accent: "from-cyan-400/45 via-blue-500/35 to-slate-900/80",
-    headingClass: "text-[12px] font-semibold tracking-wide",
+    accent: "from-cyan-400/25 via-blue-500/15 to-slate-950/80",
     fontFamily: '"Segoe UI", "Trebuchet MS", Arial, sans-serif',
     toneColor: "#67e8f9",
-    heading: "Minimalist Tech",
-    subheading: "Structured typography and whitespace",
-    body: "Modern sans-serif treatment with clean geometry.",
+    variants: [
+      {
+        id: "tech-brief",
+        label: "Tech Brief",
+        title: "System Overview",
+        subtitle: "Architecture in one slide",
+        bullets: ["Inputs → Processing → Outputs", "Key constraints", "Interfaces"],
+      },
+      {
+        id: "tech-diagram",
+        label: "Diagram + Notes",
+        title: "Request Flow",
+        subtitle: "How data moves through services",
+        bullets: ["Client", "API Gateway", "Services", "DB/Cache"],
+      },
+      {
+        id: "tech-checklist",
+        label: "Implementation Plan",
+        title: "Build Checklist",
+        subtitle: "Milestones and acceptance",
+        bullets: ["MVP scope", "Instrumentation", "Rollout plan"],
+      },
+    ],
   },
   "Dynamic Startup": {
-    accent: "from-rose-500/45 via-red-500/40 to-slate-900/85",
-    headingClass: "text-[12px] font-extrabold tracking-wide",
+    accent: "from-rose-500/30 via-red-500/20 to-slate-950/85",
     fontFamily: '"Trebuchet MS", "Segoe UI", Tahoma, Arial, sans-serif',
     toneColor: "#f87171",
-    heading: "Startup Momentum",
-    subheading: "Bold gradients and kinetic layout",
-    body: "High-energy type scale with expressive color accents.",
+    variants: [
+      {
+        id: "startup-story",
+        label: "Story Mode",
+        title: "Why Now",
+        subtitle: "Problem, wedge, momentum",
+        bullets: ["Pain is acute", "We win with speed", "Distribution advantage"],
+      },
+      {
+        id: "startup-pitch",
+        label: "Pitch Deck",
+        title: "Product & Traction",
+        subtitle: "Signals that matter",
+        bullets: ["Activation 38%", "MoM 18%", "Top ICPs", "Next hires"],
+      },
+      {
+        id: "startup-demo",
+        label: "Demo Flow",
+        title: "Live Walkthrough",
+        subtitle: "A crisp narrative for demos",
+        bullets: ["Setup", "Core value", "Edge cases", "What’s next"],
+      },
+    ],
   },
   "Non-Profit/Cause Based": {
-    accent: "from-emerald-400/45 via-teal-500/40 to-slate-800/80",
-    headingClass: "text-[12px] font-bold tracking-wider",
+    accent: "from-emerald-400/25 via-teal-500/18 to-slate-950/78",
     fontFamily: '"Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif',
     toneColor: "#6ee7b7",
-    heading: "Cause Narrative",
-    subheading: "Empathy-first storytelling",
-    body: "Human-centric visuals and clear supporting facts.",
+    variants: [
+      {
+        id: "cause-narrative",
+        label: "Narrative",
+        title: "The Human Story",
+        subtitle: "Context and lived experience",
+        bullets: ["Who is impacted", "What they face", "What we can change"],
+      },
+      {
+        id: "cause-impact",
+        label: "Impact",
+        title: "Impact Metrics",
+        subtitle: "Outcomes and accountability",
+        bullets: ["People reached", "Programs delivered", "Cost per outcome"],
+      },
+      {
+        id: "cause-call",
+        label: "Call to Action",
+        title: "How to Help",
+        subtitle: "Partners, volunteers, donors",
+        bullets: ["Contribute", "Share", "Join the program"],
+      },
+    ],
   },
   "Bina Theme": {
     accent: "from-slate-900/90 via-cyan-500/25 to-indigo-600/35",
-    headingClass: "text-[12px] font-black uppercase tracking-[0.18em]",
     fontFamily: '"Inter", "Segoe UI", "Trebuchet MS", Arial, sans-serif',
     toneColor: "#22d3ee",
-    heading: "Bina Design System",
-    subheading: "Intelligence-driven dark minimalism",
-    body: "High-impact typography, dark-mode contrast, and focused information hierarchy.",
+    variants: [
+      {
+        id: "bina-focus",
+        label: "Focused",
+        title: "Signal Over Noise",
+        subtitle: "Minimal, high-contrast hierarchy",
+        bullets: ["One big idea", "Supporting evidence", "Next action"],
+      },
+      {
+        id: "bina-grid",
+        label: "Grid",
+        title: "System Components",
+        subtitle: "A structured view",
+        bullets: ["UI", "Data", "Logic", "Ops"],
+      },
+      {
+        id: "bina-labs",
+        label: "Labs",
+        title: "Hands-on Module",
+        subtitle: "Training environments ready",
+        bullets: ["Scenario", "Steps", "Checks", "Reflection"],
+      },
+    ],
   },
 };
 
 const imageStylePreviews = {
   "Photorealistic Business": {
-    accent: "from-slate-200/30 via-slate-400/20 to-slate-700/70",
+    accent: "from-slate-200/20 via-slate-400/10 to-slate-900/70",
     title: "Photorealistic Business",
     caption: "Natural light, office scenes, realistic texture.",
   },
   "Minimalist Vector": {
-    accent: "from-cyan-300/40 via-blue-500/30 to-slate-900/80",
+    accent: "from-cyan-300/25 via-blue-500/15 to-slate-950/80",
     title: "Minimalist Vector",
     caption: "Flat forms, limited palette, simplified silhouettes.",
   },
   "3D Abstract Render": {
-    accent: "from-violet-400/50 via-fuchsia-500/40 to-slate-900/80",
+    accent: "from-violet-400/25 via-fuchsia-500/18 to-slate-950/80",
     title: "3D Abstract Render",
     caption: "Depth, reflections, volumetric gradients.",
   },
   "Cinematic Photography": {
-    accent: "from-amber-300/40 via-orange-500/35 to-slate-900/85",
+    accent: "from-amber-300/20 via-orange-500/15 to-slate-950/85",
     title: "Cinematic Photography",
     caption: "Dramatic lighting and rich tonal contrast.",
   },
 };
 
-const StylePreviewCard = ({
-  title,
-  selection,
-  subtitle,
-  description,
-  accent,
-  headingClass,
+const getDefaultThemeVariantId = (themeKey) => {
+  const variants = presentationThemePreviews[themeKey]?.variants || [];
+  return variants[0]?.id || "";
+};
+
+const GammaPreviewCard = ({
+  isSelected,
+  onSelect,
+  themeAccent,
   fontFamily,
   toneColor,
+  variant,
+  themeLabel,
 }) => {
-  const toneStyle = toneColor ? { color: toneColor } : undefined;
   const cardStyle = fontFamily ? { fontFamily } : undefined;
+  const toneStyle = toneColor ? { color: toneColor } : undefined;
+
   return (
-    <div className="group relative">
-      <div
-        className="rounded-xl border border-slate-700 bg-[#070A10] p-3 transition-all duration-200 group-hover:shadow-[0_8px_26px_rgba(0,0,0,0.35)]"
-        style={cardStyle}
-      >
-        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
-          {title}
-        </p>
-        <p className="mt-1 text-xs font-semibold" style={toneStyle}>
-          {selection}
-        </p>
-        <div
-          className={`mt-2 overflow-hidden rounded-lg border border-slate-700 bg-gradient-to-br transition-all duration-200 group-hover:scale-[1.02] ${accent}`}
-        >
-          <div className="grid grid-cols-3 gap-2 bg-black/35 p-3">
-            <div className="col-span-2 space-y-1">
-              <p className={`${headingClass} text-white`}>{subtitle}</p>
-              <p className="text-[10px] text-slate-200">{description}</p>
-              <div className="flex gap-1 pt-1">
-                <span className="h-1.5 w-8 rounded-full bg-white/70" />
-                <span className="h-1.5 w-5 rounded-full bg-white/45" />
-                <span className="h-1.5 w-4 rounded-full bg-white/30" />
-              </div>
-            </div>
-            <div className="space-y-1">
-              <div className="h-5 rounded bg-white/20" />
-              <div className="h-10 rounded bg-white/35" />
-              <div className="h-3 rounded bg-white/20" />
-            </div>
-          </div>
+    <button
+      type="button"
+      onClick={onSelect}
+      className={`group relative w-full rounded-2xl border bg-[#070A10] p-3 text-left transition-all ${
+        isSelected
+          ? "border-primary ring-2 ring-primary/30"
+          : "border-slate-800 hover:border-slate-700"
+      }`}
+      style={cardStyle}
+    >
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+            {themeLabel}
+          </p>
+          <p className="mt-1 text-xs font-semibold" style={toneStyle}>
+            {variant.label}
+          </p>
         </div>
-        <div className="max-h-0 overflow-hidden pt-0 opacity-0 transition-all duration-200 group-hover:max-h-80 group-hover:pt-3 group-hover:opacity-100">
-          <div className="rounded-2xl border border-slate-600 bg-[#04070D] p-4">
-            <div
-              className={`overflow-hidden rounded-xl border border-slate-600 bg-gradient-to-br ${accent}`}
-            >
-              <div className="grid grid-cols-3 gap-3 bg-black/35 p-5">
-                <div className="col-span-2 space-y-2">
-                  <p className={`${headingClass} text-base text-white`}>
-                    {subtitle}
+        {isSelected ? (
+          <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary text-secondary">
+            <FaCheckCircle size={14} />
+          </span>
+        ) : (
+          <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-slate-700 bg-black/30 text-slate-400 opacity-0 transition group-hover:opacity-100">
+            <FaChevronRight size={12} />
+          </span>
+        )}
+      </div>
+
+      <div className="mt-3">
+        <div className="relative">
+          <div className="absolute left-2 top-2 h-full w-full rounded-xl border border-slate-800 bg-[#0B0E14] opacity-35" />
+          <div className="absolute left-1 top-1 h-full w-full rounded-xl border border-slate-800 bg-[#0B0E14] opacity-55" />
+
+          <div
+            className={`relative overflow-hidden rounded-xl border border-slate-800 bg-gradient-to-br ${themeAccent}`}
+          >
+            <div className="aspect-video bg-black/25 p-4">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-semibold text-white">
+                    {variant.title}
                   </p>
-                  <p className="text-xs leading-relaxed text-slate-100">
-                    {description}
+                  <p className="mt-1 truncate text-[11px] text-slate-200">
+                    {variant.subtitle}
                   </p>
-                  <div className="space-y-1 pt-1">
-                    <div className="h-2 w-40 rounded-full bg-white/80" />
-                    <div className="h-2 w-32 rounded-full bg-white/60" />
-                    <div className="h-2 w-24 rounded-full bg-white/40" />
-                  </div>
                 </div>
-                <div className="space-y-2">
-                  <div className="h-10 rounded-lg bg-white/20" />
-                  <div className="h-20 rounded-lg bg-white/35" />
-                  <div className="h-6 rounded-lg bg-white/20" />
+                <div className="h-7 w-10 rounded-lg border border-white/15 bg-white/10" />
+              </div>
+
+              <div className="mt-3 grid grid-cols-5 gap-3">
+                <div className="col-span-3 space-y-2">
+                  {variant.bullets.slice(0, 3).map((line) => (
+                    <div key={line} className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-white/60" />
+                      <span className="h-2 w-full rounded-full bg-white/25" />
+                    </div>
+                  ))}
+                </div>
+                <div className="col-span-2">
+                  <div className="h-full rounded-xl border border-white/15 bg-white/10" />
                 </div>
               </div>
+
+              <div className="mt-3 flex gap-2">
+                <span className="h-1.5 w-10 rounded-full bg-white/45" />
+                <span className="h-1.5 w-8 rounded-full bg-white/30" />
+                <span className="h-1.5 w-6 rounded-full bg-white/20" />
+              </div>
             </div>
-            <p className="mt-3 text-[11px] text-slate-400">
-              Enlarged preview: typography + image composition.
-            </p>
           </div>
         </div>
       </div>
-    </div>
+
+      <div className="pointer-events-none absolute left-0 top-full z-50 mt-3 w-[520px] max-w-[80vw] translate-y-1 opacity-0 transition-all duration-150 group-hover:translate-y-0 group-hover:opacity-100">
+        <div className="rounded-2xl border border-slate-700 bg-[#04070D] p-4 shadow-2xl shadow-black/60">
+          <div
+            className={`overflow-hidden rounded-xl border border-slate-700 bg-gradient-to-br ${themeAccent}`}
+          >
+            <div className="aspect-video bg-black/20 p-6">
+              <p className="text-lg font-semibold text-white">{variant.title}</p>
+              <p className="mt-2 text-sm text-slate-100">{variant.subtitle}</p>
+              <div className="mt-5 grid grid-cols-5 gap-4">
+                <div className="col-span-3 space-y-3">
+                  {variant.bullets.slice(0, 4).map((line) => (
+                    <div key={line} className="flex items-center gap-2">
+                      <span className="h-2 w-2 rounded-full bg-white/60" />
+                      <span className="h-3 w-full rounded-full bg-white/25" />
+                    </div>
+                  ))}
+                </div>
+                <div className="col-span-2">
+                  <div className="h-full rounded-2xl border border-white/15 bg-white/10" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <p className="mt-3 text-[11px] text-slate-400">
+            Hover preview: Gamma-style slide thumbnail.
+          </p>
+        </div>
+      </div>
+    </button>
   );
 };
 
@@ -205,6 +349,7 @@ const UserPresentationPreviewModal = ({
     imageCount: 1,
     quizCount: 5,
     presentationStyle: "Executive Corporate",
+    presentationVariant: getDefaultThemeVariantId("Executive Corporate"),
     imageStyle: "Photorealistic Business",
     aspectRatio: "16:9",
     includeMCQs: true,
@@ -222,6 +367,11 @@ const UserPresentationPreviewModal = ({
         topics: isValidScopeContent(initialTopics)
           ? initialTopics
           : DEFAULT_PRESENTATION_SCOPE_TEMPLATE,
+        presentationVariant:
+          initialConfig.presentationVariant ||
+          getDefaultThemeVariantId(
+            initialConfig.presentationStyle || prev.presentationStyle,
+          ),
       }));
       setStep(1);
     }
@@ -257,8 +407,8 @@ const UserPresentationPreviewModal = ({
 
   const modalStyles = {
     modal:
-      "rounded-none shadow-2xl max-w-none w-screen h-screen m-0 border-0 bg-[#0B0E14] p-0 overflow-hidden",
-    modalContainer: "p-0",
+      "rounded-2xl shadow-2xl max-w-6xl w-[96vw] h-[92vh] mx-4 border border-slate-800 bg-[#0B0E14] p-0 overflow-hidden",
+    modalContainer: "py-3",
     overlay: "bg-black/70",
     closeIcon: "hidden",
   };
@@ -416,155 +566,218 @@ const UserPresentationPreviewModal = ({
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  <label className="text-[10px] font-black uppercase text-slate-200">
-                    Presentation Theme
-                  </label>
-                  <select
-                    value={config.presentationStyle}
-                    onChange={(e) =>
-                      setConfig({
-                        ...config,
-                        presentationStyle: e.target.value,
-                      })
-                    }
-                    className="w-full rounded-xl border border-slate-600 bg-transparent p-3 text-sm text-black outline-none focus:border-primary dark:text-white"
-                  >
-                    {Object.keys(presentationThemePreviews).map((theme) => (
-                      <option
-                        key={theme}
-                        value={theme}
-                        className="bg-slate-800 text-black dark:text-white"
-                      >
-                        {theme}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="space-y-4">
-                  <label className="text-[10px] font-black uppercase text-slate-500">
-                    AI Image Specification
-                  </label>
-                  <select
-                    value={config.imageStyle}
-                    onChange={(e) =>
-                      setConfig({ ...config, imageStyle: e.target.value })
-                    }
-                    className="w-full rounded-xl border border-slate-600 bg-transparent p-3 text-sm text-black outline-none focus:border-primary dark:text-white"
-                  >
-                    {Object.keys(imageStylePreviews).map((style) => (
-                      <option
-                        key={style}
-                        value={style}
-                        className="bg-slate-800 text-black dark:text-white"
-                      >
-                        {style}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="col-span-2 flex items-center justify-between rounded-2xl border border-slate-600 bg-transparent p-4">
-                  <div className="flex items-center gap-3">
-                    <FiImage className="text-primary" />
-                    <span className="text-sm font-bold">
-                      Visual Density (Images per Slide)
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-4 rounded-xl bg-black/40 p-2">
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setConfig({
-                          ...config,
-                          imageCount: Math.max(0, Number(config.imageCount) - 1),
-                        })
-                      }
-                    >
-                      <FiMinus />
-                    </button>
-                    <span className="w-8 text-center font-bold">
-                      {config.imageCount}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setConfig({
-                          ...config,
-                          imageCount: Number(config.imageCount) + 1,
-                        })
-                      }
-                    >
-                      <FiPlus />
-                    </button>
-                  </div>
-                </div>
-
-                <div className="col-span-2 space-y-3 rounded-2xl border border-slate-700 bg-slate-900/40 p-4">
-                  <div className="flex items-center justify-between">
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
+                  <div className="lg:col-span-1">
                     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-                      Style Preview Gallery
+                      Presentation Theme
                     </p>
-                    <p className="text-xs text-slate-500">
-                      Hover thumbnail to enlarge
-                    </p>
+                    <div className="mt-3 space-y-2">
+                      {Object.keys(presentationThemePreviews).map((themeKey) => {
+                        const isActive = config.presentationStyle === themeKey;
+                        return (
+                          <button
+                            key={themeKey}
+                            type="button"
+                            onClick={() =>
+                              setConfig((prev) => ({
+                                ...prev,
+                                presentationStyle: themeKey,
+                                presentationVariant: getDefaultThemeVariantId(
+                                  themeKey,
+                                ),
+                              }))
+                            }
+                            className={`flex w-full items-center justify-between rounded-xl border px-3 py-2 text-left text-sm transition ${
+                              isActive
+                                ? "border-primary bg-primary/5 text-white"
+                                : "border-slate-800 bg-transparent text-slate-300 hover:border-slate-700"
+                            }`}
+                          >
+                            <span className="font-semibold">{themeKey}</span>
+                            <span className="text-xs text-slate-500">
+                              3 previews
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <StylePreviewCard
-                      title="Selected Presentation Theme"
-                      selection={config.presentationStyle}
-                      subtitle={
-                        presentationThemePreviews[config.presentationStyle]
-                          ?.heading || config.presentationStyle
-                      }
-                      description={
-                        presentationThemePreviews[config.presentationStyle]
-                          ?.body || "Structured visual style preview."
-                      }
-                      accent={
-                        presentationThemePreviews[config.presentationStyle]
-                          ?.accent || "from-slate-500/40 to-slate-900/80"
-                      }
-                      headingClass={
-                        presentationThemePreviews[config.presentationStyle]
-                          ?.headingClass || "text-[12px] font-bold"
-                      }
-                      fontFamily={
-                        presentationThemePreviews[config.presentationStyle]
-                          ?.fontFamily
-                      }
-                      toneColor={
-                        presentationThemePreviews[config.presentationStyle]
-                          ?.toneColor
-                      }
-                    />
-                    <StylePreviewCard
-                      title="Selected AI Image Style"
-                      selection={config.imageStyle}
-                      subtitle={
-                        imageStylePreviews[config.imageStyle]?.title ||
-                        config.imageStyle
-                      }
-                      description={
-                        imageStylePreviews[config.imageStyle]?.caption ||
-                        "Generated image composition preview."
-                      }
-                      accent={
-                        imageStylePreviews[config.imageStyle]?.accent ||
-                        "from-slate-500/40 to-slate-900/80"
-                      }
-                      headingClass="text-[12px] font-bold tracking-wide"
-                      fontFamily={
-                        presentationThemePreviews[config.presentationStyle]
-                          ?.fontFamily
-                      }
-                      toneColor={
-                        presentationThemePreviews[config.presentationStyle]
-                          ?.toneColor
-                      }
-                    />
+
+                  <div className="lg:col-span-2">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+                          Select a Preview
+                        </p>
+                        <p className="mt-1 text-sm font-semibold text-slate-200">
+                          Choose the slide look (Gamma-style).
+                        </p>
+                      </div>
+                      <p className="text-xs text-slate-500">
+                        Hover to enlarge • Click to select
+                      </p>
+                    </div>
+
+                    <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-3">
+                      {(presentationThemePreviews[config.presentationStyle]
+                        ?.variants || []
+                      ).map((variant) => (
+                        <GammaPreviewCard
+                          key={variant.id}
+                          variant={variant}
+                          themeLabel={config.presentationStyle}
+                          themeAccent={
+                            presentationThemePreviews[config.presentationStyle]
+                              ?.accent || "from-slate-500/20 to-slate-950/80"
+                          }
+                          fontFamily={
+                            presentationThemePreviews[config.presentationStyle]
+                              ?.fontFamily
+                          }
+                          toneColor={
+                            presentationThemePreviews[config.presentationStyle]
+                              ?.toneColor
+                          }
+                          isSelected={config.presentationVariant === variant.id}
+                          onSelect={() =>
+                            setConfig((prev) => ({
+                              ...prev,
+                              presentationVariant: variant.id,
+                            }))
+                          }
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+                  <div className="space-y-3 rounded-2xl border border-slate-800 bg-[#070A10] p-4">
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+                      AI Image Specification
+                    </p>
+                    <div className="grid grid-cols-2 gap-3">
+                      {Object.keys(imageStylePreviews).map((styleKey) => {
+                        const selected = config.imageStyle === styleKey;
+                        const accent = imageStylePreviews[styleKey]?.accent;
+                        return (
+                          <button
+                            key={styleKey}
+                            type="button"
+                            onClick={() =>
+                              setConfig((prev) => ({
+                                ...prev,
+                                imageStyle: styleKey,
+                              }))
+                            }
+                            className={`group rounded-2xl border p-3 text-left transition ${
+                              selected
+                                ? "border-primary ring-2 ring-primary/30"
+                                : "border-slate-800 hover:border-slate-700"
+                            }`}
+                          >
+                            <div
+                              className={`overflow-hidden rounded-xl border border-slate-800 bg-gradient-to-br ${accent}`}
+                            >
+                              <div className="aspect-video bg-black/25 p-3">
+                                <div className="h-3 w-16 rounded-full bg-white/25" />
+                                <div className="mt-2 h-2 w-24 rounded-full bg-white/20" />
+                                <div className="mt-3 grid grid-cols-3 gap-2">
+                                  <div className="col-span-2 space-y-2">
+                                    <div className="h-2 w-full rounded-full bg-white/20" />
+                                    <div className="h-2 w-4/5 rounded-full bg-white/15" />
+                                    <div className="h-2 w-3/5 rounded-full bg-white/10" />
+                                  </div>
+                                  <div className="rounded-lg border border-white/15 bg-white/10" />
+                                </div>
+                              </div>
+                            </div>
+                            <p className="mt-2 text-xs font-semibold text-slate-100">
+                              {imageStylePreviews[styleKey]?.title || styleKey}
+                            </p>
+                            <p className="mt-1 text-[11px] text-slate-400">
+                              {imageStylePreviews[styleKey]?.caption}
+                            </p>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col justify-between gap-4 rounded-2xl border border-slate-800 bg-[#070A10] p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <FiImage className="text-primary" />
+                        <div>
+                          <p className="text-sm font-bold text-slate-100">
+                            Visual Density
+                          </p>
+                          <p className="text-xs text-slate-500">
+                            Images per slide
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-4 rounded-xl bg-black/30 p-2">
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setConfig({
+                              ...config,
+                              imageCount: Math.max(
+                                0,
+                                Number(config.imageCount) - 1,
+                              ),
+                            })
+                          }
+                        >
+                          <FiMinus />
+                        </button>
+                        <span className="w-8 text-center font-bold text-slate-100">
+                          {config.imageCount}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setConfig({
+                              ...config,
+                              imageCount: Number(config.imageCount) + 1,
+                            })
+                          }
+                        >
+                          <FiPlus />
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="rounded-2xl border border-slate-800 bg-black/20 p-4">
+                      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
+                        Quick Summary
+                      </p>
+                      <div className="mt-3 space-y-2 text-sm text-slate-200">
+                        <div className="flex items-center justify-between">
+                          <span className="text-slate-400">Theme</span>
+                          <span className="font-semibold">
+                            {config.presentationStyle}
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-slate-400">Preview</span>
+                          <span className="font-semibold">
+                            {presentationThemePreviews[config.presentationStyle]
+                              ?.variants?.find(
+                                (v) => v.id === config.presentationVariant,
+                              )?.label || "—"}
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-slate-400">Image Spec</span>
+                          <span className="font-semibold">
+                            {config.imageStyle}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
