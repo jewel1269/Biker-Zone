@@ -724,6 +724,38 @@ const UserPresentationPreviewModal = ({
       center
       classNames={modalStyles}
     >
+      <style>{`
+        /* Hide horizontal scrollbars but keep scrollability */
+        .upm-scroll-x {
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+        .upm-scroll-x::-webkit-scrollbar {
+          display: none;
+          height: 0;
+        }
+
+        /* Subtle vertical scrollbar (corporate, low-contrast) */
+        .upm-scroll-y {
+          scrollbar-width: thin;
+          scrollbar-color: rgba(148, 163, 184, 0.35) transparent;
+        }
+        .upm-scroll-y::-webkit-scrollbar {
+          width: 10px;
+        }
+        .upm-scroll-y::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .upm-scroll-y::-webkit-scrollbar-thumb {
+          background-color: rgba(148, 163, 184, 0.25);
+          border-radius: 999px;
+          border: 3px solid transparent;
+          background-clip: content-box;
+        }
+        .upm-scroll-y::-webkit-scrollbar-thumb:hover {
+          background-color: rgba(148, 163, 184, 0.35);
+        }
+      `}</style>
       <div className="flex h-full min-h-0 flex-col">
         <div className={`border-b ${uiChrome.panelBorder} p-6`}>
           <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
@@ -1207,7 +1239,7 @@ const UserPresentationPreviewModal = ({
                     <div
                       className={`mt-3 ${
                         isCompactModal
-                          ? "flex gap-2 overflow-x-auto pb-1"
+                          ? "upm-scroll-x flex gap-2 overflow-x-auto pb-1"
                           : "space-y-2"
                       }`}
                     >
@@ -1265,7 +1297,7 @@ const UserPresentationPreviewModal = ({
                     <div
                       className={`mt-4 ${
                         isCompactModal
-                          ? "flex gap-3 overflow-x-auto pb-1"
+                          ? "upm-scroll-x flex gap-3 overflow-x-auto pb-1"
                           : "grid grid-cols-1 gap-3 md:grid-cols-3"
                       }`}
                     >
@@ -1419,7 +1451,9 @@ const UserPresentationPreviewModal = ({
 
                           <div
                             className={`mt-3 space-y-1 overflow-y-auto pr-1 ${
-                              isCompactModal ? "max-h-[260px]" : "max-h-[360px]"
+                              isCompactModal
+                                ? "upm-scroll-y max-h-[260px]"
+                                : "upm-scroll-y max-h-[360px]"
                             }`}
                           >
                             {deckOutline.map((s) => {
