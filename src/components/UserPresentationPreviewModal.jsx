@@ -680,21 +680,21 @@ const UserPresentationPreviewModal = ({
   const uiChrome = useMemo(() => {
     if (isFullscreen) {
       return {
-        appBg: "bg-slate-950",
-        surface: "bg-slate-950",
-        panel: "bg-slate-950/60",
+        appBg: "bg-[#0B0E14]",
+        surface: "bg-[#0B0E14]",
+        panel: "bg-[#070A10]",
         panelBorder: "border-slate-800",
         softPanel: "bg-slate-900/30",
         softBorder: "border-slate-800",
       };
     }
     return {
-      appBg: "bg-gradient-to-br from-primary/10 via-slate-950 to-slate-950",
-      surface: "bg-gradient-to-br from-primary/6 via-slate-950 to-slate-950",
-      panel: "bg-gradient-to-br from-primary/8 via-slate-950/80 to-slate-950/80",
-      panelBorder: "border-primary/20",
-      softPanel: "bg-primary/5",
-      softBorder: "border-primary/15",
+      appBg: "bg-[#0B0E14]",
+      surface: "bg-[#0B0E14]",
+      panel: "bg-[#070A10]",
+      panelBorder: "border-slate-800",
+      softPanel: "bg-slate-900/30",
+      softBorder: "border-slate-800",
     };
   }, [isFullscreen]);
 
@@ -771,7 +771,7 @@ const UserPresentationPreviewModal = ({
                 onClick={() => setIsFullscreen((v) => !v)}
                 className={`inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-xs font-semibold text-slate-200 transition hover:border-primary hover:text-white ${
                   isCompactModal
-                    ? "border-primary/20 bg-primary/10"
+                    ? "border-slate-700 bg-slate-900/30"
                     : "border-slate-700 bg-slate-900/30"
                 }`}
               >
@@ -783,7 +783,7 @@ const UserPresentationPreviewModal = ({
                 onClick={() => setIsOpen(false)}
                 className={`inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-xs font-semibold text-slate-200 transition hover:text-white ${
                   isCompactModal
-                    ? "border-primary/20 bg-primary/10 hover:border-primary/40"
+                    ? "border-slate-700 bg-slate-900/30 hover:border-slate-500"
                     : "border-slate-700 bg-slate-900/30 hover:border-slate-500"
                 }`}
               >
@@ -896,9 +896,7 @@ const UserPresentationPreviewModal = ({
                   </div>
                 </div>
 
-                <div
-                  className={`rounded-2xl border p-5 ${uiChrome.softBorder} ${uiChrome.softPanel}`}
-                >
+                <div className={`rounded-2xl border p-5 ${uiChrome.softBorder} ${uiChrome.panel}`}>
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
@@ -1022,9 +1020,7 @@ const UserPresentationPreviewModal = ({
                       </div>
                     </div>
 
-                    <div
-                      className={`rounded-xl border p-4 ${uiChrome.softBorder} ${uiChrome.softPanel}`}
-                    >
+                    <div className={`rounded-xl border p-4 ${uiChrome.softBorder} ${uiChrome.softPanel}`}>
                       <p className="text-sm font-bold text-slate-100">
                         Demonstration (“Show”) Preference
                       </p>
@@ -1070,9 +1066,7 @@ const UserPresentationPreviewModal = ({
                   </div>
 
                   <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-3">
-                    <div
-                      className={`rounded-xl border p-4 ${uiChrome.softBorder} ${uiChrome.softPanel}`}
-                    >
+                    <div className={`rounded-xl border p-4 ${uiChrome.softBorder} ${uiChrome.softPanel}`}>
                       <p className="text-sm font-bold text-slate-100">
                         Knowledge Check Cadence
                       </p>
@@ -1235,7 +1229,7 @@ const UserPresentationPreviewModal = ({
                             className={`flex w-full items-center justify-between rounded-xl border px-3 py-2 text-left text-sm transition ${
                               isActive
                                 ? "border-primary bg-primary/5 text-white"
-                                : `bg-transparent text-slate-300 hover:border-primary/30 ${uiChrome.softBorder}`
+                                : `bg-transparent text-slate-300 hover:border-slate-700 ${uiChrome.softBorder}`
                             }`}
                             style={
                               isCompactModal
@@ -1309,7 +1303,7 @@ const UserPresentationPreviewModal = ({
 
                 <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
                   <div
-                    className={`space-y-3 rounded-2xl border p-4 ${uiChrome.panelBorder} ${uiChrome.panel}`}
+                      className={`space-y-3 rounded-2xl border p-4 ${uiChrome.panelBorder} ${uiChrome.panel}`}
                   >
                     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
                       AI Image Specification
@@ -1331,7 +1325,7 @@ const UserPresentationPreviewModal = ({
                             className={`group rounded-2xl border p-3 text-left transition ${
                               selected
                                 ? "border-primary ring-2 ring-primary/30"
-                                : `${uiChrome.softBorder} hover:border-primary/30`
+                                : `${uiChrome.softBorder} hover:border-slate-700`
                             }`}
                           >
                             <div
@@ -1362,9 +1356,7 @@ const UserPresentationPreviewModal = ({
                     </div>
                   </div>
 
-                  <div
-                    className={`rounded-2xl border p-4 ${uiChrome.panelBorder} ${uiChrome.panel}`}
-                  >
+                  <div className={`rounded-2xl border p-4 ${uiChrome.panelBorder} ${uiChrome.panel}`}>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <FiImage className="text-primary" />
@@ -1415,9 +1407,7 @@ const UserPresentationPreviewModal = ({
                       }`}
                     >
                       <div className={isCompactModal ? "" : "xl:col-span-3"}>
-                        <div
-                          className={`rounded-2xl border p-3 ${uiChrome.softBorder} ${uiChrome.softPanel}`}
-                        >
+                        <div className={`rounded-2xl border p-3 ${uiChrome.softBorder} ${uiChrome.softPanel}`}>
                           <div className="flex items-center justify-between">
                             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
                               Deck Outline
@@ -1452,7 +1442,7 @@ const UserPresentationPreviewModal = ({
                                   className={`flex w-full items-start justify-between gap-3 rounded-xl border px-3 py-2 text-left transition ${
                                     active
                                       ? "border-primary bg-primary/5"
-                                      : `${uiChrome.softBorder} bg-transparent hover:border-primary/30`
+                                      : `${uiChrome.softBorder} bg-transparent hover:border-slate-700`
                                   }`}
                                 >
                                   <div className="min-w-0">
@@ -1477,9 +1467,7 @@ const UserPresentationPreviewModal = ({
                       </div>
 
                       <div className={isCompactModal ? "" : "xl:col-span-2"}>
-                        <div
-                          className={`rounded-2xl border p-4 ${uiChrome.softBorder} ${uiChrome.softPanel}`}
-                        >
+                        <div className={`rounded-2xl border p-4 ${uiChrome.softBorder} ${uiChrome.softPanel}`}>
                           <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
                             Selected Slide
                           </p>
@@ -1495,9 +1483,7 @@ const UserPresentationPreviewModal = ({
                                 </p>
                               </div>
 
-                              <div
-                                className={`rounded-xl border p-3 ${uiChrome.softBorder} ${uiChrome.softPanel}`}
-                              >
+                              <div className={`rounded-xl border p-3 ${uiChrome.softBorder} ${uiChrome.softPanel}`}>
                                 <p className="text-xs font-semibold text-slate-200">
                                   Content hierarchy
                                 </p>
@@ -1536,9 +1522,7 @@ const UserPresentationPreviewModal = ({
                                 </div>
                               </div>
 
-                              <div
-                                className={`rounded-xl border p-3 ${uiChrome.softBorder} ${uiChrome.softPanel}`}
-                              >
+                              <div className={`rounded-xl border p-3 ${uiChrome.softBorder} ${uiChrome.softPanel}`}>
                                 <p className="text-xs font-semibold text-slate-200">
                                   Visual guidance
                                 </p>
@@ -1558,9 +1542,7 @@ const UserPresentationPreviewModal = ({
                       </div>
                     </div>
 
-                    <div
-                      className={`mt-4 rounded-2xl border p-4 ${uiChrome.softBorder} ${uiChrome.softPanel}`}
-                    >
+                    <div className={`mt-4 rounded-2xl border p-4 ${uiChrome.softBorder} ${uiChrome.softPanel}`}>
                       <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
                         Summary
                       </p>
