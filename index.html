@@ -1,310 +1,1497 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- font  -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- tailwind and daisy ui cdn -->
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.6.0/dist/full.min.css" rel="stylesheet" type="text/css" />
-<script src="https://cdn.tailwindcss.com"></script>
-<!-- tailwind custom classes -->
-<script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            clifford: '#da373d',
-            'jewel': '#E76F51',
-            'bike-primary': '#E76F51',
-            'bike-primary-bg': ' rgba(231, 111, 81, 0.10)',
-            
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Incident Management (ServiceNow-style)</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: ["class", '[data-theme="dark"]'],
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Source Sans 3", "ui-sans-serif", "system-ui"],
+            },
+            boxShadow: {
+              chrome: "0 1px 0 rgba(0,0,0,0.18)",
+              surface: "0 1px 2px rgba(16,24,40,0.06), 0 1px 1px rgba(16,24,40,0.04)",
+              flyout:
+                "0 12px 24px rgba(0,0,0,0.18), 0 2px 6px rgba(0,0,0,0.10)",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      :root {
+        --sn-chrome: #0b2a2e; /* top chrome */
+        --sn-chrome-2: #0f3a3f;
+        --sn-accent: #2aa88f; /* ServiceNow-ish teal */
+        --sn-accent-2: #1aa386;
+        --sn-border: rgba(15, 23, 42, 0.14);
+        --sn-border-2: rgba(15, 23, 42, 0.18);
+        --sn-bg: #f6f8fb;
+        --sn-surface: #ffffff;
+        --sn-surface-2: #f9fafb;
+        --sn-text: #0f172a;
+        --sn-muted: rgba(15, 23, 42, 0.62);
+        --sn-muted-2: rgba(15, 23, 42, 0.46);
+        --sn-row-hover: rgba(42, 168, 143, 0.08);
+        --sn-row-selected: rgba(42, 168, 143, 0.14);
+        --sn-focus: rgba(42, 168, 143, 0.34);
+        --sn-danger: #d92d20;
+        --sn-warning: #f79009;
+        --sn-info: #1570ef;
+      }
+
+      [data-theme="dark"] {
+        --sn-chrome: #061b1f;
+        --sn-chrome-2: #093036;
+        --sn-accent: #43d0b3;
+        --sn-accent-2: #2bbfa1;
+        --sn-border: rgba(148, 163, 184, 0.22);
+        --sn-border-2: rgba(148, 163, 184, 0.28);
+        --sn-bg: #071216;
+        --sn-surface: rgba(12, 23, 28, 0.86);
+        --sn-surface-2: rgba(15, 28, 34, 0.86);
+        --sn-text: rgba(241, 245, 249, 0.92);
+        --sn-muted: rgba(241, 245, 249, 0.62);
+        --sn-muted-2: rgba(241, 245, 249, 0.46);
+        --sn-row-hover: rgba(67, 208, 179, 0.12);
+        --sn-row-selected: rgba(67, 208, 179, 0.16);
+        --sn-focus: rgba(67, 208, 179, 0.38);
+        --sn-danger: #f97066;
+        --sn-warning: #fdb022;
+        --sn-info: #53b1fd;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Source Sans 3", ui-sans-serif, system-ui;
+      }
+
+      .bg-primary-gradient {
+        background:
+          radial-gradient(
+            980px 520px at 18% -8%,
+            color-mix(in srgb, var(--sn-accent) 26%, transparent),
+            transparent 65%
+          ),
+          radial-gradient(
+            820px 420px at 90% 0%,
+            color-mix(in srgb, var(--sn-info) 12%, transparent),
+            transparent 60%
+          ),
+          linear-gradient(180deg, var(--sn-bg), var(--sn-bg));
+      }
+
+      .sn-focus:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 3px var(--sn-focus);
+      }
+
+      .sn-scroll::-webkit-scrollbar {
+        height: 10px;
+        width: 10px;
+      }
+      .sn-scroll::-webkit-scrollbar-thumb {
+        background: color-mix(in srgb, var(--sn-muted) 24%, transparent);
+        border-radius: 999px;
+      }
+      .sn-scroll::-webkit-scrollbar-track {
+        background: transparent;
+      }
+    </style>
+  </head>
+
+  <body class="bg-primary-gradient text-[color:var(--sn-text)]">
+    <div id="root"></div>
+
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+      const { useEffect, useMemo, useRef, useState } = React;
+
+      function cx(...parts) {
+        return parts.filter(Boolean).join(" ");
+      }
+
+      function clamp(n, min, max) {
+        return Math.max(min, Math.min(max, n));
+      }
+
+      function useLocalStorageState(key, initialValue) {
+        const [value, setValue] = useState(() => {
+          try {
+            const raw = localStorage.getItem(key);
+            if (raw == null) return initialValue;
+            return JSON.parse(raw);
+          } catch {
+            return initialValue;
           }
+        });
+
+        useEffect(() => {
+          try {
+            localStorage.setItem(key, JSON.stringify(value));
+          } catch {}
+        }, [key, value]);
+
+        return [value, setValue];
+      }
+
+      const STATES = ["New", "In Progress", "On Hold", "Resolved", "Closed"];
+      const PRIORITIES = [
+        { value: "1", label: "1 - Critical" },
+        { value: "2", label: "2 - High" },
+        { value: "3", label: "3 - Moderate" },
+        { value: "4", label: "4 - Low" },
+      ];
+
+      const STATE_PILL = {
+        New: { tone: "info", label: "New" },
+        "In Progress": { tone: "warn", label: "In progress" },
+        "On Hold": { tone: "neutral", label: "On hold" },
+        Resolved: { tone: "success", label: "Resolved" },
+        Closed: { tone: "muted", label: "Closed" },
+      };
+
+      const PRIORITY_PILL = {
+        1: { tone: "danger", label: "1 - Critical" },
+        2: { tone: "dangerSoft", label: "2 - High" },
+        3: { tone: "warnSoft", label: "3 - Moderate" },
+        4: { tone: "infoSoft", label: "4 - Low" },
+      };
+
+      function toneClasses(tone) {
+        switch (tone) {
+          case "danger":
+            return "border-[color:color-mix(in_srgb,var(--sn-danger)_42%,transparent)] bg-[color:color-mix(in_srgb,var(--sn-danger)_12%,transparent)] text-[color:var(--sn-danger)]";
+          case "dangerSoft":
+            return "border-[color:color-mix(in_srgb,var(--sn-danger)_34%,transparent)] bg-[color:color-mix(in_srgb,var(--sn-danger)_9%,transparent)] text-[color:color-mix(in_srgb,var(--sn-danger)_88%,var(--sn-text))]";
+          case "warn":
+            return "border-[color:color-mix(in_srgb,var(--sn-warning)_42%,transparent)] bg-[color:color-mix(in_srgb,var(--sn-warning)_12%,transparent)] text-[color:color-mix(in_srgb,var(--sn-warning)_92%,var(--sn-text))]";
+          case "warnSoft":
+            return "border-[color:color-mix(in_srgb,var(--sn-warning)_34%,transparent)] bg-[color:color-mix(in_srgb,var(--sn-warning)_9%,transparent)] text-[color:color-mix(in_srgb,var(--sn-warning)_92%,var(--sn-text))]";
+          case "success":
+            return "border-[color:color-mix(in_srgb,var(--sn-accent)_42%,transparent)] bg-[color:color-mix(in_srgb,var(--sn-accent)_12%,transparent)] text-[color:color-mix(in_srgb,var(--sn-accent)_96%,var(--sn-text))]";
+          case "info":
+            return "border-[color:color-mix(in_srgb,var(--sn-info)_42%,transparent)] bg-[color:color-mix(in_srgb,var(--sn-info)_10%,transparent)] text-[color:color-mix(in_srgb,var(--sn-info)_92%,var(--sn-text))]";
+          case "infoSoft":
+            return "border-[color:color-mix(in_srgb,var(--sn-info)_34%,transparent)] bg-[color:color-mix(in_srgb,var(--sn-info)_8%,transparent)] text-[color:color-mix(in_srgb,var(--sn-info)_92%,var(--sn-text))]";
+          case "muted":
+          default:
+            return "border-[color:var(--sn-border)] bg-[color:color-mix(in_srgb,var(--sn-muted)_12%,transparent)] text-[color:var(--sn-muted)]";
         }
       }
-    }
-  </script>
-    <title>www.biker zone.com</title>
-    <style>
-        .font-poppins{
-            font-family: 'Poppins', sans-serif;
+
+      function Pill({ label, tone }) {
+        return (
+          <span
+            className={cx(
+              "inline-flex items-center rounded-full border px-2 py-0.5 text-[12px] font-semibold leading-none",
+              toneClasses(tone),
+            )}
+          >
+            {label}
+          </span>
+        );
+      }
+
+      function Icon({ name, className }) {
+        const icons = {
+          search: (
+            <path d="M21 21l-4.3-4.3m1.8-5.2a7 7 0 11-14 0 7 7 0 0114 0z" />
+          ),
+          grid: (
+            <>
+              <path d="M4 4h7v7H4z" />
+              <path d="M13 4h7v7h-7z" />
+              <path d="M4 13h7v7H4z" />
+              <path d="M13 13h7v7h-7z" />
+            </>
+          ),
+          star: <path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.9L12 18.8 5.8 21l1.2-6.9-5-4.9 6.9-1z" />,
+          clock: (
+            <>
+              <path d="M12 22a10 10 0 110-20 10 10 0 010 20z" />
+              <path d="M12 6v6l4 2" />
+            </>
+          ),
+          chevronDown: <path d="M6 9l6 6 6-6" />,
+          chevronUp: <path d="M18 15l-6-6-6 6" />,
+          plus: <path d="M12 5v14M5 12h14" />,
+          refresh: <path d="M21 12a9 9 0 10-3 6.7M21 12v7h-7" />,
+          user: (
+            <>
+              <path d="M20 21a8 8 0 10-16 0" />
+              <path d="M12 11a4 4 0 100-8 4 4 0 000 8z" />
+            </>
+          ),
+          x: <path d="M18 6L6 18M6 6l12 12" />,
+          trash: (
+            <>
+              <path d="M3 6h18" />
+              <path d="M8 6V4h8v2" />
+              <path d="M19 6l-1 16H6L5 6" />
+              <path d="M10 11v6M14 11v6" />
+            </>
+          ),
+          moon: <path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z" />,
+          sun: (
+            <>
+              <path d="M12 18a6 6 0 100-12 6 6 0 000 12z" />
+              <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+            </>
+          ),
+          dots: <path d="M12 5h.01M12 12h.01M12 19h.01" />,
+          clipboard: (
+            <>
+              <path d="M9 4h6a2 2 0 012 2v14a2 2 0 01-2 2H9a2 2 0 01-2-2V6a2 2 0 012-2z" />
+              <path d="M9 4a3 3 0 006 0" />
+            </>
+          ),
+          shield: (
+            <>
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </>
+          ),
+        };
+
+        return (
+          <svg
+            viewBox="0 0 24 24"
+            className={className}
+            aria-hidden="true"
+          >
+            <g
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              {icons[name] || null}
+            </g>
+          </svg>
+        );
+      }
+
+      function formatOpened(d = new Date()) {
+        const pad = (n) => String(n).padStart(2, "0");
+        return (
+          d.getFullYear() +
+          "-" +
+          pad(d.getMonth() + 1) +
+          "-" +
+          pad(d.getDate()) +
+          " " +
+          pad(d.getHours()) +
+          ":" +
+          pad(d.getMinutes()) +
+          ":" +
+          pad(d.getSeconds())
+        );
+      }
+
+      function nextIncidentId(incidents) {
+        const nums = incidents
+          .map((i) => parseInt(String(i.number).replace(/\D/g, ""), 10))
+          .filter(Boolean);
+        const next = nums.length ? Math.max(...nums) + 1 : 1;
+        return `INC001${String(next).padStart(4, "0")}`;
+      }
+
+      function makeSeedIncidents() {
+        const callers = [
+          "Signee Gye",
+          "Frank Boehm",
+          "Furman Bharyar",
+          "Juan Jose Esteve",
+          "Jacqueline Likoli",
+          "Dusana Semenov",
+          "Monica Böttger",
+          "Texh",
+        ];
+        const titles = [
+          "Need help, laptop not working properly",
+          "Internet is slow and not loading images",
+          "Can't connect to server",
+          "Requesting tools for new hire",
+          "Laptop gets really hot when in use",
+          "Email isn't sending",
+          "Server is down",
+          "Forgot login, need to reset",
+          "Can't access files in shared folder",
+          "SAP Financial Accounting application appears inactive",
+        ];
+
+        const base = new Date();
+        const rand = (min, max) => Math.floor(min + Math.random() * (max - min + 1));
+        const pick = (arr) => arr[rand(0, arr.length - 1)];
+        const states = ["New", "In Progress", "Resolved", "On Hold", "Closed"];
+        const priorities = ["1", "2", "3", "4"];
+
+        const list = [];
+        for (let i = 0; i < 80; i++) {
+          const dt = new Date(base.getTime() - (i * 36 + rand(0, 20)) * 60000);
+          const state = pick(states);
+          list.push({
+            number: `INC001${String(37 + i).padStart(4, "0")}`,
+            short_description: pick(titles),
+            description: "",
+            caller: pick(callers),
+            priority: pick(priorities),
+            state,
+            category: "Inquiry/Help",
+            assigned_to: Math.random() < 0.35 ? "" : pick(["Texh", "Frank Boehm", "Signee Gye"]),
+            opened: formatOpened(dt),
+            updated: formatOpened(new Date(dt.getTime() + rand(5, 50) * 60000)),
+          });
         }
-    </style>
-</head>
-<body class="poppins">
-    <header class="md:container md:mx-auto">
-<nav>
-    <div class="navbar bg-base-100">
-        <div class="flex-1">
-          <div class="dropdown">
-            <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
-            </div>
-            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 text-xl rounded-box w-52">
-              <li><a>Home</a></li>
-              <li>
-                <a>Shope</a>
-              </li>
-              <li><a>News</a></li>
-              <li><a>Contact</a></li>
-            </ul>
-          </div>
-          <a class="btn btn-ghost text-4xl">Bike House</a>
-        </div>
-        <div class="navbar-center hidden lg:flex">
-          <ul class="menu menu-horizontal text-2xl px-1">
-            <li><a>Home</a></li>
-            <li>
-              <a>Shope</a>
-            </li>
-            <li><a>News</a></li>
-            <li><a>Contact</a></li>
-          </ul>
-        </div>
-        <div class="">
-          <a class="btn btn-warning bg-bike-primary text-2xl">Login</a>
-        </div>
-      </div>
-</nav>
+        return list;
+      }
 
-<!-- slider or carousel -->
-<div class="carousel w-full lg:h-[550px] bg-yellow-400">
-    <div id="slide1" class="carousel-item relative w-full ">
-      <div class="flex gap-28 flex-col lg:flex-row p-4 items-center justify-center">
-        <div class="flex-1 lg:pl-24 pl-10 ">
-<h2 class="lg:text-6xl text-2xl font-bold  ">
-    Ride-on R15 V4 <br> with Smile
-</h2>
-<p class="mt-3">Amet minim mollit non deserunt ullamco 
-    est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
-    <a class="btn btn-warning bg-bike-primary  text-2xl mt-4">Login</a>
-</div>
-        <div class="flex-1">
-            <img src="./images/slider/bike1.png" class="w-[400px]" />
-        </div>
-      </div>
-      <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-        <a href="#slide4" class="btn btn-circle">❮</a> 
-        <a href="#slide2" class="btn btn-circle">❯</a>
-      </div>
-    </div> 
-    <div id="slide2" class="carousel-item relative w-full">
-        <div class="flex-1 lg:pl-24 pl-10 gap-32 pt-32 ">
-            <h2 class="lg:text-6xl text-2xl font-bold  ">
-                Ride-on R15 V4 <br> with Smile
-            </h2>
-            <p class="mt-3">Amet minim mollit non deserunt ullamco 
-                est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
-                <a class="btn btn-warning bg-bike-primary  text-2xl mt-4">Login</a>
-            </div>
-                    <div class="flex-1">
-                        <img src="./images/slider/bike2.png" class="w-[400px] pt-32" />
-                    </div>
-      <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-        <a href="#slide1" class="btn btn-circle">❮</a> 
-        <a href="#slide3" class="btn btn-circle">❯</a>
-      </div>
-    </div> 
-    <div id="slide3" class="carousel-item relative w-full">
-        <div class="flex-1 lg:pl-24 gap-32 pl-10 ">
-            <h2 class="lg:text-6xl text-2xl font-bold pt-32  ">
-                Ride-on R15 V4 <br> with Smile
-            </h2>
-            <p class="mt-3">Amet minim mollit non deserunt ullamco 
-                est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
-                <a class="btn btn-warning bg-bike-primary  text-2xl mt-4">Login</a>
-            </div>
-                    <div class="flex-1">
-                        <img src="./images/slider/bike3.png" class="w-[400px] pt-32" />
-                    </div>
-      <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-        <a href="#slide2" class="btn btn-circle">❮</a> 
-        <a href="#slide4" class="btn btn-circle">❯</a>
-      </div>
-    </div> 
-    <div id="slide4" class="carousel-item relative w-full">
-        <div class="flex-1 lg:pl-24 gap-32 pl-10 ">
-            <h2 class="lg:text-6xl text-2xl font-bold pt-32 ">
-                Ride-on R15 V4 <br> with Smile
-            </h2>
-            <p class="mt-3">Amet minim mollit non deserunt ullamco 
-                est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
-                <a class="btn btn-warning bg-bike-primary  text-2xl mt-4">Login</a>
-            </div>
-                    <div class="flex-1">
-                        <img src="./images/slider/bike4.png" class="w-[400px] pt-32" />
-                    </div>
-      <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-        <a href="#slide3" class="btn btn-circle">❮</a> 
-        <a href="#slide1" class="btn btn-circle">❯</a>
-      </div>
-    </div>
-  </div>
-    </header>
-    <main class="md:container md:mx-auto">
-<!-- featured by-->
-        <section class="my-32 ">
-    <h1 class="text-5xl font-semibold text-center">latest Bikes</h1>
-<div class="lg:flex gap-20 mt-16 md:ml-4 lg:ml-24 md:flex-1">
-  <div class="card w-96 bg-base-100 shadow-xl">
-    <figure><img src="./images/others/latest1.png" alt="Shoes" /></figure>
-    <div class="card-body">
-      <h2 class="card-title font-bold">Ducati XDIAVEL S-73</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lacus, fermentum amet faucibus sed id nisi lectus at.</p>
-      <div class="card-actions justify-start mt-16">
-        <button class="btn btn-primary">Buy Now</button>
-      </div>
-    </div>
-  </div>
-  <div class="card w-96 bg-base-100 shadow-xl">
-    <figure><img src="./images/others/latest2.png" alt="Shoes" /></figure>
-    <div class="card-body">
-      <h2 class="card-title font-bold">Motorcycles & Scooters</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lacus, fermentum amet faucibus sed id nisi lectus at.</p>
-      <div class="card-actions justify-star mt-16">
-        <button class="btn btn-secondary">Buy Now</button>
-      </div>
-    </div>
-  </div>
-  <div class="card w-96 bg-base-100 shadow-xl">
-    <figure><img src="./images/others/latest3.png" alt="Shoes" /></figure>
-    <div class="card-body">
-      <h2 class="card-title font-bold">2021 Honda CBR500R</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lacus, fermentum amet faucibus sed id nisi lectus at.</p>
-      <div class="card-actions justify-start mt-16">
-        <button class="btn btn-warning">Buy Now</button>
-      </div>
-    </div>
-  </div>
-</div>
-</section>
-<section>
-  <h1 class="font-bold text-center text-5xl">Happy <span class="text-jewel">Clients says</span> </h1>
-  <div class="lg:flex md:flex-1 lg:gap-36 md:gap-16mt-20">
-  <div class=" card w-96 bg-base-100 shadow-xl">
-    <figure class="px-10 pt-10">
-      <img src="./images/others/user-1.png" alt="Shoes" class="rounded-xl" />
-    </figure>
-    <div class="card-body items-center text-center">
-      <p>Slate helps you see how 
-        many more days you need 
-        to work to reach your financial 
-        goal for the month and year.</p>
-        <div class="rating">
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked  />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-        </div>
-        <h3 class="text-center mt-3 font-bold">Jewel</h3>
-        <h4 class="text-center font-semibold mt-3">Programmer</h4>
-    </div>
-  </div>
-  <div class="card w-96 bg-base-100 shadow-xl">
-    <figure class="px-10 pt-10">
-      <img src="./images/others/user-2.png" alt="Shoes" class="rounded-xl" />
-    </figure>
-    <div class="card-body items-center text-center">
+      const LIST_FILTERS = [
+        { id: "all", label: "All", predicate: () => true },
+        { id: "open", label: "Open", predicate: (i) => i.state !== "Closed" && i.state !== "Resolved" },
+        { id: "unassigned", label: "Open - Unassigned", predicate: (i) => (i.state !== "Closed" && i.state !== "Resolved") && !String(i.assigned_to || "").trim() },
+        { id: "resolved", label: "Resolved", predicate: (i) => i.state === "Resolved" },
+        { id: "closed", label: "Closed", predicate: (i) => i.state === "Closed" },
+      ];
 
-      <p>Slate helps you see how 
-        many more days you need 
-        to work to reach your financial 
-        goal for the month and year.</p>
-        <div class="rating">
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked  />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-        </div>
-        <h3 class="text-center mt-3 font-bold">Shamima</h3>
-        <h4 class="text-center font-semibold mt-3">Teacher</h4>
-    </div>
-  </div>
-  <div class="card w-96 bg-base-100 shadow-xl">
-    <figure class="px-10 pt-10">
-      <img src="./images/others/user-3.png" alt="Shoes" class="rounded-xl" />
-    </figure>
-    <div class="card-body items-center text-center">
-      
-      <p>Slate helps you see how 
-        many more days you need 
-        to work to reach your financial 
-        goal for the month and year.</p>
-        <div class="rating">
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked  />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-        </div>
-        <h3 class="text-center mt-3 font-bold">Faria</h3>
-      <h4 class="text-center font-semibold mt-3">Banker</h4>
-    </div>
-  </div>
-  </div>
-</section>
-<section>
-  <h1 class="text-center font-bold text-5xl mt-20">Frequently Asked <span class="text-jewel">Questions</span> </h1>
-  <div  class="lg:flex md:flex-1 items-center gap-60 mt-20">
-    <div>
-<img src="./images/others/faq.png" alt="">
-    </div>
-    <div>
-      <div class="join join-vertical lg:w-[760px] ">
-        <div class="collapse collapse-arrow join-item border border-base-300">
-          <input type="radio" name="my-accordion-4" checked="checked" /> 
-          <div class="collapse-title text-xl font-medium">
-           Do you have bike than Click me
+      function ChromeTop({ searchQuery, setSearchQuery, theme, setTheme }) {
+        return (
+          <header
+            className="h-12 shrink-0 border-b shadow-chrome"
+            style={{
+              background: "linear-gradient(180deg, var(--sn-chrome), var(--sn-chrome-2))",
+              borderColor: "rgba(255,255,255,0.08)",
+            }}
+          >
+            <div className="mx-auto flex h-full max-w-[1600px] items-center gap-3 px-3">
+              <div className="flex min-w-[260px] items-center gap-2">
+                <div
+                  className="flex h-8 w-8 items-center justify-center rounded-md"
+                  style={{
+                    backgroundColor:
+                      "color-mix(in srgb, var(--sn-accent) 18%, transparent)",
+                    border: "1px solid rgba(255,255,255,0.12)",
+                    color: "var(--sn-accent)",
+                  }}
+                  aria-hidden
+                >
+                  <Icon name="shield" className="h-5 w-5" />
+                </div>
+                <div className="leading-tight text-white">
+                  <div className="text-[14px] font-bold tracking-tight">
+                    ServiceNow
+                  </div>
+                  <div className="text-[11px] font-semibold text-white/70">
+                    Agent Workspace
+                  </div>
+                </div>
+              </div>
+
+              <nav className="hidden items-center gap-2 text-[12px] font-semibold text-white/80 md:flex">
+                <button className="sn-focus rounded-md px-2 py-1 hover:bg-white/10">
+                  All
+                </button>
+                <button className="sn-focus rounded-md px-2 py-1 hover:bg-white/10">
+                  Favorites
+                </button>
+                <button className="sn-focus rounded-md px-2 py-1 hover:bg-white/10">
+                  History
+                </button>
+                <button className="sn-focus rounded-md px-2 py-1 hover:bg-white/10">
+                  Workspaces
+                </button>
+              </nav>
+
+              <div className="relative flex-1">
+                <Icon
+                  name="search"
+                  className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/60"
+                />
+                <input
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder='Search ("/" to focus)…'
+                  className="sn-focus h-9 w-full rounded-md border border-white/10 bg-white/10 pl-9 pr-12 text-[13px] font-semibold text-white placeholder:text-white/50"
+                />
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  className="sn-focus inline-flex h-9 items-center gap-2 rounded-md border border-white/10 bg-white/10 px-2 text-[12px] font-bold text-white hover:bg-white/15"
+                  title={theme === "dark" ? "Switch to light" : "Switch to dark"}
+                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                >
+                  <Icon name={theme === "dark" ? "sun" : "moon"} className="h-4 w-4" />
+                  <span className="hidden sm:inline">
+                    {theme === "dark" ? "Light" : "Dark"}
+                  </span>
+                </button>
+                <div className="flex items-center gap-2 rounded-md border border-white/10 bg-white/10 px-2 py-1.5 text-white">
+                  <div
+                    className="flex h-6 w-6 items-center justify-center rounded-full bg-white/15"
+                    aria-hidden
+                  >
+                    <Icon name="user" className="h-4 w-4 text-white/90" />
+                  </div>
+                  <div className="hidden leading-tight sm:block">
+                    <div className="text-[12px] font-bold">CS00001006</div>
+                    <div className="text-[11px] font-semibold text-white/60">
+                      you
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </header>
+        );
+      }
+
+      function AppNavigator({ active, setActive }) {
+        const items = [
+          { id: "lists", label: "Lists", icon: "grid" },
+          { id: "incidents", label: "Incidents", icon: "clipboard" },
+          { id: "favorites", label: "Favorites", icon: "star" },
+          { id: "recent", label: "History", icon: "clock" },
+        ];
+
+        return (
+          <aside
+            className="w-[64px] shrink-0 border-r"
+            style={{
+              background:
+                "linear-gradient(180deg, color-mix(in srgb, var(--sn-accent) 18%, var(--sn-surface)), var(--sn-surface))",
+              borderColor: "var(--sn-border)",
+            }}
+          >
+            <div className="flex h-full flex-col items-center gap-2 py-2">
+              {items.map((it) => {
+                const isActive = active === it.id;
+                return (
+                  <button
+                    key={it.id}
+                    type="button"
+                    className={cx(
+                      "sn-focus group flex w-[52px] flex-col items-center gap-1 rounded-lg px-1 py-2 text-[10px] font-bold transition-colors",
+                      isActive
+                        ? "bg-[color:color-mix(in_srgb,var(--sn-accent)_18%,transparent)] text-[color:var(--sn-text)]"
+                        : "text-[color:var(--sn-muted)] hover:bg-[color:color-mix(in_srgb,var(--sn-muted)_10%,transparent)] hover:text-[color:var(--sn-text)]",
+                    )}
+                    onClick={() => setActive(it.id)}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    <Icon
+                      name={it.icon}
+                      className={cx(
+                        "h-5 w-5",
+                        isActive
+                          ? "text-[color:var(--sn-accent)]"
+                          : "text-[color:var(--sn-muted)] group-hover:text-[color:var(--sn-text)]",
+                      )}
+                    />
+                    <span className="leading-none">{it.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </aside>
+        );
+      }
+
+      function Button({ tone = "primary", className, ...props }) {
+        const base =
+          "sn-focus inline-flex items-center justify-center gap-2 rounded-md border px-3 py-1.5 text-[13px] font-bold transition-colors disabled:opacity-60";
+        const styles =
+          tone === "primary"
+            ? "border-[color:color-mix(in_srgb,var(--sn-accent)_70%,transparent)] bg-[color:var(--sn-accent)] text-[color:color-mix(in_srgb,var(--sn-text)_10%,white)] hover:brightness-[1.03]"
+            : tone === "ghost"
+              ? "border-[color:var(--sn-border)] bg-transparent text-[color:var(--sn-text)] hover:bg-[color:color-mix(in_srgb,var(--sn-muted)_10%,transparent)]"
+              : tone === "danger"
+                ? "border-[color:color-mix(in_srgb,var(--sn-danger)_62%,transparent)] bg-[color:color-mix(in_srgb,var(--sn-danger)_12%,transparent)] text-[color:var(--sn-danger)] hover:bg-[color:color-mix(in_srgb,var(--sn-danger)_18%,transparent)]"
+                : "border-[color:var(--sn-border)] bg-[color:var(--sn-surface)] text-[color:var(--sn-text)] hover:bg-[color:var(--sn-surface-2)]";
+        return <button className={cx(base, styles, className)} {...props} />;
+      }
+
+      function Field({ label, children }) {
+        return (
+          <div className="space-y-1">
+            <div className="text-[12px] font-bold text-[color:var(--sn-muted)]">
+              {label}
+            </div>
+            {children}
           </div>
-          <div class="collapse-content"> 
-            <p>hello sir,<br>
-              This is trusted shop if you buy any bike safely 
-            </p>
+        );
+      }
+
+      function TextInput(props) {
+        return (
+          <input
+            {...props}
+            className={cx(
+              "sn-focus h-9 w-full rounded-md border bg-[color:var(--sn-surface)] px-3 text-[13px] font-semibold",
+              "border-[color:var(--sn-border)]",
+              props.className,
+            )}
+          />
+        );
+      }
+
+      function Select(props) {
+        return (
+          <select
+            {...props}
+            className={cx(
+              "sn-focus h-9 w-full rounded-md border bg-[color:var(--sn-surface)] px-3 text-[13px] font-semibold",
+              "border-[color:var(--sn-border)]",
+              props.className,
+            )}
+          />
+        );
+      }
+
+      function TextArea(props) {
+        return (
+          <textarea
+            {...props}
+            className={cx(
+              "sn-focus w-full rounded-md border bg-[color:var(--sn-surface)] px-3 py-2 text-[13px] font-semibold",
+              "border-[color:var(--sn-border)]",
+              props.className,
+            )}
+          />
+        );
+      }
+
+      function Pagination({ page, pageSize, total, onPageChange, onPageSizeChange }) {
+        const totalPages = Math.max(1, Math.ceil(total / pageSize));
+        const safePage = clamp(page, 1, totalPages);
+        const go = (p) => onPageChange(clamp(p, 1, totalPages));
+
+        const windowPages = (() => {
+          const res = [];
+          const start = clamp(safePage - 4, 1, totalPages);
+          const end = clamp(start + 8, 1, totalPages);
+          const s = clamp(end - 8, 1, totalPages);
+          for (let i = s; i <= end; i++) res.push(i);
+          return res;
+        })();
+
+        return (
+          <div className="flex flex-wrap items-center justify-between gap-3 border-t px-3 py-2 text-[12px] font-semibold"
+            style={{ borderColor: "var(--sn-border)" }}
+          >
+            <div className="text-[color:var(--sn-muted)]">
+              Showing{" "}
+              <span className="text-[color:var(--sn-text)]">
+                {total === 0 ? 0 : (safePage - 1) * pageSize + 1}
+              </span>{" "}
+              -{" "}
+              <span className="text-[color:var(--sn-text)]">
+                {Math.min(safePage * pageSize, total)}
+              </span>{" "}
+              of{" "}
+              <span className="text-[color:var(--sn-text)]">{total}</span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <div className="hidden items-center gap-1 sm:flex">
+                <Button tone="ghost" onClick={() => go(1)} disabled={safePage === 1}>
+                  1
+                </Button>
+                <Button tone="ghost" onClick={() => go(safePage - 1)} disabled={safePage === 1}>
+                  Prev
+                </Button>
+                <div className="flex items-center gap-1">
+                  {windowPages.map((p) => (
+                    <button
+                      key={p}
+                      className={cx(
+                        "sn-focus h-8 min-w-8 rounded-md border px-2 text-[12px] font-bold",
+                        p === safePage
+                          ? "border-[color:color-mix(in_srgb,var(--sn-accent)_55%,transparent)] bg-[color:color-mix(in_srgb,var(--sn-accent)_14%,transparent)] text-[color:var(--sn-text)]"
+                          : "border-[color:var(--sn-border)] bg-transparent text-[color:var(--sn-muted)] hover:bg-[color:color-mix(in_srgb,var(--sn-muted)_10%,transparent)] hover:text-[color:var(--sn-text)]",
+                      )}
+                      onClick={() => go(p)}
+                      type="button"
+                      aria-current={p === safePage ? "page" : undefined}
+                    >
+                      {p}
+                    </button>
+                  ))}
+                </div>
+                <Button tone="ghost" onClick={() => go(safePage + 1)} disabled={safePage === totalPages}>
+                  Next
+                </Button>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <span className="text-[color:var(--sn-muted)]">Records per page</span>
+                <select
+                  className="sn-focus h-8 rounded-md border bg-[color:var(--sn-surface)] px-2 text-[12px] font-bold"
+                  style={{ borderColor: "var(--sn-border)" }}
+                  value={pageSize}
+                  onChange={(e) => onPageSizeChange(parseInt(e.target.value, 10))}
+                >
+                  {[10, 20, 50, 100].map((n) => (
+                    <option key={n} value={n}>
+                      {n}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="collapse collapse-arrow join-item border border-base-300">
-          <input type="radio" name="my-accordion-4" /> 
-          <div class="collapse-title text-xl font-medium">
-            Do you provide gurantee card with bike
+        );
+      }
+
+      function App() {
+        const [theme, setTheme] = useLocalStorageState("sn-theme", "light");
+        const [activeNav, setActiveNav] = useState("incidents");
+
+        const [incidents, setIncidents] = useState(() => makeSeedIncidents());
+        const [selectedNumber, setSelectedNumber] = useState(null);
+        const [draft, setDraft] = useState(null);
+        const [tab, setTab] = useState("Details");
+
+        const [listFilter, setListFilter] = useState("all");
+        const [stateFilter, setStateFilter] = useState("");
+        const [searchQuery, setSearchQuery] = useState("");
+        const [sortBy, setSortBy] = useState("opened");
+        const [sortDir, setSortDir] = useState("desc");
+
+        const [page, setPage] = useState(1);
+        const [pageSize, setPageSize] = useState(10);
+
+        const [contextMenu, setContextMenu] = useState(null); // { number, x, y }
+        const [deleteConfirm, setDeleteConfirm] = useState(null);
+        const [saving, setSaving] = useState(false);
+        const [deletingNumbers, setDeletingNumbers] = useState([]);
+
+        const searchRef = useRef(null);
+
+        useEffect(() => {
+          document.documentElement.setAttribute("data-theme", theme);
+          document.documentElement.classList.toggle("dark", theme === "dark");
+        }, [theme]);
+
+        useEffect(() => {
+          const onKeyDown = (e) => {
+            if (e.key !== "/") return;
+            const t = e.target;
+            const isEditable =
+              t &&
+              (t.tagName === "INPUT" ||
+                t.tagName === "TEXTAREA" ||
+                t.isContentEditable);
+            if (isEditable) return;
+            e.preventDefault();
+            searchRef.current?.focus();
+          };
+          document.addEventListener("keydown", onKeyDown);
+          return () => document.removeEventListener("keydown", onKeyDown);
+        }, []);
+
+        useEffect(() => {
+          if (!contextMenu) return undefined;
+          const close = () => setContextMenu(null);
+          const onKey = (e) => e.key === "Escape" && close();
+          document.addEventListener("click", close);
+          document.addEventListener("contextmenu", close);
+          document.addEventListener("keydown", onKey);
+          return () => {
+            document.removeEventListener("click", close);
+            document.removeEventListener("contextmenu", close);
+            document.removeEventListener("keydown", onKey);
+          };
+        }, [contextMenu]);
+
+        useEffect(() => {
+          if (deletingNumbers.length === 0) return undefined;
+          const ids = [...deletingNumbers];
+          const t = setTimeout(() => {
+            setIncidents((prev) => prev.filter((i) => !ids.includes(i.number)));
+            setDeletingNumbers([]);
+          }, 230);
+          return () => clearTimeout(t);
+        }, [deletingNumbers]);
+
+        const listFilterConfig = useMemo(
+          () => LIST_FILTERS.find((f) => f.id === listFilter) || LIST_FILTERS[0],
+          [listFilter],
+        );
+
+        const filteredSorted = useMemo(() => {
+          let list = incidents.filter(listFilterConfig.predicate);
+          if (stateFilter) list = list.filter((i) => i.state === stateFilter);
+
+          const q = searchQuery.trim().toLowerCase();
+          if (q) {
+            list = list.filter((i) => {
+              return (
+                String(i.number || "").toLowerCase().includes(q) ||
+                String(i.short_description || "").toLowerCase().includes(q) ||
+                String(i.caller || "").toLowerCase().includes(q) ||
+                String(i.assigned_to || "").toLowerCase().includes(q) ||
+                String(i.state || "").toLowerCase().includes(q)
+              );
+            });
+          }
+
+          list = [...list].sort((a, b) => {
+            const av = a[sortBy] ?? "";
+            const bv = b[sortBy] ?? "";
+            const cmp = String(av).localeCompare(String(bv), undefined, {
+              numeric: true,
+              sensitivity: "base",
+            });
+            return sortDir === "asc" ? cmp : -cmp;
+          });
+
+          return list;
+        }, [incidents, listFilterConfig, stateFilter, searchQuery, sortBy, sortDir]);
+
+        const paged = useMemo(() => {
+          const total = filteredSorted.length;
+          const totalPages = Math.max(1, Math.ceil(total / pageSize));
+          const p = clamp(page, 1, totalPages);
+          const start = (p - 1) * pageSize;
+          return {
+            list: filteredSorted.slice(start, start + pageSize),
+            total,
+            page: p,
+            totalPages,
+          };
+        }, [filteredSorted, page, pageSize]);
+
+        useEffect(() => {
+          setPage(1);
+        }, [listFilter, stateFilter, searchQuery, sortBy, sortDir, pageSize]);
+
+        const selected = useMemo(
+          () => incidents.find((i) => i.number === selectedNumber) || null,
+          [incidents, selectedNumber],
+        );
+
+        const openRecord = (inc) => {
+          setSelectedNumber(inc.number);
+          setDraft({ ...inc, description: inc.description ?? "" });
+          setTab("Details");
+        };
+
+        const newRecord = () => {
+          const number = nextIncidentId(incidents.map((i) => ({ number: i.number })));
+          const now = formatOpened(new Date());
+          setSelectedNumber(number);
+          setDraft({
+            number,
+            short_description: "",
+            description: "",
+            caller: "",
+            priority: "3",
+            state: "New",
+            category: "Inquiry/Help",
+            assigned_to: "",
+            opened: now,
+            updated: now,
+          });
+          setTab("Details");
+        };
+
+        const closeRecord = () => {
+          setSelectedNumber(null);
+          setDraft(null);
+          setTab("Details");
+        };
+
+        const updateDraft = (field, value) =>
+          setDraft((d) => (d ? { ...d, [field]: value, updated: formatOpened(new Date()) } : d));
+
+        const saveRecord = () => {
+          if (!draft || saving) return;
+          const titleOk = String(draft.short_description || "").trim().length > 0;
+          const descOk = String(draft.description || "").trim().length > 0;
+          if (!titleOk || !descOk) return;
+
+          setSaving(true);
+          setTimeout(() => {
+            setIncidents((prev) => {
+              const exists = prev.some((i) => i.number === draft.number);
+              const toSave = { ...draft };
+              if (!exists) return [toSave, ...prev];
+              return prev.map((i) => (i.number === draft.number ? toSave : i));
+            });
+            setSaving(false);
+          }, 420);
+        };
+
+        const assignToMe = () => {
+          if (!draft) return;
+          updateDraft("assigned_to", "You");
+        };
+
+        const resolve = () => {
+          if (!draft) return;
+          updateDraft("state", "Resolved");
+        };
+
+        const toggleSort = (col) => {
+          if (sortBy === col) setSortDir((d) => (d === "asc" ? "desc" : "asc"));
+          else {
+            setSortBy(col);
+            setSortDir("asc");
+          }
+        };
+
+        const onRowContextMenu = (e, inc) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const MENU_W = 190;
+          const MENU_H = 44;
+          const pad = 8;
+          const x = clamp(e.clientX, pad, window.innerWidth - MENU_W - pad);
+          const y = clamp(e.clientY, pad, window.innerHeight - MENU_H - pad);
+          setContextMenu({ number: inc.number, x, y });
+        };
+
+        const confirmDelete = (number) => {
+          setContextMenu(null);
+          setDeleteConfirm(number);
+        };
+
+        const doDelete = (number) => {
+          setDeleteConfirm(null);
+          setDeletingNumbers((prev) => (prev.includes(number) ? prev : [...prev, number]));
+          if (selectedNumber === number) closeRecord();
+        };
+
+        const sortIcon = sortDir === "asc" ? "chevronUp" : "chevronDown";
+        const ariaSort = (col) => {
+          if (sortBy !== col) return "none";
+          return sortDir === "asc" ? "ascending" : "descending";
+        };
+
+        const listCount = filteredSorted.length;
+
+        return (
+          <div className="flex min-h-screen flex-col">
+            <ChromeTop
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              theme={theme}
+              setTheme={setTheme}
+            />
+
+            <div className="flex min-h-0 flex-1">
+              <AppNavigator active={activeNav} setActive={setActiveNav} />
+
+              <div className="flex min-w-0 flex-1">
+                {/* Left list filters panel */}
+                <aside
+                  className="sn-scroll hidden w-[260px] shrink-0 border-r md:block"
+                  style={{
+                    backgroundColor: "var(--sn-surface)",
+                    borderColor: "var(--sn-border)",
+                  }}
+                >
+                  <div className="border-b px-3 py-2"
+                    style={{ borderColor: "var(--sn-border)" }}
+                  >
+                    <div className="text-[11px] font-bold text-[color:var(--sn-muted)]">
+                      Lists
+                    </div>
+                    <div className="mt-0.5 flex items-center justify-between">
+                      <div className="text-[14px] font-extrabold">Incidents</div>
+                      <span className="rounded-full border px-2 py-0.5 text-[11px] font-extrabold"
+                        style={{
+                          borderColor: "var(--sn-border)",
+                          backgroundColor: "color-mix(in srgb, var(--sn-muted) 8%, transparent)",
+                          color: "var(--sn-muted)",
+                        }}
+                      >
+                        {listCount}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="p-2">
+                    <div className="mb-2 text-[11px] font-extrabold text-[color:var(--sn-muted)]">
+                      Views
+                    </div>
+                    <div className="space-y-1">
+                      {LIST_FILTERS.map((f) => {
+                        const active = listFilter === f.id;
+                        return (
+                          <button
+                            key={f.id}
+                            type="button"
+                            className={cx(
+                              "sn-focus flex w-full items-center justify-between rounded-md border px-2 py-1.5 text-left text-[13px] font-bold",
+                              active
+                                ? "border-[color:color-mix(in_srgb,var(--sn-accent)_45%,transparent)] bg-[color:color-mix(in_srgb,var(--sn-accent)_12%,transparent)] text-[color:var(--sn-text)]"
+                                : "border-transparent text-[color:var(--sn-muted)] hover:border-[color:var(--sn-border)] hover:bg-[color:color-mix(in_srgb,var(--sn-muted)_8%,transparent)] hover:text-[color:var(--sn-text)]",
+                            )}
+                            onClick={() => setListFilter(f.id)}
+                          >
+                            <span>{f.label}</span>
+                            <span className="text-[11px] font-extrabold text-[color:var(--sn-muted)]">
+                              {incidents.filter(f.predicate).length}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </aside>
+
+                {/* List + Record split */}
+                <div className="flex min-w-0 flex-1 flex-col">
+                  {/* List header bar */}
+                  <div
+                    className="flex flex-wrap items-center justify-between gap-2 border-b px-3 py-2"
+                    style={{
+                      backgroundColor: "var(--sn-surface)",
+                      borderColor: "var(--sn-border)",
+                    }}
+                  >
+                    <div className="min-w-[260px]">
+                      <div className="text-[11px] font-extrabold text-[color:var(--sn-muted)]">
+                        My Lists
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="text-[16px] font-extrabold">Incidents</div>
+                        <span
+                          className="rounded-full border px-2 py-0.5 text-[11px] font-extrabold"
+                          style={{
+                            borderColor: "var(--sn-border)",
+                            backgroundColor:
+                              "color-mix(in srgb, var(--sn-muted) 8%, transparent)",
+                            color: "var(--sn-muted)",
+                          }}
+                        >
+                          {listCount}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-2">
+                      <div className="hidden items-center gap-2 sm:flex">
+                        <span className="text-[12px] font-extrabold text-[color:var(--sn-muted)]">
+                          State
+                        </span>
+                        <select
+                          className="sn-focus h-9 rounded-md border bg-[color:var(--sn-surface)] px-2 text-[13px] font-bold"
+                          style={{ borderColor: "var(--sn-border)" }}
+                          value={stateFilter}
+                          onChange={(e) => setStateFilter(e.target.value)}
+                        >
+                          <option value="">All</option>
+                          {STATES.map((s) => (
+                            <option key={s} value={s}>
+                              {s}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <Button tone="ghost" onClick={() => { setStateFilter(""); setSearchQuery(""); setListFilter("all"); }}>
+                        Clear
+                      </Button>
+                      <Button tone="ghost" onClick={() => setSearchQuery("")}>
+                        <Icon name="refresh" className="h-4 w-4" />
+                        Refresh
+                      </Button>
+                      <Button tone="primary" onClick={newRecord}>
+                        <Icon name="plus" className="h-4 w-4" />
+                        New
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className="flex min-h-0 min-w-0 flex-1">
+                    {/* List table */}
+                    <section className="sn-scroll min-w-0 flex-1 overflow-auto"
+                      style={{ backgroundColor: "var(--sn-bg)" }}
+                    >
+                      <div className="p-3">
+                        <div
+                          className="overflow-hidden rounded-lg border shadow-surface"
+                          style={{
+                            borderColor: "var(--sn-border)",
+                            backgroundColor: "var(--sn-surface)",
+                          }}
+                        >
+                          <div className="overflow-x-auto">
+                            <table className="w-full text-[13px]">
+                              <thead className="sticky top-0 z-10">
+                                <tr
+                                  className="border-b"
+                                  style={{
+                                    backgroundColor: "var(--sn-surface-2)",
+                                    borderColor: "var(--sn-border)",
+                                  }}
+                                >
+                                  <th className="w-10 px-2 py-2">
+                                    <input
+                                      type="checkbox"
+                                      className="sn-focus h-4 w-4 rounded border"
+                                      style={{ borderColor: "var(--sn-border)" }}
+                                      aria-label="Select all (demo)"
+                                      onChange={() => {}}
+                                    />
+                                  </th>
+                                  <th
+                                    className="cursor-pointer px-3 py-2 text-left text-[11px] font-extrabold uppercase tracking-wide text-[color:var(--sn-muted)] hover:bg-[color:color-mix(in_srgb,var(--sn-accent)_8%,transparent)]"
+                                    onClick={() => toggleSort("number")}
+                                    aria-sort={ariaSort("number")}
+                                  >
+                                    <span className="inline-flex items-center gap-1">
+                                      Number
+                                      {sortBy === "number" ? (
+                                        <Icon name={sortIcon} className="h-4 w-4 text-[color:var(--sn-muted)]" />
+                                      ) : null}
+                                    </span>
+                                  </th>
+                                  <th className="px-3 py-2 text-left text-[11px] font-extrabold uppercase tracking-wide text-[color:var(--sn-muted)]">
+                                    Short description
+                                  </th>
+                                  <th
+                                    className="cursor-pointer px-3 py-2 text-left text-[11px] font-extrabold uppercase tracking-wide text-[color:var(--sn-muted)] hover:bg-[color:color-mix(in_srgb,var(--sn-accent)_8%,transparent)]"
+                                    onClick={() => toggleSort("caller")}
+                                    aria-sort={ariaSort("caller")}
+                                  >
+                                    <span className="inline-flex items-center gap-1">
+                                      Caller
+                                      {sortBy === "caller" ? (
+                                        <Icon name={sortIcon} className="h-4 w-4 text-[color:var(--sn-muted)]" />
+                                      ) : null}
+                                    </span>
+                                  </th>
+                                  <th
+                                    className="cursor-pointer px-3 py-2 text-left text-[11px] font-extrabold uppercase tracking-wide text-[color:var(--sn-muted)] hover:bg-[color:color-mix(in_srgb,var(--sn-accent)_8%,transparent)]"
+                                    onClick={() => toggleSort("priority")}
+                                    aria-sort={ariaSort("priority")}
+                                  >
+                                    <span className="inline-flex items-center gap-1">
+                                      Priority
+                                      {sortBy === "priority" ? (
+                                        <Icon name={sortIcon} className="h-4 w-4 text-[color:var(--sn-muted)]" />
+                                      ) : null}
+                                    </span>
+                                  </th>
+                                  <th
+                                    className="cursor-pointer px-3 py-2 text-left text-[11px] font-extrabold uppercase tracking-wide text-[color:var(--sn-muted)] hover:bg-[color:color-mix(in_srgb,var(--sn-accent)_8%,transparent)]"
+                                    onClick={() => toggleSort("state")}
+                                    aria-sort={ariaSort("state")}
+                                  >
+                                    <span className="inline-flex items-center gap-1">
+                                      State
+                                      {sortBy === "state" ? (
+                                        <Icon name={sortIcon} className="h-4 w-4 text-[color:var(--sn-muted)]" />
+                                      ) : null}
+                                    </span>
+                                  </th>
+                                  <th className="px-3 py-2 text-left text-[11px] font-extrabold uppercase tracking-wide text-[color:var(--sn-muted)]">
+                                    Assigned to
+                                  </th>
+                                  <th
+                                    className="cursor-pointer px-3 py-2 text-left text-[11px] font-extrabold uppercase tracking-wide text-[color:var(--sn-muted)] hover:bg-[color:color-mix(in_srgb,var(--sn-accent)_8%,transparent)]"
+                                    onClick={() => toggleSort("opened")}
+                                    aria-sort={ariaSort("opened")}
+                                  >
+                                    <span className="inline-flex items-center gap-1">
+                                      Opened
+                                      {sortBy === "opened" ? (
+                                        <Icon name={sortIcon} className="h-4 w-4 text-[color:var(--sn-muted)]" />
+                                      ) : null}
+                                    </span>
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {paged.list.map((inc) => {
+                                  const isDeleting = deletingNumbers.includes(inc.number);
+                                  const isSelected = inc.number === selectedNumber;
+                                  const st = STATE_PILL[inc.state] || STATE_PILL.New;
+                                  const pr = PRIORITY_PILL[inc.priority] || PRIORITY_PILL[3];
+                                  return (
+                                    <tr
+                                      key={inc.number}
+                                      className={cx(
+                                        "border-b transition-colors",
+                                        isSelected ? "bg-[color:var(--sn-row-selected)]" : "",
+                                        !isSelected
+                                          ? "hover:bg-[color:var(--sn-row-hover)]"
+                                          : "",
+                                        isDeleting ? "opacity-0 -translate-x-2 pointer-events-none" : "",
+                                      )}
+                                      style={{ borderColor: "var(--sn-border)" }}
+                                      onClick={() => !isDeleting && openRecord(inc)}
+                                      onContextMenu={(e) => !isDeleting && onRowContextMenu(e, inc)}
+                                    >
+                                      <td className="px-2 py-2">
+                                        <input
+                                          type="checkbox"
+                                          className="sn-focus h-4 w-4 rounded border"
+                                          style={{ borderColor: "var(--sn-border)" }}
+                                          aria-label={`Select ${inc.number} (demo)`}
+                                          onChange={() => {}}
+                                          onClick={(e) => e.stopPropagation()}
+                                        />
+                                      </td>
+                                      <td className="px-3 py-2 font-extrabold text-[color:color-mix(in_srgb,var(--sn-accent)_92%,var(--sn-text))]">
+                                        {inc.number}
+                                      </td>
+                                      <td className="max-w-[420px] truncate px-3 py-2 font-semibold">
+                                        {inc.short_description}
+                                      </td>
+                                      <td className="px-3 py-2 font-semibold text-[color:var(--sn-muted)]">
+                                        {inc.caller || "—"}
+                                      </td>
+                                      <td className="px-3 py-2">
+                                        <Pill label={pr.label} tone={pr.tone} />
+                                      </td>
+                                      <td className="px-3 py-2">
+                                        <Pill label={st.label} tone={st.tone} />
+                                      </td>
+                                      <td className="px-3 py-2 font-semibold text-[color:var(--sn-muted)]">
+                                        {inc.assigned_to || "—"}
+                                      </td>
+                                      <td className="whitespace-nowrap px-3 py-2 font-semibold text-[color:var(--sn-muted)]">
+                                        {inc.opened}
+                                      </td>
+                                    </tr>
+                                  );
+                                })}
+                                {paged.list.length === 0 && (
+                                  <tr>
+                                    <td colSpan={8} className="px-3 py-10 text-center text-[13px] font-semibold text-[color:var(--sn-muted)]">
+                                      No incidents match your filters.
+                                    </td>
+                                  </tr>
+                                )}
+                              </tbody>
+                            </table>
+                          </div>
+
+                          <Pagination
+                            page={paged.page}
+                            pageSize={pageSize}
+                            total={paged.total}
+                            onPageChange={setPage}
+                            onPageSizeChange={(n) => { setPageSize(n); setPage(1); }}
+                          />
+                        </div>
+                      </div>
+                    </section>
+
+                    {/* Record panel */}
+                    <aside
+                      className={cx(
+                        "sn-scroll w-full max-w-[520px] shrink-0 overflow-auto border-l",
+                        draft ? "" : "hidden lg:block",
+                      )}
+                      style={{
+                        backgroundColor: "var(--sn-surface)",
+                        borderColor: "var(--sn-border)",
+                      }}
+                      aria-label="Record panel"
+                    >
+                      <div className="border-b px-3 py-2"
+                        style={{ borderColor: "var(--sn-border)" }}
+                      >
+                        <div className="flex items-start justify-between gap-2">
+                          <div>
+                            <div className="text-[11px] font-extrabold text-[color:var(--sn-muted)]">
+                              Incident
+                            </div>
+                            <div className="mt-0.5 text-[16px] font-extrabold">
+                              {draft ? draft.number : "Select a record"}
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Button tone="ghost" onClick={closeRecord} disabled={!draft}>
+                              <Icon name="x" className="h-4 w-4" />
+                              Close
+                            </Button>
+                          </div>
+                        </div>
+
+                        {draft && (
+                          <div className="mt-2 flex flex-wrap items-center justify-between gap-2">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <Button tone="ghost" onClick={assignToMe}>
+                                Assign to me
+                              </Button>
+                              <Button tone="ghost" onClick={resolve}>
+                                Resolve
+                              </Button>
+                              <Button tone="primary" onClick={saveRecord} disabled={saving}>
+                                {saving ? "Saving…" : "Save"}
+                              </Button>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <button
+                                type="button"
+                                className="sn-focus inline-flex h-9 items-center justify-center rounded-md border px-2 text-[12px] font-extrabold text-[color:var(--sn-muted)] hover:bg-[color:color-mix(in_srgb,var(--sn-muted)_10%,transparent)]"
+                                style={{ borderColor: "var(--sn-border)" }}
+                                onClick={() => draft?.number && confirmDelete(draft.number)}
+                                disabled={!draft}
+                                title="Delete"
+                              >
+                                <Icon name="trash" className="h-4 w-4 text-[color:var(--sn-danger)]" />
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="border-b px-3 py-2"
+                        style={{ borderColor: "var(--sn-border)" }}
+                      >
+                        <div className="flex flex-wrap items-center gap-2">
+                          {["Details", "Work Orders", "SLAs", "Tasks", "Interactions", "Emails", "Task skills"].map((t) => (
+                            <button
+                              key={t}
+                              type="button"
+                              className={cx(
+                                "sn-focus rounded-md px-3 py-1.5 text-[13px] font-extrabold",
+                                tab === t
+                                  ? "bg-[color:color-mix(in_srgb,var(--sn-accent)_12%,transparent)] text-[color:var(--sn-text)]"
+                                  : "text-[color:var(--sn-muted)] hover:bg-[color:color-mix(in_srgb,var(--sn-muted)_10%,transparent)] hover:text-[color:var(--sn-text)]",
+                              )}
+                              onClick={() => setTab(t)}
+                              disabled={!draft}
+                            >
+                              {t}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="p-3">
+                        {!draft ? (
+                          <div className="rounded-lg border p-4 text-[13px] font-semibold text-[color:var(--sn-muted)]"
+                            style={{ borderColor: "var(--sn-border)" }}
+                          >
+                            Click an incident row to open it here.
+                          </div>
+                        ) : tab !== "Details" ? (
+                          <div className="rounded-lg border p-4 text-[13px] font-semibold text-[color:var(--sn-muted)]"
+                            style={{ borderColor: "var(--sn-border)" }}
+                          >
+                            {tab} is available in the full ServiceNow experience. This demo implements the Details tab.
+                          </div>
+                        ) : (
+                          <div className="space-y-4">
+                            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                              <Field label="Number">
+                                <TextInput value={draft.number} readOnly className="bg-[color:color-mix(in_srgb,var(--sn-muted)_10%,transparent)] text-[color:var(--sn-muted)] cursor-not-allowed" />
+                              </Field>
+
+                              <Field label="Opened">
+                                <TextInput value={draft.opened} readOnly className="bg-[color:color-mix(in_srgb,var(--sn-muted)_10%,transparent)] text-[color:var(--sn-muted)]" />
+                              </Field>
+
+                              <Field label="Caller">
+                                <TextInput
+                                  value={draft.caller || ""}
+                                  onChange={(e) => updateDraft("caller", e.target.value)}
+                                  placeholder="Caller"
+                                />
+                              </Field>
+
+                              <Field label="Category">
+                                <TextInput
+                                  value={draft.category || ""}
+                                  onChange={(e) => updateDraft("category", e.target.value)}
+                                  placeholder="Category"
+                                />
+                              </Field>
+
+                              <Field label="Priority">
+                                <Select
+                                  value={draft.priority}
+                                  onChange={(e) => updateDraft("priority", e.target.value)}
+                                >
+                                  {PRIORITIES.map((p) => (
+                                    <option key={p.value} value={p.value}>
+                                      {p.label}
+                                    </option>
+                                  ))}
+                                </Select>
+                              </Field>
+
+                              <Field label="State">
+                                <Select
+                                  value={draft.state}
+                                  onChange={(e) => updateDraft("state", e.target.value)}
+                                >
+                                  {STATES.map((s) => (
+                                    <option key={s} value={s}>
+                                      {s}
+                                    </option>
+                                  ))}
+                                </Select>
+                              </Field>
+
+                              <Field label="Assigned to">
+                                <TextInput
+                                  value={draft.assigned_to || ""}
+                                  onChange={(e) => updateDraft("assigned_to", e.target.value)}
+                                  placeholder="Assigned to"
+                                />
+                              </Field>
+
+                              <Field label="Updated">
+                                <TextInput value={draft.updated} readOnly className="bg-[color:color-mix(in_srgb,var(--sn-muted)_10%,transparent)] text-[color:var(--sn-muted)]" />
+                              </Field>
+                            </div>
+
+                            <Field label="Short description (required)">
+                              <TextInput
+                                value={draft.short_description}
+                                onChange={(e) => updateDraft("short_description", e.target.value)}
+                                placeholder="Short description"
+                              />
+                            </Field>
+
+                            <Field label="Description (required)">
+                              <TextArea
+                                rows={6}
+                                value={draft.description || ""}
+                                onChange={(e) => updateDraft("description", e.target.value)}
+                                placeholder="Describe the issue, steps to reproduce, impact…"
+                              />
+                            </Field>
+
+                            {String(draft.short_description || "").trim().length === 0 ||
+                            String(draft.description || "").trim().length === 0 ? (
+                              <div className="rounded-lg border p-3 text-[12px] font-semibold"
+                                style={{
+                                  borderColor: "color-mix(in srgb, var(--sn-warning) 42%, transparent)",
+                                  backgroundColor: "color-mix(in srgb, var(--sn-warning) 10%, transparent)",
+                                  color: "color-mix(in srgb, var(--sn-warning) 92%, var(--sn-text))",
+                                }}
+                              >
+                                Title and Description are required to Save.
+                              </div>
+                            ) : null}
+                          </div>
+                        )}
+                      </div>
+                    </aside>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Context menu */}
+            {contextMenu && (
+              <div
+                className="fixed z-[70] min-w-[180px] rounded-md border bg-[color:var(--sn-surface)] py-1 shadow-flyout"
+                style={{ left: contextMenu.x, top: contextMenu.y, borderColor: "var(--sn-border)" }}
+                role="menu"
+                aria-label="Row actions"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  type="button"
+                  className="sn-focus flex w-full items-center gap-2 px-3 py-2 text-left text-[13px] font-bold text-[color:var(--sn-danger)] hover:bg-[color:color-mix(in_srgb,var(--sn-danger)_10%,transparent)]"
+                  role="menuitem"
+                  onClick={() => confirmDelete(contextMenu.number)}
+                >
+                  <Icon name="trash" className="h-4 w-4" />
+                  Delete
+                </button>
+              </div>
+            )}
+
+            {/* Delete modal */}
+            {deleteConfirm && (
+              <>
+                <div
+                  className="fixed inset-0 z-[80] bg-black/50"
+                  onClick={() => setDeleteConfirm(null)}
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Close delete confirmation"
+                />
+                <div
+                  className="fixed left-1/2 top-1/2 z-[81] w-[92vw] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-xl border p-5 shadow-flyout"
+                  style={{
+                    backgroundColor: "var(--sn-surface)",
+                    borderColor: "var(--sn-border)",
+                  }}
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="delete-title"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="flex items-start gap-3">
+                    <div
+                      className="mt-0.5 flex h-9 w-9 items-center justify-center rounded-full border"
+                      style={{
+                        borderColor: "color-mix(in srgb, var(--sn-danger) 40%, transparent)",
+                        backgroundColor: "color-mix(in srgb, var(--sn-danger) 10%, transparent)",
+                        color: "var(--sn-danger)",
+                      }}
+                      aria-hidden
+                    >
+                      <Icon name="trash" className="h-5 w-5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div id="delete-title" className="text-[16px] font-extrabold">
+                        Delete incident?
+                      </div>
+                      <div className="mt-1 text-[13px] font-semibold text-[color:var(--sn-muted)]">
+                        Incident <span className="font-extrabold text-[color:var(--sn-text)]">{deleteConfirm}</span>{" "}
+                        will be permanently removed.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 flex justify-end gap-2">
+                    <Button tone="ghost" onClick={() => setDeleteConfirm(null)}>
+                      Cancel
+                    </Button>
+                    <Button tone="danger" onClick={() => doDelete(deleteConfirm)}>
+                      <Icon name="trash" className="h-4 w-4" />
+                      Delete
+                    </Button>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
-          <div class="collapse-content"> 
-            <p>Yes sir, we provide safe card</p>
-          </div>
-        </div>
-        <div class="collapse collapse-arrow join-item border border-base-300">
-          <input type="radio" name="my-accordion-4" /> 
-          <div class="collapse-title text-xl font-medium">
-          What's your shop location
-          </div>
-          <div class="collapse-content"> 
-            <p>Our shop located uttara sector-10</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-    </main>
-    <footer>
-      <footer class="footer p-10 bg-neutral text-neutral-content h-[400px] mt-20">
-        <aside>
-          <svg width="50" height="50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" class="fill-current"><path d="M22.672 15.226l-2.432.811.841 2.515c.33 1.019-.209 2.127-1.23 2.456-1.15.325-2.148-.321-2.463-1.226l-.84-2.518-5.013 1.677.84 2.517c.391 1.203-.434 2.542-1.831 2.542-.88 0-1.601-.564-1.86-1.314l-.842-2.516-2.431.809c-1.135.328-2.145-.317-2.463-1.229-.329-1.018.211-2.127 1.231-2.456l2.432-.809-1.621-4.823-2.432.808c-1.355.384-2.558-.59-2.558-1.839 0-.817.509-1.582 1.327-1.846l2.433-.809-.842-2.515c-.33-1.02.211-2.129 1.232-2.458 1.02-.329 2.13.209 2.461 1.229l.842 2.515 5.011-1.677-.839-2.517c-.403-1.238.484-2.553 1.843-2.553.819 0 1.585.509 1.85 1.326l.841 2.517 2.431-.81c1.02-.33 2.131.211 2.461 1.229.332 1.018-.21 2.126-1.23 2.456l-2.433.809 1.622 4.823 2.433-.809c1.242-.401 2.557.484 2.557 1.838 0 .819-.51 1.583-1.328 1.847m-8.992-6.428l-5.01 1.675 1.619 4.828 5.011-1.674-1.62-4.829z"></path></svg>
-          <p>ACME Industries Ltd.<br/>Providing reliable tech since 1992</p>
-        </aside> 
-        <nav>
-          <header class="footer-title">Get The App</header> 
-          <div class="grid grid-cols-1 gap-5">
-           <a><img class="w-[140px]" src="./images/others/android.png" alt=""></a>
-           <a><img class="w-[140px]" src="./images/others/ios.png" alt=""></a>
-          
-          </div>
-        </nav>
-      </footer>
-    </footer>
-</body>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<App />);
+    </script>
+  </body>
 </html>
+
