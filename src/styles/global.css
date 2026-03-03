@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-default: #ffffff;
+  --text-default: #0f172a; /* slate-900 */
+  --text-muted: #475569; /* slate-600 */
+
+  /* Bina-ish palette */
+  --primary: #2dd4bf; /* teal-400 */
+  --primary-dark: #0f766e; /* teal-700 */
+  --primary-light: #99f6e4; /* teal-200 */
+  --secondary-dark: #0b1220; /* deep */
+  --grey-dark: #94a3b8; /* slate-400 */
+
+  --button-primary: #2dd4bf;
+  --shadow-default: 0 8px 30px rgba(2, 6, 23, 0.12);
+}
+
+[data-theme="dark"] {
+  --bg-default: #0b1220;
+  --text-default: #e2e8f0;
+  --text-muted: #94a3b8;
+
+  --primary: rgba(45, 212, 191, 0.9);
+  --primary-dark: #2dd4bf;
+  --primary-light: rgba(45, 212, 191, 0.35);
+  --secondary-dark: #050814;
+  --grey-dark: rgba(148, 163, 184, 0.7);
+
+  --button-primary: #2dd4bf;
+  --shadow-default: 0 10px 40px rgba(0, 0, 0, 0.35);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+    Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
