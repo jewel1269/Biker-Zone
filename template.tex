@@ -1,4 +1,4 @@
-\documentclass[letterpaper,10.5pt]{article}
+\documentclass[letterpaper,11pt]{article}
 
 % -----------------------------------------------------------
 % PACKAGES
@@ -27,18 +27,19 @@
 \setlength{\parindent}{0pt}
 \setlength{\tabcolsep}{0pt}
 \raggedright
+\linespread{1.03}
 \urlstyle{same}
 
 % -----------------------------------------------------------
 % SECTION FORMATTING
 % -----------------------------------------------------------
 \titleformat{\section}
-  {\fontsize{10pt}{11pt}\bfseries\uppercase}
+  {\fontsize{11pt}{13pt}\selectfont\bfseries\uppercase}
   {}
   {0em}
   {}
 
-\titlespacing{\section}{0pt}{10pt}{5pt}
+\titlespacing{\section}{0pt}{11pt}{6pt}
 
 % -----------------------------------------------------------
 % CUSTOM COMMANDS
@@ -46,29 +47,29 @@
 \newcommand{\resumeSubheading}[4]{%
   \vspace{2pt}
   \begin{tabularx}{\linewidth}{@{}X r@{}}
-    \textbf{#1} & \textbf{\small #2} \\
-    \textit{\small #3} & \textit{\small #4}
+    \textbf{#1} & \textbf{#2} \\
+    \textit{#3} & \textit{#4}
   \end{tabularx}
   \vspace{1pt}
 }
 
 \newcommand{\resumeItem}[1]{%
-  \item \small{#1}
+  \item #1
 }
 
 \newcommand{\projectHeading}[2]{%
   \vspace{2pt}
   \begin{tabularx}{\linewidth}{@{}X r@{}}
-    \textbf{\small #1} & \textbf{\small #2}
+    \textbf{#1} & \textbf{#2}
   \end{tabularx}
 }
 
 \newcommand{\skillRow}[2]{%
-  \item \small{\textbf{#1:} #2}
+  \item \textbf{#1:} #2
 }
 
 \newenvironment{resumeItemList}{%
-  \begin{itemize}[leftmargin=0.18in, label=\textbullet, itemsep=1pt, topsep=2pt, parsep=0pt]
+  \begin{itemize}[leftmargin=0.18in, label=\textbullet, itemsep=2pt, topsep=2pt, parsep=0pt]
 }{%
   \end{itemize}
 }
@@ -82,9 +83,8 @@
 % HEADER
 % -----------------------------------------------------------
 \begin{center}
-  {\fontsize{22pt}{24pt}\selectfont\bfseries Jewel Mia}\\[4pt]
-  {\fontsize{11pt}{13pt}\selectfont Full Stack Software Engineer}\\[6pt]
-  \small
+  {\fontsize{24pt}{26pt}\selectfont\bfseries Jewel Mia}\\[4pt]
+  {\fontsize{12pt}{14pt}\selectfont Software Engineer}\\[6pt]
   \href{tel:+8801684321082}{+880 1684-321082}
   \enspace\textbar\enspace
   \href{mailto:jewelmia.dev@gmail.com}{jewelmia.dev@gmail.com}
@@ -101,7 +101,6 @@
 % PROFESSIONAL SUMMARY
 % -----------------------------------------------------------
 \section{Professional Summary}
-\small
 Results-driven \textbf{Full Stack Software Engineer} with over 4 years of experience building scalable web platforms and enterprise systems. Strong expertise in \textbf{TypeScript}, \textbf{Node.js}, and \textbf{Next.js}, with a proven track record of delivering Learning Management Systems, ERP solutions, and E-commerce products. Experienced in AI/LLM integration, backend performance optimization, and cross-functional engineering collaboration.
 
 % -----------------------------------------------------------
@@ -173,6 +172,7 @@ Results-driven \textbf{Full Stack Software Engineer} with over 4 years of experi
 \projectHeading{Ekomart -- Grocery E-Commerce Platform}{TypeScript | TanStack Query | REST API | Node.js}
 \begin{resumeItemList}
   \resumeItem{Architected a high-performance e-commerce platform with real-time inventory sync, dynamic catalog management, and advanced filtering.}
+  \resumeItem{Built a streamlined checkout and order lifecycle workflow that improved purchase completion and reduced manual operations for administrators.}
 \end{resumeItemList}
 
 % -----------------------------------------------------------
@@ -193,9 +193,9 @@ Results-driven \textbf{Full Stack Software Engineer} with over 4 years of experi
 % -----------------------------------------------------------
 \section{Achievements \& Languages}
 \begin{itemize}[leftmargin=0.18in, itemsep=2pt, topsep=2pt]
-  \item \small{\textbf{Champion} -- Intra-University Programming Contest, IUBAT.}
-  \item \small{\textbf{Competitive Programming} -- Solved \textbf{500+ algorithmic problems} on LeetCode and Codeforces.}
-  \item \small{\textbf{Languages} -- Bangla (Native), English (Professional Working Proficiency).}
+  \item \textbf{Champion} -- Intra-University Programming Contest, IUBAT.
+  \item \textbf{Competitive Programming} -- Solved \textbf{500+ algorithmic problems} on LeetCode and Codeforces.
+  \item \textbf{Languages} -- Bangla (Native), English (Professional Working Proficiency).
 \end{itemize}
 
 \end{document}
