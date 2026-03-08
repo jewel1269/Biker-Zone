@@ -30,12 +30,13 @@
 \raggedright
 \linespread{1.02}
 \urlstyle{same}
+\newcommand{\semibold}[1]{{\fontseries{sb}\selectfont #1}}
 
 % -----------------------------------------------------------
 % SECTION FORMATTING
 % -----------------------------------------------------------
 \titleformat{\section}
-  {\fontsize{12.5pt}{14.5pt}\selectfont\bfseries}
+  {\fontsize{12pt}{14pt}\selectfont\fontseries{sb}\selectfont}
   {}
   {0em}
   {}
@@ -48,7 +49,7 @@
 \newcommand{\resumeSubheading}[4]{%
   \vspace{2pt}
   \begin{tabularx}{\linewidth}{@{}X r@{}}
-    \textbf{#1} & \textbf{\normalsize #2} \\
+    \semibold{#1} & \semibold{\normalsize #2} \\
     \textit{\normalsize #3} & \textit{\normalsize #4}
   \end{tabularx}
   \vspace{1pt}
@@ -61,12 +62,12 @@
 \newcommand{\projectHeading}[2]{%
   \vspace{2pt}
   \begin{tabularx}{\linewidth}{@{}X r@{}}
-    \textbf{#1} & \textbf{\normalsize #2}
+    \semibold{#1} & \semibold{\normalsize #2}
   \end{tabularx}
 }
 
 \newcommand{\skillRow}[2]{%
-  \item \textbf{#1:} #2
+  \item \semibold{#1:} #2
 }
 
 \newenvironment{resumeItemList}{%
@@ -84,25 +85,25 @@
 % HEADER
 % -----------------------------------------------------------
 \begin{center}
-  {\fontsize{26pt}{28pt}\selectfont\bfseries Jewel Mia}\\[4pt]
-  {\fontsize{13.5pt}{15.5pt}\selectfont Full Stack Software Engineer}\\[5pt]
-  \textbf{Phone:} \href{tel:+8801684321082}{+880 1684-321082}
+  {\fontsize{24pt}{26pt}\selectfont\fontseries{sb}\selectfont Jewel Mia}\\[4pt]
+  {\fontsize{13pt}{15pt}\selectfont\fontseries{sb}\selectfont Software Engineer}\\[5pt]
+  \semibold{Phone:} \href{tel:+8801684321082}{+880 1684-321082}
   \enspace\textbar\enspace
-  \textbf{Email:} \href{mailto:jewelmia.dev@gmail.com}{jewelmia.dev@gmail.com}
+  \semibold{Email:} \href{mailto:jewelmia.dev@gmail.com}{jewelmia.dev@gmail.com}
   \enspace\textbar\enspace
-  \textbf{Location:} Dhaka, Bangladesh\\[2pt]
-  \textbf{LinkedIn:} \textbf{\href{https://www.linkedin.com/in/jewel-mia/}{linkedin.com/in/jewel-mia}}
+  \semibold{Location:} Dhaka, Bangladesh\\[2pt]
+  \semibold{LinkedIn:} \href{https://www.linkedin.com/in/jewel-mia/}{linkedin.com/in/jewel-mia}
   \enspace\textbar\enspace
-  \textbf{GitHub:} \textbf{\href{https://github.com/jewel1269}{github.com/jewel1269}}
+  \semibold{GitHub:} \href{https://github.com/jewel1269}{github.com/jewel1269}
   \enspace\textbar\enspace
-  \textbf{Portfolio:} \textbf{\href{https://www.learnwithjewel.xyz/}{learnwithjewel.xyz}}
+  \semibold{Portfolio:} \href{https://www.learnwithjewel.xyz/}{learnwithjewel.xyz}
 \end{center}
 
 % -----------------------------------------------------------
 % PROFESSIONAL SUMMARY
 % -----------------------------------------------------------
 \section{Professional Summary}
-Results-driven \textbf{Full Stack Software Engineer} with over 4 years of experience building scalable web platforms and enterprise systems. Strong expertise in \textbf{TypeScript}, \textbf{Node.js}, and \textbf{Next.js}, with a proven track record of delivering Learning Management Systems, ERP solutions, and E-commerce products. Experienced in AI/LLM integration, backend performance optimization, and cross-functional engineering collaboration.
+Professional software engineer focused on building reliable digital products that solve real business problems. Known for strong ownership, clear communication, and consistent delivery in cross-functional teams. Brings a quality-first mindset, turning complex requirements into clean and maintainable solutions.
 
 % -----------------------------------------------------------
 % PROFESSIONAL EXPERIENCE
@@ -150,13 +151,14 @@ Results-driven \textbf{Full Stack Software Engineer} with over 4 years of experi
 % CORE TECHNICAL SKILLS
 % -----------------------------------------------------------
 \section{Core Technical Skills}
-\begin{itemize}[label={}, leftmargin=0in, itemsep=1pt, topsep=1pt]
-  \skillRow{Languages}{JavaScript (ES6+), TypeScript, Python, C++, Dart, SQL, HTML5, CSS3}
-  \skillRow{Frontend}{React.js, Next.js (App Router), Tailwind CSS, Shadcn UI, Redux Toolkit, Zustand}
-  \skillRow{Backend}{Node.js, Express.js, NestJS, REST APIs, GraphQL, Microservices, Prisma, Mongoose}
-  \skillRow{Mobile}{React Native, Flutter}
+\begin{itemize}[label={}, leftmargin=0in, itemsep=0pt, topsep=0pt]
+  \skillRow{Languages}{JavaScript, TypeScript, Dart, Python, C++}
+  \skillRow{Frontend}{React.js, Next.js, TanStack Query, Tailwind CSS, Shadcn UI, Redux Toolkit, Zustand}
+  \skillRow{Backend}{Node.js, Express.js, Nest.js, Prisma, Mongoose, Microservices}
+  \skillRow{Mobile}{Flutter}
   \skillRow{Databases}{PostgreSQL, MongoDB, Redis}
   \skillRow{DevOps \& Tools}{AWS (EC2, S3), Docker, Git, Firebase, Postman, CI/CD, n8n, Zapier}
+  \skillRow{Development Practices}{Agile, CI/CD, Clean Architecture}
 \end{itemize}
 
 % -----------------------------------------------------------
@@ -164,13 +166,13 @@ Results-driven \textbf{Full Stack Software Engineer} with over 4 years of experi
 % -----------------------------------------------------------
 \section{Project Experience}
 
-\projectHeading{Learning Management System (LMS)}{Next.js | Node.js | MongoDB | Stripe}
+\projectHeading{Learning Management System (LMS)}{TS | Next.js | Express.js | MongoDB}
 \begin{resumeItemList}
   \resumeItem{Engineered a full-featured LMS platform with live-class streaming, assignment workflows, and Stripe payment integration.}
   \resumeItem{Implemented a secure custom video playback system with anti-distribution controls.}
 \end{resumeItemList}
 
-\projectHeading{Ekomart -- Grocery E-Commerce Platform}{TypeScript | TanStack Query | REST API | Node.js}
+\projectHeading{Ophelia Go -- E-Commerce Platform}{TS | Next.js | Nest.js | PostgreSQL}
 \begin{resumeItemList}
   \resumeItem{Architected a high-performance e-commerce platform with real-time inventory sync, dynamic catalog management, and advanced filtering.}
   \resumeItem{Built a streamlined checkout and order lifecycle workflow that improved purchase completion and reduced manual operations for administrators.}
@@ -182,7 +184,7 @@ Results-driven \textbf{Full Stack Software Engineer} with over 4 years of experi
 \section{Education}
 
 \resumeSubheading
-  {International University of Business Agriculture and Technology (IUBAT)}{2022 -- 2026 (Expected)}
+  {International University of Business Agriculture and Technology}{2022 -- 2026}
   {Bachelor of Science in Computer Science \& Engineering}{Dhaka, Bangladesh}
 
 \resumeSubheading
@@ -194,9 +196,8 @@ Results-driven \textbf{Full Stack Software Engineer} with over 4 years of experi
 % -----------------------------------------------------------
 \section{Achievements \& Languages}
 \begin{itemize}[leftmargin=0.18in, itemsep=1pt, topsep=1pt]
-  \item \textbf{Champion} -- Intra-University Programming Contest, IUBAT.
-  \item \textbf{Competitive Programming} -- Solved \textbf{500+ algorithmic problems} on LeetCode and Codeforces.
-  \item \textbf{Languages} -- Bangla (Native), English (Professional Working Proficiency).
+  \item \semibold{Champion} -- Intra-University Programming Contest, IUBAT.
+  \item \semibold{Languages} -- Bangla (Native), English.
 \end{itemize}
 
 \end{document}
