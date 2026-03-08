@@ -1,0 +1,203 @@
+\documentclass[letterpaper,12pt]{article}
+
+% -----------------------------------------------------------
+% PACKAGES
+% -----------------------------------------------------------
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tabularx}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{microtype}
+
+% -----------------------------------------------------------
+% PAGE GEOMETRY
+% -----------------------------------------------------------
+\geometry{
+  top=0.5in,
+  bottom=0.5in,
+  left=0.55in,
+  right=0.55in
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1pt}
+\setlength{\tabcolsep}{0pt}
+\raggedright
+\linespread{1.02}
+\urlstyle{same}
+\newcommand{\semibold}[1]{{\fontseries{sb}\selectfont #1}}
+
+% -----------------------------------------------------------
+% SECTION FORMATTING
+% -----------------------------------------------------------
+\titleformat{\section}
+  {\fontsize{12pt}{14pt}\selectfont\fontseries{sb}\selectfont}
+  {}
+  {0em}
+  {}
+
+\titlespacing{\section}{0pt}{9pt}{4pt}
+
+% -----------------------------------------------------------
+% CUSTOM COMMANDS
+% -----------------------------------------------------------
+\newcommand{\resumeSubheading}[4]{%
+  \vspace{2pt}
+  \begin{tabularx}{\linewidth}{@{}X r@{}}
+    \semibold{#1} & \semibold{\normalsize #2} \\
+    \textit{\normalsize #3} & \textit{\normalsize #4}
+  \end{tabularx}
+  \vspace{1pt}
+}
+
+\newcommand{\resumeItem}[1]{%
+  \item #1
+}
+
+\newcommand{\projectHeading}[2]{%
+  \vspace{2pt}
+  \begin{tabularx}{\linewidth}{@{}X r@{}}
+    \semibold{#1} & \semibold{\normalsize #2}
+  \end{tabularx}
+}
+
+\newcommand{\skillRow}[2]{%
+  \item \semibold{#1:} #2
+}
+
+\newenvironment{resumeItemList}{%
+  \begin{itemize}[leftmargin=0.18in, label=\textbullet, itemsep=1pt, topsep=1pt, parsep=0pt]
+}{%
+  \end{itemize}
+}
+
+% -----------------------------------------------------------
+% DOCUMENT
+% -----------------------------------------------------------
+\begin{document}
+
+% -----------------------------------------------------------
+% HEADER
+% -----------------------------------------------------------
+\begin{center}
+  {\fontsize{24pt}{26pt}\selectfont\fontseries{sb}\selectfont Jewel Mia}\\[4pt]
+  {\fontsize{13pt}{15pt}\selectfont\fontseries{sb}\selectfont Software Engineer}\\[5pt]
+  \semibold{Phone:} \href{tel:+8801684321082}{+880 1684-321082}
+  \enspace\textbar\enspace
+  \semibold{Email:} \href{mailto:jewelmia.dev@gmail.com}{jewelmia.dev@gmail.com}
+  \enspace\textbar\enspace
+  \semibold{Location:} Dhaka, Bangladesh\\[2pt]
+  \semibold{LinkedIn:} \href{https://www.linkedin.com/in/jewel-mia/}{linkedin.com/in/jewel-mia}
+  \enspace\textbar\enspace
+  \semibold{GitHub:} \href{https://github.com/jewel1269}{github.com/jewel1269}
+  \enspace\textbar\enspace
+  \semibold{Portfolio:} \href{https://www.learnwithjewel.xyz/}{learnwithjewel.xyz}
+\end{center}
+
+% -----------------------------------------------------------
+% PROFESSIONAL SUMMARY
+% -----------------------------------------------------------
+\section{Professional Summary}
+Professional software engineer focused on building reliable digital products that solve real business problems. Known for strong ownership, clear communication, and consistent delivery in cross-functional teams. Brings a quality-first mindset, turning complex requirements into clean and maintainable solutions.
+
+% -----------------------------------------------------------
+% PROFESSIONAL EXPERIENCE
+% -----------------------------------------------------------
+\section{Professional Experience}
+
+\resumeSubheading
+  {Full Stack Developer}{January 2026 -- Present}
+  {Bina}{Ra'anana, Israel (Remote)}
+\begin{resumeItemList}
+  \resumeItem{Architect full-stack solutions for a global tech education platform serving thousands of students in AI and Cybersecurity programs.}
+  \resumeItem{Improved backend API response times by \textbf{35\%} through Redis caching and SQL query optimization.}
+  \resumeItem{Integrated OpenAI and LLM-based tools to automate curriculum generation, reducing content creation time by \textbf{50\%}.}
+  \resumeItem{Leading migration of legacy frontend components to \textbf{Next.js 15}, improving Core Web Vitals and SEO performance.}
+\end{resumeItemList}
+
+\resumeSubheading
+  {Backend Instructor}{April 2025 -- December 2025}
+  {Hablu Programmer}{Rajshahi, Bangladesh}
+\begin{resumeItemList}
+  \resumeItem{Designed and delivered a production-focused Backend Engineering curriculum covering scalability, security, and REST API design.}
+  \resumeItem{Mentored \textbf{200+ aspiring engineers}, achieving a \textbf{95\% certification rate} through structured project reviews and code feedback.}
+  \resumeItem{Standardized engineering best practices by teaching Test-Driven Development and Clean Architecture principles.}
+\end{resumeItemList}
+
+\resumeSubheading
+  {Software Engineer}{January 2024 -- February 2025}
+  {E-bitans Limited}{Dhaka, Bangladesh}
+\begin{resumeItemList}
+  \resumeItem{Delivered \textbf{4+ enterprise ERP and inventory management systems}, improving client operational efficiency by \textbf{20\%}.}
+  \resumeItem{Engineered modular backend services using \textbf{Node.js} and \textbf{PostgreSQL} for complex multi-vendor workflows.}
+  \resumeItem{Reduced production bug reports by \textbf{30\%} through strict TypeScript practices and automated unit testing.}
+\end{resumeItemList}
+
+\resumeSubheading
+  {Front-End Engineer}{March 2023 -- December 2023}
+  {Lara Group}{Nairobi, Kenya (Remote)}
+\begin{resumeItemList}
+  \resumeItem{Built responsive web applications using \textbf{React.js} and \textbf{Next.js} for fintech and e-commerce clients.}
+  \resumeItem{Reduced initial page load times by \textbf{40\%} through lazy loading, code splitting, and optimized state management.}
+  \resumeItem{Delivered pixel-accurate UI implementation with strong focus on WCAG 2.1 accessibility standards.}
+\end{resumeItemList}
+
+% -----------------------------------------------------------
+% CORE TECHNICAL SKILLS
+% -----------------------------------------------------------
+\section{Core Technical Skills}
+\begin{itemize}[label={}, leftmargin=0in, itemsep=0pt, topsep=0pt]
+  \skillRow{Languages}{JavaScript, TypeScript, Dart, Python, C++}
+  \skillRow{Frontend}{React.js, Next.js, TanStack Query, Tailwind CSS, Shadcn UI, Redux Toolkit, Zustand}
+  \skillRow{Backend}{Node.js, Express.js, Nest.js, Prisma, Mongoose, Microservices}
+  \skillRow{Mobile}{Flutter}
+  \skillRow{Databases}{PostgreSQL, MongoDB, Redis}
+  \skillRow{DevOps \& Tools}{AWS (EC2, S3), Docker, Git, Firebase, Postman, CI/CD, n8n, Zapier}
+  \skillRow{Development Practices}{Agile, CI/CD, Clean Architecture}
+\end{itemize}
+
+% -----------------------------------------------------------
+% PROJECT EXPERIENCE
+% -----------------------------------------------------------
+\section{Project Experience}
+
+\projectHeading{Learning Management System (LMS)}{TS | Next.js | Express.js | MongoDB}
+\begin{resumeItemList}
+  \resumeItem{Engineered a full-featured LMS platform with live-class streaming, assignment workflows, and Stripe payment integration.}
+  \resumeItem{Implemented a secure custom video playback system with anti-distribution controls.}
+\end{resumeItemList}
+
+\projectHeading{Ophelia Go -- E-Commerce Platform}{TS | Next.js | Nest.js | PostgreSQL}
+\begin{resumeItemList}
+  \resumeItem{Architected a high-performance e-commerce platform with real-time inventory sync, dynamic catalog management, and advanced filtering.}
+  \resumeItem{Built a streamlined checkout and order lifecycle workflow that improved purchase completion and reduced manual operations for administrators.}
+\end{resumeItemList}
+
+% -----------------------------------------------------------
+% EDUCATION
+% -----------------------------------------------------------
+\section{Education}
+
+\resumeSubheading
+  {International University of Business Agriculture and Technology}{2022 -- 2026}
+  {Bachelor of Science in Computer Science \& Engineering}{Dhaka, Bangladesh}
+
+\resumeSubheading
+  {Gurudayal Government College}{2019 -- 2021}
+  {Higher Secondary Certificate (HSC) -- Science | GPA: 5.00 / 5.00}{Kishoreganj, Bangladesh}
+
+% -----------------------------------------------------------
+% ACHIEVEMENTS \& LANGUAGES
+% -----------------------------------------------------------
+\section{Achievements \& Languages}
+\begin{itemize}[leftmargin=0.18in, itemsep=1pt, topsep=1pt]
+  \item \semibold{Champion} -- Intra-University Programming Contest, IUBAT.
+  \item \semibold{Languages} -- Bangla (Native), English.
+\end{itemize}
+
+\end{document}
