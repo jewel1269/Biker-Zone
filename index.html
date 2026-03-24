@@ -32,6 +32,83 @@
         .font-poppins{
             font-family: 'Poppins', sans-serif;
         }
+        .news-editor-shell {
+            border: 1px solid #e5e7eb;
+            border-radius: 1rem;
+            padding: 1.25rem;
+            background: #ffffff;
+            box-shadow: 0 10px 25px -18px rgba(0, 0, 0, 0.5);
+        }
+        .editor-toolbar button {
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 0.375rem 0.625rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            background: #fff;
+            transition: all 0.15s ease-in-out;
+        }
+        .editor-toolbar button:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+        }
+        .editor-toggle-btn.active {
+            background: #1f2937;
+            color: #fff;
+            border-color: #1f2937;
+        }
+        .editor-surface {
+            min-height: 240px;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            padding: 0.9rem;
+            line-height: 1.8;
+            outline: none;
+        }
+        .editor-surface:focus {
+            border-color: #1f2937;
+        }
+        .editor-surface:empty:before {
+            content: attr(data-placeholder);
+            color: #94a3b8;
+        }
+        .editor-preview h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0.75rem 0;
+        }
+        .editor-preview h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0.65rem 0;
+        }
+        .editor-preview blockquote {
+            margin: 0.65rem 0;
+            border-left: 4px solid #fb923c;
+            padding-left: 0.75rem;
+            color: #475569;
+            font-style: italic;
+        }
+        .editor-preview ul,
+        .editor-preview ol {
+            margin-left: 1.2rem;
+            list-style-position: outside;
+        }
+        .file-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 999px;
+            padding: 0.3rem 0.65rem;
+            margin: 0.25rem 0.25rem 0 0;
+            background: #fff;
+            font-size: 0.75rem;
+        }
+        .publish-status {
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body class="poppins">
@@ -289,6 +366,89 @@
     </div>
   </div>
 </section>
+
+<section class="my-24 px-4">
+  <h1 class="text-4xl font-bold text-center mb-3">News Article Publisher</h1>
+  <p class="text-center text-gray-500 mb-10">Full working text editor with preview and publish logging</p>
+
+  <form id="newsPublishForm" class="grid lg:grid-cols-3 gap-6">
+    <div class="lg:col-span-2 news-editor-shell">
+      <div class="grid md:grid-cols-2 gap-4 mb-4">
+        <label class="form-control w-full">
+          <div class="label"><span class="label-text font-semibold">Title *</span></div>
+          <input id="newsTitle" type="text" class="input input-bordered w-full" placeholder="Article headline" required />
+        </label>
+        <label class="form-control w-full">
+          <div class="label"><span class="label-text font-semibold">Author *</span></div>
+          <input id="newsAuthor" type="text" class="input input-bordered w-full" placeholder="Writer name" required />
+        </label>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-4 mb-4">
+        <label class="form-control w-full">
+          <div class="label"><span class="label-text font-semibold">Author Role</span></div>
+          <input id="newsAuthorTitle" type="text" class="input input-bordered w-full" placeholder="Senior Correspondent" />
+        </label>
+        <label class="form-control w-full">
+          <div class="label"><span class="label-text font-semibold">Meta Description</span></div>
+          <input id="newsDescription" type="text" class="input input-bordered w-full" placeholder="Short summary for listings" />
+        </label>
+      </div>
+
+      <div class="editor-toolbar flex flex-wrap items-center gap-2 mb-3">
+        <button type="button" data-cmd="bold">Bold</button>
+        <button type="button" data-cmd="italic">Italic</button>
+        <button type="button" data-cmd="underline">Underline</button>
+        <button type="button" data-cmd="formatBlock" data-val="H1">H1</button>
+        <button type="button" data-cmd="formatBlock" data-val="H2">H2</button>
+        <button type="button" data-cmd="insertUnorderedList">UL</button>
+        <button type="button" data-cmd="insertOrderedList">OL</button>
+        <button type="button" data-cmd="formatBlock" data-val="BLOCKQUOTE">Quote</button>
+        <button type="button" data-cmd="insertHorizontalRule">HR</button>
+        <button type="button" id="insertLinkBtn">Link</button>
+        <div class="ml-auto flex gap-2">
+          <button type="button" id="editModeBtn" class="editor-toggle-btn active">Edit</button>
+          <button type="button" id="previewModeBtn" class="editor-toggle-btn">Preview</button>
+        </div>
+      </div>
+
+      <div
+        id="newsEditor"
+        class="editor-surface"
+        contenteditable="true"
+        data-placeholder="Write the full article content here..."
+      ></div>
+      <div
+        id="newsPreview"
+        class="editor-surface editor-preview hidden bg-slate-50"
+      ></div>
+      <p id="wordCounter" class="text-right text-xs text-gray-500 mt-2">0 words</p>
+    </div>
+
+    <div class="news-editor-shell">
+      <h2 class="text-xl font-bold mb-4">Assets & Publish</h2>
+
+      <label class="form-control w-full mb-4">
+        <div class="label"><span class="label-text font-semibold">Cover Image</span></div>
+        <input id="coverFileInput" type="file" accept="image/*" class="file-input file-input-bordered w-full" />
+        <div id="coverFilePreview" class="mt-2 text-sm text-gray-500"></div>
+      </label>
+
+      <label class="form-control w-full mb-4">
+        <div class="label"><span class="label-text font-semibold">Gallery Images</span></div>
+        <input id="galleryFileInput" type="file" accept="image/*" multiple class="file-input file-input-bordered w-full" />
+        <div id="galleryFilePreview" class="mt-2"></div>
+      </label>
+
+      <button type="submit" class="btn btn-warning bg-bike-primary w-full text-white">
+        Publish
+      </button>
+      <p id="publishStatus" class="publish-status text-emerald-600 mt-3 hidden">
+        Data logged successfully. Open browser console to inspect payload.
+      </p>
+    </div>
+  </form>
+</section>
     </main>
     <footer>
       <footer class="footer p-10 bg-neutral text-neutral-content h-[400px] mt-20">
@@ -306,5 +466,136 @@
         </nav>
       </footer>
     </footer>
+    <script>
+      const newsForm = document.getElementById("newsPublishForm");
+      const newsEditor = document.getElementById("newsEditor");
+      const newsPreview = document.getElementById("newsPreview");
+      const editModeBtn = document.getElementById("editModeBtn");
+      const previewModeBtn = document.getElementById("previewModeBtn");
+      const wordCounter = document.getElementById("wordCounter");
+      const publishStatus = document.getElementById("publishStatus");
+      const coverFileInput = document.getElementById("coverFileInput");
+      const galleryFileInput = document.getElementById("galleryFileInput");
+      const coverFilePreview = document.getElementById("coverFilePreview");
+      const galleryFilePreview = document.getElementById("galleryFilePreview");
+
+      function syncEditorMeta() {
+        const plainText = (newsEditor.innerText || "").trim();
+        const wordCount = plainText ? plainText.split(/\s+/).length : 0;
+        wordCounter.textContent = wordCount + " words";
+        newsPreview.innerHTML = newsEditor.innerHTML || "<p class='text-gray-400 italic'>Nothing to preview yet.</p>";
+      }
+
+      function runEditorCommand(command, value) {
+        newsEditor.focus();
+        document.execCommand(command, false, value || null);
+        syncEditorMeta();
+      }
+
+      function renderFilePreview() {
+        const coverFile = coverFileInput.files[0];
+        coverFilePreview.textContent = coverFile
+          ? "Selected: " + coverFile.name + " (" + Math.round(coverFile.size / 1024) + " KB)"
+          : "No cover selected";
+
+        const pills = Array.from(galleryFileInput.files).map(function (file) {
+          return "<span class='file-pill'>" + file.name + "</span>";
+        });
+        galleryFilePreview.innerHTML = pills.length
+          ? pills.join("")
+          : "<p class='text-sm text-gray-500'>No gallery images selected</p>";
+      }
+
+      document.querySelectorAll(".editor-toolbar [data-cmd]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          runEditorCommand(btn.dataset.cmd, btn.dataset.val);
+        });
+      });
+
+      document.getElementById("insertLinkBtn").addEventListener("click", function () {
+        const url = window.prompt("Enter URL");
+        if (url) {
+          runEditorCommand("createLink", url);
+        }
+      });
+
+      editModeBtn.addEventListener("click", function () {
+        newsEditor.classList.remove("hidden");
+        newsPreview.classList.add("hidden");
+        editModeBtn.classList.add("active");
+        previewModeBtn.classList.remove("active");
+      });
+
+      previewModeBtn.addEventListener("click", function () {
+        syncEditorMeta();
+        newsEditor.classList.add("hidden");
+        newsPreview.classList.remove("hidden");
+        previewModeBtn.classList.add("active");
+        editModeBtn.classList.remove("active");
+      });
+
+      newsEditor.addEventListener("input", syncEditorMeta);
+      coverFileInput.addEventListener("change", renderFilePreview);
+      galleryFileInput.addEventListener("change", renderFilePreview);
+      renderFilePreview();
+      syncEditorMeta();
+
+      newsForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        syncEditorMeta();
+
+        const payload = {
+          title: document.getElementById("newsTitle").value.trim(),
+          author: document.getElementById("newsAuthor").value.trim(),
+          authorTitle: document.getElementById("newsAuthorTitle").value.trim(),
+          description: document.getElementById("newsDescription").value.trim(),
+          contentHtml: newsEditor.innerHTML.trim(),
+          contentText: (newsEditor.innerText || "").trim(),
+          coverImage: coverFileInput.files[0]
+            ? {
+                name: coverFileInput.files[0].name,
+                size: coverFileInput.files[0].size,
+                type: coverFileInput.files[0].type
+              }
+            : null,
+          galleryImages: Array.from(galleryFileInput.files).map(function (file) {
+            return {
+              name: file.name,
+              size: file.size,
+              type: file.type
+            };
+          })
+        };
+
+        const formData = new FormData();
+        formData.append("title", payload.title);
+        formData.append("author", payload.author);
+        formData.append("authorTitle", payload.authorTitle);
+        formData.append("description", payload.description);
+        formData.append("content", payload.contentHtml);
+        if (coverFileInput.files[0]) {
+          formData.append("coverImage", coverFileInput.files[0]);
+        }
+        Array.from(galleryFileInput.files).forEach(function (file) {
+          formData.append("galleryImages", file);
+        });
+
+        console.log("Publish payload object:", payload);
+        console.log("Publish FormData entries:");
+        for (const pair of formData.entries()) {
+          if (pair[1] instanceof File) {
+            console.log(pair[0], {
+              name: pair[1].name,
+              size: pair[1].size,
+              type: pair[1].type
+            });
+          } else {
+            console.log(pair[0], pair[1]);
+          }
+        }
+
+        publishStatus.classList.remove("hidden");
+      });
+    </script>
 </body>
 </html>
