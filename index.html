@@ -1356,8 +1356,8 @@
 
       <div class="top-actions">
         <span class="ghost-chip">Professional article creation concept</span>
-        <button type="button" class="secondary-btn">Preview site</button>
-        <button type="button" class="primary-btn">Invite reviewer</button>
+        <button type="button" class="secondary-btn" id="openPreview">Open preview</button>
+        <button type="button" class="primary-btn" id="jumpPublish">Review checklist</button>
       </div>
     </header>
 
@@ -1422,7 +1422,7 @@
     <form id="articleForm" novalidate>
       <div class="workspace-grid">
         <div class="main-column">
-          <section class="panel">
+          <section class="panel" id="publishPanel">
             <div class="panel-head">
               <div>
                 <p class="panel-kicker">Content setup</p>
@@ -1547,10 +1547,10 @@
                   </div>
 
                   <div class="tool-group">
-                    <button type="button" class="tool-btn wide" data-format="H1" title="Heading 1">H1</button>
-                    <button type="button" class="tool-btn wide" data-format="H2" title="Heading 2">H2</button>
-                    <button type="button" class="tool-btn wide" data-format="BLOCKQUOTE" title="Blockquote">Quote</button>
-                    <button type="button" class="tool-btn wide" data-format="PRE" title="Code block">Code</button>
+                    <button type="button" class="tool-btn wide" data-format="h1" title="Heading 1">H1</button>
+                    <button type="button" class="tool-btn wide" data-format="h2" title="Heading 2">H2</button>
+                    <button type="button" class="tool-btn wide" data-format="blockquote" title="Blockquote">Quote</button>
+                    <button type="button" class="tool-btn wide" data-format="pre" title="Code block">Code</button>
                   </div>
 
                   <div class="tool-group">
@@ -1787,6 +1787,9 @@
   </div>
 
   <script>
+    const openPreview = document.getElementById("openPreview");
+    const jumpPublish = document.getElementById("jumpPublish");
+    const publishPanel = document.getElementById("publishPanel");
     const titleInput = document.getElementById("title");
     const categoryInput = document.getElementById("category");
     const authorInput = document.getElementById("author");
@@ -1824,11 +1827,14 @@
     const successState = document.getElementById("successState");
     const closeSuccess = document.getElementById("closeSuccess");
     const statusNote = document.getElementById("statusNote");
+    const editorShell = document.querySelector(".editor-shell");
 
     let mode = "write";
     let currentStatus = "published";
     let coverFiles = [];
     let galleryFiles = [];
+    let coverPreviewUrl = "";
+    let galleryPreviewUrls = [];
 
     const statusMessages = {
       published: "Published content is treated as ready for immediate release.",
@@ -2019,19 +2025,33 @@
       return (file.size / (1024 * 1024)).toFixed(1) + " MB";
     }
 
+    function revokeCoverPreviewUrl() {
+      if (coverPreviewUrl) {
+        URL.revokeObjectURL(coverPreviewUrl);
+        coverPreviewUrl = "";
+      }
+    }
+
+    function revokeGalleryPreviewUrls() {
+      galleryPreviewUrls.forEach((url) => URL.revokeObjectURL(url));
+      galleryPreviewUrls = [];
+    }
+
     function renderCoverPreview() {
+      revokeCoverPreviewUrl();
+
       if (!coverFiles.length) {
         coverPreviewContainer.innerHTML = "<div class=\"empty-media\">No cover image selected yet. A lead visual is optional, but it makes the page feel complete.</div>";
         return;
       }
 
       const file = coverFiles[0];
-      const src = URL.createObjectURL(file);
+      coverPreviewUrl = URL.createObjectURL(file);
       coverPreviewContainer.innerHTML = ""
         + "<div class=\"preview-list\">"
         + "  <div class=\"cover-card\">"
         + "    <button type=\"button\" class=\"remove-btn\" data-remove-cover=\"0\" aria-label=\"Remove cover image\">&times;</button>"
-        + "    <img src=\"" + src + "\" alt=\"Cover preview\" />"
+        + "    <img src=\"" + coverPreviewUrl + "\" alt=\"Cover preview\" />"
         + "    <div class=\"media-overlay\">"
         + "      <strong>" + file.name + "</strong>"
         + "      <span>" + formatFileSize(file) + "</span>"
@@ -2041,6 +2061,8 @@
     }
 
     function renderGalleryPreview() {
+      revokeGalleryPreviewUrls();
+
       if (!galleryFiles.length) {
         galleryPreviewContainer.innerHTML = "<div class=\"empty-media\">Gallery images will appear here. Add up to ten supporting visuals.</div>";
         return;
@@ -2050,6 +2072,7 @@
         + "<div class=\"preview-grid\">"
         + galleryFiles.map((file, index) => {
           const src = URL.createObjectURL(file);
+          galleryPreviewUrls.push(src);
           return ""
             + "<div class=\"gallery-card\">"
             + "  <button type=\"button\" class=\"remove-btn\" data-remove-gallery=\"" + index + "\" aria-label=\"Remove gallery image\">&times;</button>"
@@ -2122,6 +2145,15 @@
         const input = document.getElementById(button.dataset.trigger);
         input.click();
       });
+    });
+
+    openPreview.addEventListener("click", () => {
+      setMode("preview");
+      editorShell.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    jumpPublish.addEventListener("click", () => {
+      publishPanel.scrollIntoView({ behavior: "smooth", block: "start" });
     });
 
     document.querySelectorAll(".tab-btn").forEach((button) => {
@@ -2234,6 +2266,11 @@
 
     closeSuccess.addEventListener("click", () => {
       successState.classList.add("hide");
+    });
+
+    window.addEventListener("beforeunload", () => {
+      revokeCoverPreviewUrl();
+      revokeGalleryPreviewUrls();
     });
 
     renderCoverPreview();
