@@ -1,310 +1,2245 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- font  -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- tailwind and daisy ui cdn -->
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.6.0/dist/full.min.css" rel="stylesheet" type="text/css" />
-<script src="https://cdn.tailwindcss.com"></script>
-<!-- tailwind custom classes -->
-<script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.6.0/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            clifford: '#da373d',
-            'jewel': '#E76F51',
-            'bike-primary': '#E76F51',
-            'bike-primary-bg': ' rgba(231, 111, 81, 0.10)',
-            
+            brand: "#4f46e5",
+            ink: "#0f172a",
+            mist: "#f4f7fb"
           }
         }
       }
-    }
+    };
   </script>
-    <title>www.biker zone.com</title>
-    <style>
-        .font-poppins{
-            font-family: 'Poppins', sans-serif;
-        }
-    </style>
+  <title>Bike House Editorial Workspace</title>
+  <style>
+    :root {
+      --bg: #f3f7fc;
+      --panel: rgba(255, 255, 255, 0.86);
+      --panel-strong: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --line: rgba(148, 163, 184, 0.24);
+      --line-strong: rgba(99, 102, 241, 0.2);
+      --primary: #4f46e5;
+      --primary-strong: #312e81;
+      --secondary: #7c3aed;
+      --success: #16a34a;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --shadow: 0 22px 60px rgba(15, 23, 42, 0.1);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(124, 58, 237, 0.1), transparent 28%),
+        radial-gradient(circle at top right, rgba(37, 99, 235, 0.11), transparent 32%),
+        linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.36) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.36) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.22), transparent 72%);
+      z-index: -1;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .page-shell {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 32px 20px 56px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .brand-block {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-mark {
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: #ffffff;
+      background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 45%, #4f46e5 100%);
+      box-shadow: 0 18px 30px rgba(79, 70, 229, 0.22);
+    }
+
+    .brand-label {
+      margin: 0 0 4px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .brand-title {
+      margin: 0;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .ghost-chip,
+    .secondary-btn,
+    .primary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border-radius: 999px;
+      padding: 12px 16px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      backdrop-filter: blur(16px);
+    }
+
+    .secondary-btn:hover,
+    .primary-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .primary-btn {
+      border-color: rgba(79, 70, 229, 0.18);
+      background: linear-gradient(135deg, #111827 0%, #3730a3 55%, #4f46e5 100%);
+      color: #ffffff;
+      box-shadow: 0 18px 34px rgba(79, 70, 229, 0.18);
+    }
+
+    .hero {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) 360px;
+      gap: 24px;
+      padding: 30px;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(37, 99, 235, 0.9) 46%, rgba(124, 58, 237, 0.95) 100%);
+      box-shadow: 0 36px 90px rgba(15, 23, 42, 0.18);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    .hero::before {
+      width: 420px;
+      height: 420px;
+      top: -140px;
+      right: -90px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.24), transparent 70%);
+    }
+
+    .hero::after {
+      width: 280px;
+      height: 280px;
+      bottom: -90px;
+      left: -40px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.12), transparent 70%);
+    }
+
+    .hero-copy,
+    .hero-rail {
+      position: relative;
+      z-index: 1;
+    }
+
+    .breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.68);
+    }
+
+    .breadcrumbs .current {
+      color: #ffffff;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      margin-top: 22px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.9);
+      width: fit-content;
+    }
+
+    .hero-title {
+      margin: 18px 0 0;
+      max-width: 760px;
+      font-size: clamp(2.2rem, 4vw, 3.7rem);
+      line-height: 1.02;
+      font-weight: 800;
+      letter-spacing: -0.06em;
+      color: #ffffff;
+    }
+
+    .hero-text {
+      margin: 18px 0 0;
+      max-width: 660px;
+      font-size: 17px;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .hero-pills span {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .hero-rail {
+      display: grid;
+      gap: 16px;
+    }
+
+    .hero-card {
+      border-radius: 22px;
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.13);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(18px);
+    }
+
+    .hero-card-label {
+      margin: 0 0 12px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .completion-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .completion-track {
+      flex: 1;
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .completion-value {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #ffffff 0%, #d8b4fe 100%);
+      transition: width 0.28s ease;
+    }
+
+    .completion-count {
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      color: #ffffff;
+    }
+
+    .completion-count small {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .metric-tile {
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(15, 23, 42, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+    }
+
+    .metric-tile span {
+      display: block;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .metric-tile strong {
+      display: block;
+      margin-top: 6px;
+      font-size: 24px;
+      line-height: 1.1;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: #ffffff;
+    }
+
+    .metric-tile strong.status-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 10px;
+      margin-top: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.75fr) 360px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .main-column,
+    .sidebar-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid rgba(255, 255, 255, 0.68);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      backdrop-filter: blur(18px);
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 22px 24px;
+      background: linear-gradient(180deg, rgba(248, 250, 252, 0.96), rgba(255, 255, 255, 0.72));
+      border-bottom: 1px solid var(--line);
+    }
+
+    .panel-kicker {
+      margin: 0 0 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .panel-head h2,
+    .panel-head h3 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.1;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--text);
+    }
+
+    .panel-head p {
+      margin: 8px 0 0;
+      max-width: 620px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .panel-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(79, 70, 229, 0.16);
+      background: rgba(79, 70, 229, 0.08);
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .panel-body {
+      padding: 24px;
+    }
+
+    .panel-body-tight {
+      padding: 0;
+    }
+
+    .field + .field,
+    .field + .field-grid,
+    .field-grid + .field {
+      margin-top: 18px;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    label,
+    .field-label-row span {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .field-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    label .required {
+      color: var(--danger);
+    }
+
+    .input,
+    .select,
+    .textarea {
+      width: 100%;
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      border-radius: 16px;
+      background: #ffffff;
+      color: var(--text);
+      padding: 15px 16px;
+      outline: none;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+      box-shadow: inset 0 1px 1px rgba(15, 23, 42, 0.02);
+    }
+
+    .input::placeholder,
+    .textarea::placeholder {
+      color: #94a3b8;
+    }
+
+    .input:focus,
+    .select:focus,
+    .textarea:focus {
+      border-color: rgba(79, 70, 229, 0.55);
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.11);
+      transform: translateY(-1px);
+    }
+
+    .input.headline {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .textarea {
+      min-height: 110px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    .field-hint {
+      margin: 8px 0 0;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .field-hint.warning {
+      color: #b45309;
+    }
+
+    .feature-tiles {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .feature-tile {
+      padding: 16px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(79, 70, 229, 0.05), rgba(255, 255, 255, 0.98));
+      border: 1px solid var(--line);
+    }
+
+    .feature-tile span {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .feature-tile strong {
+      display: block;
+      margin-top: 10px;
+      font-size: 17px;
+      line-height: 1.35;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+
+    .feature-tile p {
+      margin: 8px 0 0;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .editor-shell {
+      min-height: 700px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .editor-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.85);
+    }
+
+    .tab-strip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px;
+      border-radius: 18px;
+      background: rgba(248, 250, 252, 0.95);
+      border: 1px solid var(--line);
+    }
+
+    .tab-btn {
+      border: 0;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: transparent;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+      transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+    }
+
+    .tab-btn.active {
+      color: #ffffff;
+      background: var(--text);
+      box-shadow: 0 12px 22px rgba(15, 23, 42, 0.14);
+    }
+
+    .editor-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .editor-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(248, 250, 252, 0.95);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(248, 250, 252, 0.92), rgba(255, 255, 255, 0.8));
+    }
+
+    .toolbar.hidden {
+      display: none;
+    }
+
+    .tool-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding-right: 10px;
+      margin-right: 2px;
+      border-right: 1px solid var(--line);
+    }
+
+    .tool-group:last-child {
+      margin-right: 0;
+      padding-right: 0;
+      border-right: 0;
+    }
+
+    .tool-btn {
+      min-width: 42px;
+      height: 42px;
+      padding: 0 12px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: #334155;
+      font-size: 14px;
+      font-weight: 700;
+      transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+    }
+
+    .tool-btn:hover {
+      transform: translateY(-1px);
+      background: rgba(79, 70, 229, 0.08);
+      border-color: rgba(79, 70, 229, 0.14);
+      color: var(--primary);
+    }
+
+    .tool-btn.active {
+      background: rgba(79, 70, 229, 0.12);
+      border-color: rgba(79, 70, 229, 0.18);
+      color: var(--primary);
+    }
+
+    .tool-btn.wide {
+      min-width: auto;
+      padding: 0 14px;
+    }
+
+    .editor-stage {
+      flex: 1;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(248, 250, 252, 0.92));
+    }
+
+    .editor-pane {
+      display: none;
+    }
+
+    .editor-pane.active {
+      display: block;
+    }
+
+    .writer-surface,
+    .preview-surface,
+    .html-surface {
+      width: 100%;
+      min-height: 460px;
+      border: 0;
+      outline: none;
+      padding: 32px 34px;
+    }
+
+    .writer-surface,
+    .preview-surface {
+      font-family: "Merriweather", Georgia, serif;
+      font-size: 18px;
+      line-height: 1.85;
+      color: #172033;
+    }
+
+    .writer-surface {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(248, 250, 252, 0.96));
+    }
+
+    .writer-surface.is-empty::before {
+      content: attr(data-placeholder);
+      color: #94a3b8;
+      pointer-events: none;
+    }
+
+    .html-surface {
+      resize: vertical;
+      background: #0f172a;
+      color: #e2e8f0;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .preview-empty {
+      margin: 0;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .writer-surface h1,
+    .preview-surface h1 {
+      margin: 0.5em 0 0.28em;
+      font-size: 2.2em;
+      line-height: 1.12;
+      font-weight: 700;
+      letter-spacing: -0.05em;
+    }
+
+    .writer-surface h2,
+    .preview-surface h2 {
+      margin: 0.7em 0 0.35em;
+      font-size: 1.55em;
+      line-height: 1.18;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+    }
+
+    .writer-surface p,
+    .preview-surface p {
+      margin: 0.5em 0;
+    }
+
+    .writer-surface a,
+    .preview-surface a {
+      color: var(--primary);
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 3px;
+    }
+
+    .writer-surface blockquote,
+    .preview-surface blockquote {
+      margin: 1.1em 0;
+      padding: 1em 1.25em;
+      border-left: 4px solid var(--primary);
+      border-radius: 0 18px 18px 0;
+      background: rgba(79, 70, 229, 0.06);
+      color: #475569;
+      font-style: italic;
+    }
+
+    .writer-surface ul,
+    .preview-surface ul,
+    .writer-surface ol,
+    .preview-surface ol {
+      padding-left: 1.6em;
+      margin: 0.7em 0;
+    }
+
+    .writer-surface li,
+    .preview-surface li {
+      margin: 0.28em 0;
+    }
+
+    .writer-surface pre,
+    .preview-surface pre {
+      margin: 1em 0;
+      padding: 1em 1.15em;
+      border-radius: 18px;
+      background: #0f172a;
+      color: #e2e8f0;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.88em;
+      line-height: 1.7;
+      overflow-x: auto;
+    }
+
+    .writer-surface hr,
+    .preview-surface hr {
+      margin: 1.7em 0;
+      border: 0;
+      border-top: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .writer-surface img,
+    .preview-surface img {
+      display: block;
+      max-width: 100%;
+      margin: 1.25em 0;
+      border-radius: 22px;
+      box-shadow: 0 22px 50px rgba(15, 23, 42, 0.14);
+    }
+
+    .status-toggle {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .status-btn {
+      padding: 13px 10px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: transform 0.18s ease, border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
+    }
+
+    .status-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .status-btn.active {
+      color: var(--primary);
+      border-color: rgba(79, 70, 229, 0.22);
+      background: rgba(79, 70, 229, 0.08);
+      box-shadow: 0 14px 26px rgba(79, 70, 229, 0.08);
+    }
+
+    .status-note {
+      margin: 12px 0 0;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .checklist {
+      display: grid;
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .check-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(248, 250, 252, 0.78);
+    }
+
+    .check-indicator {
+      flex: 0 0 auto;
+      width: 24px;
+      height: 24px;
+      margin-top: 2px;
+      border-radius: 999px;
+      border: 1.5px solid rgba(148, 163, 184, 0.36);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: transparent;
+      background: #ffffff;
+      transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+    }
+
+    .check-item.complete .check-indicator {
+      border-color: rgba(22, 163, 74, 0.26);
+      background: rgba(22, 163, 74, 0.12);
+      color: var(--success);
+    }
+
+    .check-copy strong {
+      display: block;
+      font-size: 14px;
+      line-height: 1.35;
+      color: var(--text);
+    }
+
+    .check-copy p {
+      margin: 4px 0 0;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .summary-list {
+      padding: 6px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(248, 250, 252, 0.94), rgba(255, 255, 255, 0.84));
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 12px;
+    }
+
+    .summary-row + .summary-row {
+      border-top: 1px solid rgba(148, 163, 184, 0.15);
+    }
+
+    .summary-row span {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .summary-row strong {
+      max-width: 170px;
+      text-align: right;
+      font-size: 13px;
+      line-height: 1.5;
+      font-weight: 700;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .publish-btn {
+      width: 100%;
+      margin-top: 18px;
+      padding: 16px 18px;
+      border: 0;
+      border-radius: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #111827 0%, #3730a3 55%, #4f46e5 100%);
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      box-shadow: 0 20px 34px rgba(79, 70, 229, 0.18);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+    }
+
+    .publish-btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 24px 40px rgba(79, 70, 229, 0.22);
+    }
+
+    .publish-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .publish-hint {
+      margin: 8px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .dropzone {
+      position: relative;
+      padding: 26px 22px;
+      border-radius: 22px;
+      border: 1.5px dashed rgba(79, 70, 229, 0.26);
+      background: linear-gradient(180deg, rgba(79, 70, 229, 0.05), rgba(255, 255, 255, 0.96));
+      text-align: center;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .dropzone:hover,
+    .dropzone.dragging {
+      transform: translateY(-1px);
+      border-color: rgba(79, 70, 229, 0.55);
+      background: linear-gradient(180deg, rgba(79, 70, 229, 0.08), rgba(255, 255, 255, 1));
+    }
+
+    .dropzone input {
+      display: none;
+    }
+
+    .drop-icon {
+      width: 58px;
+      height: 58px;
+      margin: 0 auto 14px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      background: rgba(79, 70, 229, 0.1);
+    }
+
+    .drop-title {
+      margin: 0;
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+
+    .drop-copy {
+      max-width: 250px;
+      margin: 8px auto 14px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .link-btn {
+      border: 0;
+      padding: 0;
+      background: none;
+      color: var(--primary);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .empty-media {
+      margin-top: 14px;
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px dashed var(--line);
+      background: rgba(248, 250, 252, 0.76);
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .preview-list,
+    .preview-grid {
+      margin-top: 14px;
+    }
+
+    .cover-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: #e2e8f0;
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.6);
+    }
+
+    .cover-card img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+    }
+
+    .media-overlay {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 16px;
+      background: linear-gradient(180deg, transparent, rgba(15, 23, 42, 0.84));
+      color: #ffffff;
+    }
+
+    .media-overlay strong,
+    .media-overlay span {
+      display: block;
+    }
+
+    .media-overlay strong {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .media-overlay span {
+      margin-top: 4px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .gallery-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: #e2e8f0;
+      aspect-ratio: 1 / 1;
+    }
+
+    .gallery-card img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .remove-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 34px;
+      height: 34px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.72);
+      color: #ffffff;
+      font-size: 16px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 22px rgba(15, 23, 42, 0.2);
+    }
+
+    .remove-btn:hover {
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .gallery-meta {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 14px 12px 12px;
+      background: linear-gradient(180deg, transparent, rgba(15, 23, 42, 0.76));
+      color: #ffffff;
+    }
+
+    .gallery-meta span {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .success-state {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(15, 23, 42, 0.42);
+      backdrop-filter: blur(12px);
+      z-index: 40;
+    }
+
+    .success-state.hide {
+      display: none;
+    }
+
+    .success-card {
+      width: min(440px, 100%);
+      padding: 36px;
+      border-radius: 30px;
+      background: #ffffff;
+      box-shadow: 0 42px 80px rgba(15, 23, 42, 0.2);
+      text-align: center;
+    }
+
+    .success-mark {
+      width: 84px;
+      height: 84px;
+      margin: 0 auto 20px;
+      border-radius: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--success);
+      background: linear-gradient(135deg, rgba(22, 163, 74, 0.12), rgba(34, 197, 94, 0.2));
+    }
+
+    .success-card h2 {
+      margin: 0 0 10px;
+      font-size: 29px;
+      line-height: 1.05;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      color: var(--text);
+    }
+
+    .success-card p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--muted);
+    }
+
+    .success-card .primary-btn {
+      margin-top: 22px;
+      width: 100%;
+      border-radius: 18px;
+    }
+
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      border-top-color: #ffffff;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (max-width: 1180px) {
+      .hero,
+      .workspace-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-rail {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 860px) {
+      .feature-tiles,
+      .field-grid,
+      .status-toggle,
+      .preview-grid,
+      .hero-rail {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page-shell {
+        padding: 22px 14px 44px;
+      }
+
+      .brand-title {
+        font-size: 22px;
+      }
+
+      .hero,
+      .panel-head,
+      .panel-body,
+      .editor-topbar,
+      .toolbar,
+      .writer-surface,
+      .preview-surface,
+      .html-surface {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .hero {
+        padding-top: 24px;
+        padding-bottom: 24px;
+      }
+
+      .panel-head {
+        flex-direction: column;
+      }
+
+      .tool-group {
+        border-right: 0;
+        padding-right: 0;
+        margin-right: 0;
+      }
+
+      .editor-meta {
+        width: 100%;
+      }
+
+      .editor-meta span {
+        flex: 1 1 auto;
+        justify-content: center;
+      }
+    }
+  </style>
 </head>
-<body class="poppins">
-    <header class="md:container md:mx-auto">
-<nav>
-    <div class="navbar bg-base-100">
-        <div class="flex-1">
-          <div class="dropdown">
-            <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
-            </div>
-            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 text-xl rounded-box w-52">
-              <li><a>Home</a></li>
-              <li>
-                <a>Shope</a>
-              </li>
-              <li><a>News</a></li>
-              <li><a>Contact</a></li>
-            </ul>
-          </div>
-          <a class="btn btn-ghost text-4xl">Bike House</a>
-        </div>
-        <div class="navbar-center hidden lg:flex">
-          <ul class="menu menu-horizontal text-2xl px-1">
-            <li><a>Home</a></li>
-            <li>
-              <a>Shope</a>
-            </li>
-            <li><a>News</a></li>
-            <li><a>Contact</a></li>
-          </ul>
-        </div>
-        <div class="">
-          <a class="btn btn-warning bg-bike-primary text-2xl">Login</a>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <div class="brand-block">
+        <div class="brand-mark">BH</div>
+        <div>
+          <p class="brand-label">Bike House Editorial</p>
+          <h1 class="brand-title">Newsroom Composer</h1>
         </div>
       </div>
-</nav>
 
-<!-- slider or carousel -->
-<div class="carousel w-full lg:h-[550px] bg-yellow-400">
-    <div id="slide1" class="carousel-item relative w-full ">
-      <div class="flex gap-28 flex-col lg:flex-row p-4 items-center justify-center">
-        <div class="flex-1 lg:pl-24 pl-10 ">
-<h2 class="lg:text-6xl text-2xl font-bold  ">
-    Ride-on R15 V4 <br> with Smile
-</h2>
-<p class="mt-3">Amet minim mollit non deserunt ullamco 
-    est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
-    <a class="btn btn-warning bg-bike-primary  text-2xl mt-4">Login</a>
-</div>
-        <div class="flex-1">
-            <img src="./images/slider/bike1.png" class="w-[400px]" />
-        </div>
+      <div class="top-actions">
+        <span class="ghost-chip">Professional article creation concept</span>
+        <button type="button" class="secondary-btn">Preview site</button>
+        <button type="button" class="primary-btn">Invite reviewer</button>
       </div>
-      <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-        <a href="#slide4" class="btn btn-circle">❮</a> 
-        <a href="#slide2" class="btn btn-circle">❯</a>
-      </div>
-    </div> 
-    <div id="slide2" class="carousel-item relative w-full">
-        <div class="flex-1 lg:pl-24 pl-10 gap-32 pt-32 ">
-            <h2 class="lg:text-6xl text-2xl font-bold  ">
-                Ride-on R15 V4 <br> with Smile
-            </h2>
-            <p class="mt-3">Amet minim mollit non deserunt ullamco 
-                est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
-                <a class="btn btn-warning bg-bike-primary  text-2xl mt-4">Login</a>
-            </div>
-                    <div class="flex-1">
-                        <img src="./images/slider/bike2.png" class="w-[400px] pt-32" />
-                    </div>
-      <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-        <a href="#slide1" class="btn btn-circle">❮</a> 
-        <a href="#slide3" class="btn btn-circle">❯</a>
-      </div>
-    </div> 
-    <div id="slide3" class="carousel-item relative w-full">
-        <div class="flex-1 lg:pl-24 gap-32 pl-10 ">
-            <h2 class="lg:text-6xl text-2xl font-bold pt-32  ">
-                Ride-on R15 V4 <br> with Smile
-            </h2>
-            <p class="mt-3">Amet minim mollit non deserunt ullamco 
-                est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
-                <a class="btn btn-warning bg-bike-primary  text-2xl mt-4">Login</a>
-            </div>
-                    <div class="flex-1">
-                        <img src="./images/slider/bike3.png" class="w-[400px] pt-32" />
-                    </div>
-      <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-        <a href="#slide2" class="btn btn-circle">❮</a> 
-        <a href="#slide4" class="btn btn-circle">❯</a>
-      </div>
-    </div> 
-    <div id="slide4" class="carousel-item relative w-full">
-        <div class="flex-1 lg:pl-24 gap-32 pl-10 ">
-            <h2 class="lg:text-6xl text-2xl font-bold pt-32 ">
-                Ride-on R15 V4 <br> with Smile
-            </h2>
-            <p class="mt-3">Amet minim mollit non deserunt ullamco 
-                est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
-                <a class="btn btn-warning bg-bike-primary  text-2xl mt-4">Login</a>
-            </div>
-                    <div class="flex-1">
-                        <img src="./images/slider/bike4.png" class="w-[400px] pt-32" />
-                    </div>
-      <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-        <a href="#slide3" class="btn btn-circle">❮</a> 
-        <a href="#slide1" class="btn btn-circle">❯</a>
-      </div>
-    </div>
-  </div>
     </header>
-    <main class="md:container md:mx-auto">
-<!-- featured by-->
-        <section class="my-32 ">
-    <h1 class="text-5xl font-semibold text-center">latest Bikes</h1>
-<div class="lg:flex gap-20 mt-16 md:ml-4 lg:ml-24 md:flex-1">
-  <div class="card w-96 bg-base-100 shadow-xl">
-    <figure><img src="./images/others/latest1.png" alt="Shoes" /></figure>
-    <div class="card-body">
-      <h2 class="card-title font-bold">Ducati XDIAVEL S-73</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lacus, fermentum amet faucibus sed id nisi lectus at.</p>
-      <div class="card-actions justify-start mt-16">
-        <button class="btn btn-primary">Buy Now</button>
-      </div>
-    </div>
-  </div>
-  <div class="card w-96 bg-base-100 shadow-xl">
-    <figure><img src="./images/others/latest2.png" alt="Shoes" /></figure>
-    <div class="card-body">
-      <h2 class="card-title font-bold">Motorcycles & Scooters</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lacus, fermentum amet faucibus sed id nisi lectus at.</p>
-      <div class="card-actions justify-star mt-16">
-        <button class="btn btn-secondary">Buy Now</button>
-      </div>
-    </div>
-  </div>
-  <div class="card w-96 bg-base-100 shadow-xl">
-    <figure><img src="./images/others/latest3.png" alt="Shoes" /></figure>
-    <div class="card-body">
-      <h2 class="card-title font-bold">2021 Honda CBR500R</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lacus, fermentum amet faucibus sed id nisi lectus at.</p>
-      <div class="card-actions justify-start mt-16">
-        <button class="btn btn-warning">Buy Now</button>
-      </div>
-    </div>
-  </div>
-</div>
-</section>
-<section>
-  <h1 class="font-bold text-center text-5xl">Happy <span class="text-jewel">Clients says</span> </h1>
-  <div class="lg:flex md:flex-1 lg:gap-36 md:gap-16mt-20">
-  <div class=" card w-96 bg-base-100 shadow-xl">
-    <figure class="px-10 pt-10">
-      <img src="./images/others/user-1.png" alt="Shoes" class="rounded-xl" />
-    </figure>
-    <div class="card-body items-center text-center">
-      <p>Slate helps you see how 
-        many more days you need 
-        to work to reach your financial 
-        goal for the month and year.</p>
-        <div class="rating">
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked  />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-        </div>
-        <h3 class="text-center mt-3 font-bold">Jewel</h3>
-        <h4 class="text-center font-semibold mt-3">Programmer</h4>
-    </div>
-  </div>
-  <div class="card w-96 bg-base-100 shadow-xl">
-    <figure class="px-10 pt-10">
-      <img src="./images/others/user-2.png" alt="Shoes" class="rounded-xl" />
-    </figure>
-    <div class="card-body items-center text-center">
 
-      <p>Slate helps you see how 
-        many more days you need 
-        to work to reach your financial 
-        goal for the month and year.</p>
-        <div class="rating">
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked  />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="breadcrumbs">
+          <span>CMS</span>
+          <span>/</span>
+          <span>News</span>
+          <span>/</span>
+          <span class="current">New Article</span>
         </div>
-        <h3 class="text-center mt-3 font-bold">Shamima</h3>
-        <h4 class="text-center font-semibold mt-3">Teacher</h4>
-    </div>
-  </div>
-  <div class="card w-96 bg-base-100 shadow-xl">
-    <figure class="px-10 pt-10">
-      <img src="./images/others/user-3.png" alt="Shoes" class="rounded-xl" />
-    </figure>
-    <div class="card-body items-center text-center">
-      
-      <p>Slate helps you see how 
-        many more days you need 
-        to work to reach your financial 
-        goal for the month and year.</p>
-        <div class="rating">
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked  />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+
+        <div class="hero-eyebrow">Editorial workspace</div>
+
+        <h2 class="hero-title">Create a publication-ready article with a sharper, more professional workflow.</h2>
+
+        <p class="hero-text">
+          A refined newsroom interface for drafting stories, shaping metadata, organizing media, and handing off polished content with confidence.
+        </p>
+
+        <div class="hero-pills">
+          <span>Structured metadata</span>
+          <span>Rich writing surface</span>
+          <span>Media-first publishing</span>
+          <span>Executive-ready presentation</span>
         </div>
-        <h3 class="text-center mt-3 font-bold">Faria</h3>
-      <h4 class="text-center font-semibold mt-3">Banker</h4>
-    </div>
-  </div>
-  </div>
-</section>
-<section>
-  <h1 class="text-center font-bold text-5xl mt-20">Frequently Asked <span class="text-jewel">Questions</span> </h1>
-  <div  class="lg:flex md:flex-1 items-center gap-60 mt-20">
-    <div>
-<img src="./images/others/faq.png" alt="">
-    </div>
-    <div>
-      <div class="join join-vertical lg:w-[760px] ">
-        <div class="collapse collapse-arrow join-item border border-base-300">
-          <input type="radio" name="my-accordion-4" checked="checked" /> 
-          <div class="collapse-title text-xl font-medium">
-           Do you have bike than Click me
-          </div>
-          <div class="collapse-content"> 
-            <p>hello sir,<br>
-              This is trusted shop if you buy any bike safely 
-            </p>
+      </div>
+
+      <div class="hero-rail">
+        <div class="hero-card">
+          <p class="hero-card-label">Completion</p>
+          <div class="completion-row">
+            <div class="completion-track">
+              <div class="completion-value" id="completionValue"></div>
+            </div>
+            <div class="completion-count"><span id="completionCount">0</span><small>/4</small></div>
           </div>
         </div>
-        <div class="collapse collapse-arrow join-item border border-base-300">
-          <input type="radio" name="my-accordion-4" /> 
-          <div class="collapse-title text-xl font-medium">
-            Do you provide gurantee card with bike
+
+        <div class="hero-card metric-grid">
+          <div class="metric-tile">
+            <span>Words</span>
+            <strong id="heroWords">0</strong>
           </div>
-          <div class="collapse-content"> 
-            <p>Yes sir, we provide safe card</p>
+          <div class="metric-tile">
+            <span>Read time</span>
+            <strong id="heroReadTime">0 min</strong>
           </div>
-        </div>
-        <div class="collapse collapse-arrow join-item border border-base-300">
-          <input type="radio" name="my-accordion-4" /> 
-          <div class="collapse-title text-xl font-medium">
-          What's your shop location
+          <div class="metric-tile">
+            <span>Assets</span>
+            <strong id="heroAssets">0</strong>
           </div>
-          <div class="collapse-content"> 
-            <p>Our shop located uttara sector-10</p>
+          <div class="metric-tile">
+            <span>Status</span>
+            <strong id="heroStatus" class="status-pill">Published</strong>
           </div>
         </div>
       </div>
+    </section>
+
+    <form id="articleForm" novalidate>
+      <div class="workspace-grid">
+        <div class="main-column">
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="panel-kicker">Content setup</p>
+                <h3>Article information</h3>
+                <p>Define the key details that give the story editorial context, stronger discoverability, and a cleaner publishing handoff.</p>
+              </div>
+              <span class="panel-badge">Core metadata</span>
+            </div>
+
+            <div class="panel-body">
+              <div class="field">
+                <label for="title">Headline <span class="required">*</span></label>
+                <input
+                  class="input headline"
+                  id="title"
+                  type="text"
+                  placeholder="Enter a compelling, publication-ready headline"
+                  autocomplete="off"
+                />
+              </div>
+
+              <div class="field-grid">
+                <div class="field">
+                  <label for="category">Category</label>
+                  <select class="select" id="category">
+                    <option value="">Select a category</option>
+                    <option>Breaking News</option>
+                    <option>Business</option>
+                    <option>Technology</option>
+                    <option>Politics</option>
+                    <option>Sports</option>
+                    <option>Health</option>
+                    <option>Science</option>
+                    <option>Entertainment</option>
+                    <option>World</option>
+                    <option>Opinion</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="author">Author</label>
+                  <input class="input" id="author" type="text" placeholder="Add the byline or editor name" autocomplete="off" />
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="tags">Tags</label>
+                <input class="input" id="tags" type="text" placeholder="Example: mobility, regulation, market, sustainability" autocomplete="off" />
+                <p class="field-hint">Separate terms with commas to improve search, filtering, and editorial grouping.</p>
+              </div>
+
+              <div class="field">
+                <div class="field-label-row">
+                  <label for="description">Meta description</label>
+                  <span id="descriptionCounter">0/160</span>
+                </div>
+                <textarea
+                  class="textarea"
+                  id="description"
+                  placeholder="Summarize the story in one concise, search-friendly sentence."
+                ></textarea>
+                <p class="field-hint" id="descriptionHint">Used in search snippets, article cards, and internal editorial review.</p>
+              </div>
+
+              <div class="feature-tiles">
+                <div class="feature-tile">
+                  <span>Search clarity</span>
+                  <strong>Headline and description sit in the same flow for faster SEO review.</strong>
+                  <p>Writers can shape audience-facing metadata without leaving the drafting workspace.</p>
+                </div>
+                <div class="feature-tile">
+                  <span>Editorial pace</span>
+                  <strong>Clear grouping keeps the high-value decisions above the fold.</strong>
+                  <p>Category, author, and tags remain easy to scan during approval or revision.</p>
+                </div>
+                <div class="feature-tile">
+                  <span>Visual polish</span>
+                  <strong>A cleaner hierarchy makes the interface feel closer to a premium CMS.</strong>
+                  <p>Spacing, contrast, and surface depth reduce the “template” look of the original.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="panel-kicker">Writing experience</p>
+                <h3>Article body</h3>
+                <p>A more polished editor shell with clear writing, preview, and HTML views plus fast formatting controls.</p>
+              </div>
+              <span class="panel-badge">Rich editor</span>
+            </div>
+
+            <div class="panel-body-tight">
+              <div class="editor-shell">
+                <div class="editor-topbar">
+                  <div class="tab-strip">
+                    <button type="button" class="tab-btn active" data-mode="write">Write</button>
+                    <button type="button" class="tab-btn" data-mode="preview">Preview</button>
+                    <button type="button" class="tab-btn" data-mode="html">HTML</button>
+                  </div>
+
+                  <div class="editor-meta">
+                    <span><strong id="wordCount">0</strong> words</span>
+                    <span><strong id="charCount">0</strong> chars</span>
+                    <span><strong id="readTime">0</strong> min read</span>
+                  </div>
+                </div>
+
+                <div class="toolbar" id="toolbar">
+                  <div class="tool-group">
+                    <button type="button" class="tool-btn wide" data-command="undo" title="Undo">Undo</button>
+                    <button type="button" class="tool-btn wide" data-command="redo" title="Redo">Redo</button>
+                  </div>
+
+                  <div class="tool-group">
+                    <button type="button" class="tool-btn" data-command="bold" data-active-command="bold" title="Bold">B</button>
+                    <button type="button" class="tool-btn" data-command="italic" data-active-command="italic" title="Italic">I</button>
+                    <button type="button" class="tool-btn" data-command="underline" data-active-command="underline" title="Underline">U</button>
+                    <button type="button" class="tool-btn" data-command="strikeThrough" data-active-command="strikeThrough" title="Strikethrough">S</button>
+                  </div>
+
+                  <div class="tool-group">
+                    <button type="button" class="tool-btn wide" data-format="H1" title="Heading 1">H1</button>
+                    <button type="button" class="tool-btn wide" data-format="H2" title="Heading 2">H2</button>
+                    <button type="button" class="tool-btn wide" data-format="BLOCKQUOTE" title="Blockquote">Quote</button>
+                    <button type="button" class="tool-btn wide" data-format="PRE" title="Code block">Code</button>
+                  </div>
+
+                  <div class="tool-group">
+                    <button type="button" class="tool-btn wide" data-command="insertUnorderedList" data-active-command="insertUnorderedList" title="Bullet list">Bullets</button>
+                    <button type="button" class="tool-btn wide" data-command="insertOrderedList" data-active-command="insertOrderedList" title="Numbered list">Numbers</button>
+                    <button type="button" class="tool-btn wide" data-command="justifyLeft" title="Align left">Left</button>
+                    <button type="button" class="tool-btn wide" data-command="justifyCenter" title="Align center">Center</button>
+                    <button type="button" class="tool-btn wide" data-command="justifyRight" title="Align right">Right</button>
+                  </div>
+
+                  <div class="tool-group">
+                    <button type="button" class="tool-btn wide" data-action="link" title="Insert link">Link</button>
+                    <button type="button" class="tool-btn wide" data-action="image" title="Insert image">Image</button>
+                    <button type="button" class="tool-btn wide" data-action="rule" title="Insert divider">Rule</button>
+                  </div>
+                </div>
+
+                <div class="editor-stage">
+                  <div class="editor-pane active" data-pane="write">
+                    <div
+                      id="editor"
+                      class="writer-surface is-empty"
+                      contenteditable="true"
+                      spellcheck="true"
+                      data-placeholder="Start writing your article here. Use the toolbar to shape headings, quotes, lists, links, and media."
+                    ></div>
+                  </div>
+
+                  <div class="editor-pane" data-pane="preview">
+                    <div id="previewSurface" class="preview-surface">
+                      <p class="preview-empty">Nothing to preview yet. Start writing to see the reading view.</p>
+                    </div>
+                  </div>
+
+                  <div class="editor-pane" data-pane="html">
+                    <textarea id="htmlSource" class="html-surface" spellcheck="false"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <aside class="sidebar-stack">
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="panel-kicker">Publishing</p>
+                <h3>Ready to publish</h3>
+                <p>Choose the article state, review the essentials, and send the story forward with a single action.</p>
+              </div>
+              <span class="panel-badge">Control center</span>
+            </div>
+
+            <div class="panel-body">
+              <div class="status-toggle" id="statusToggle">
+                <button type="button" class="status-btn active" data-status="published">Published</button>
+                <button type="button" class="status-btn" data-status="draft">Draft</button>
+                <button type="button" class="status-btn" data-status="scheduled">Scheduled</button>
+              </div>
+
+              <p class="status-note" id="statusNote">Published content is treated as ready for immediate release.</p>
+
+              <div class="checklist">
+                <div class="check-item" id="checkTitle">
+                  <div class="check-indicator">
+                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20 6L9 17l-5-5"></path>
+                    </svg>
+                  </div>
+                  <div class="check-copy">
+                    <strong>Headline ready</strong>
+                    <p>A clear title helps the article feel finished and searchable.</p>
+                  </div>
+                </div>
+
+                <div class="check-item" id="checkDescription">
+                  <div class="check-indicator">
+                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20 6L9 17l-5-5"></path>
+                    </svg>
+                  </div>
+                  <div class="check-copy">
+                    <strong>Meta description added</strong>
+                    <p>Search, cards, and internal review benefit from a concise story summary.</p>
+                  </div>
+                </div>
+
+                <div class="check-item" id="checkBody">
+                  <div class="check-indicator">
+                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20 6L9 17l-5-5"></path>
+                    </svg>
+                  </div>
+                  <div class="check-copy">
+                    <strong>Body content written</strong>
+                    <p>Draft enough content to give reviewers confidence in the structure and tone.</p>
+                  </div>
+                </div>
+
+                <div class="check-item" id="checkCover">
+                  <div class="check-indicator">
+                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20 6L9 17l-5-5"></path>
+                    </svg>
+                  </div>
+                  <div class="check-copy">
+                    <strong>Cover image selected</strong>
+                    <p>A lead visual helps the story feel more complete in cards and featured placements.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="summary-list">
+                <div class="summary-row">
+                  <span>Collection</span>
+                  <strong>News_Collection</strong>
+                </div>
+                <div class="summary-row">
+                  <span>Title</span>
+                  <strong id="summaryTitle">-</strong>
+                </div>
+                <div class="summary-row">
+                  <span>Category</span>
+                  <strong id="summaryCategory">-</strong>
+                </div>
+                <div class="summary-row">
+                  <span>Author</span>
+                  <strong id="summaryAuthor">-</strong>
+                </div>
+                <div class="summary-row">
+                  <span>Cover</span>
+                  <strong id="summaryCover">0 file(s)</strong>
+                </div>
+                <div class="summary-row">
+                  <span>Gallery</span>
+                  <strong id="summaryGallery">0 / 10</strong>
+                </div>
+                <div class="summary-row">
+                  <span>Status</span>
+                  <strong id="summaryStatus">Published</strong>
+                </div>
+              </div>
+
+              <button type="submit" class="publish-btn" id="publishButton" disabled>
+                <span id="publishIcon">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 2L11 13"></path>
+                    <path d="M22 2L15 22l-4-9-9-4 20-7z"></path>
+                  </svg>
+                </span>
+                <span id="publishLabel">Publish article</span>
+              </button>
+
+              <p class="publish-hint" id="publishHint">Headline and article body are required before the publish action becomes available.</p>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="panel-kicker">Lead visual</p>
+                <h3>Cover image</h3>
+                <p>Give the article a premium first impression with a single strong hero image.</p>
+              </div>
+              <span class="panel-badge" id="coverBadge">Recommended</span>
+            </div>
+
+            <div class="panel-body">
+              <div class="dropzone" id="coverDropzone">
+                <input type="file" id="coverInput" accept="image/*" />
+                <div class="drop-icon">
+                  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <path d="M17 8l-5-5-5 5"></path>
+                    <path d="M12 3v12"></path>
+                  </svg>
+                </div>
+                <p class="drop-title">Drop a cover image here</p>
+                <p class="drop-copy">PNG, JPG, or WEBP with a wide composition for homepage, listing, and social placements.</p>
+                <button type="button" class="link-btn" data-trigger="coverInput">Browse files</button>
+              </div>
+
+              <div id="coverPreviewContainer"></div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="panel-kicker">Supporting media</p>
+                <h3>Image gallery</h3>
+                <p>Add up to ten supporting images to enrich the story body or related layouts.</p>
+              </div>
+              <span class="panel-badge" id="galleryBadge">0 / 10</span>
+            </div>
+
+            <div class="panel-body">
+              <div class="dropzone" id="galleryDropzone">
+                <input type="file" id="galleryInput" accept="image/*" multiple />
+                <div class="drop-icon">
+                  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 21V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v16"></path>
+                    <path d="M7 16l3-3 3 3 4-5 4 5"></path>
+                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                  </svg>
+                </div>
+                <p class="drop-title">Build the visual set</p>
+                <p class="drop-copy">Use supporting images for galleries, in-article breaks, and related content cards.</p>
+                <button type="button" class="link-btn" data-trigger="galleryInput">Add images</button>
+              </div>
+
+              <div id="galleryPreviewContainer"></div>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </form>
+  </div>
+
+  <div class="success-state hide" id="successState">
+    <div class="success-card">
+      <div class="success-mark">
+        <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 6L9 17l-5-5"></path>
+        </svg>
+      </div>
+      <h2>Article packaged beautifully.</h2>
+      <p>
+        The publishing flow is now presented as a more polished editorial experience, with cleaner hierarchy, richer surfaces, and a stronger sense of readiness.
+      </p>
+      <button type="button" class="primary-btn" id="closeSuccess">Return to workspace</button>
     </div>
   </div>
-</section>
-    </main>
-    <footer>
-      <footer class="footer p-10 bg-neutral text-neutral-content h-[400px] mt-20">
-        <aside>
-          <svg width="50" height="50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" class="fill-current"><path d="M22.672 15.226l-2.432.811.841 2.515c.33 1.019-.209 2.127-1.23 2.456-1.15.325-2.148-.321-2.463-1.226l-.84-2.518-5.013 1.677.84 2.517c.391 1.203-.434 2.542-1.831 2.542-.88 0-1.601-.564-1.86-1.314l-.842-2.516-2.431.809c-1.135.328-2.145-.317-2.463-1.229-.329-1.018.211-2.127 1.231-2.456l2.432-.809-1.621-4.823-2.432.808c-1.355.384-2.558-.59-2.558-1.839 0-.817.509-1.582 1.327-1.846l2.433-.809-.842-2.515c-.33-1.02.211-2.129 1.232-2.458 1.02-.329 2.13.209 2.461 1.229l.842 2.515 5.011-1.677-.839-2.517c-.403-1.238.484-2.553 1.843-2.553.819 0 1.585.509 1.85 1.326l.841 2.517 2.431-.81c1.02-.33 2.131.211 2.461 1.229.332 1.018-.21 2.126-1.23 2.456l-2.433.809 1.622 4.823 2.433-.809c1.242-.401 2.557.484 2.557 1.838 0 .819-.51 1.583-1.328 1.847m-8.992-6.428l-5.01 1.675 1.619 4.828 5.011-1.674-1.62-4.829z"></path></svg>
-          <p>ACME Industries Ltd.<br/>Providing reliable tech since 1992</p>
-        </aside> 
-        <nav>
-          <header class="footer-title">Get The App</header> 
-          <div class="grid grid-cols-1 gap-5">
-           <a><img class="w-[140px]" src="./images/others/android.png" alt=""></a>
-           <a><img class="w-[140px]" src="./images/others/ios.png" alt=""></a>
-          
-          </div>
-        </nav>
-      </footer>
-    </footer>
+
+  <script>
+    const titleInput = document.getElementById("title");
+    const categoryInput = document.getElementById("category");
+    const authorInput = document.getElementById("author");
+    const tagsInput = document.getElementById("tags");
+    const descriptionInput = document.getElementById("description");
+    const descriptionCounter = document.getElementById("descriptionCounter");
+    const descriptionHint = document.getElementById("descriptionHint");
+    const editor = document.getElementById("editor");
+    const previewSurface = document.getElementById("previewSurface");
+    const htmlSource = document.getElementById("htmlSource");
+    const toolbar = document.getElementById("toolbar");
+    const publishButton = document.getElementById("publishButton");
+    const publishLabel = document.getElementById("publishLabel");
+    const publishIcon = document.getElementById("publishIcon");
+    const publishHint = document.getElementById("publishHint");
+    const completionValue = document.getElementById("completionValue");
+    const completionCount = document.getElementById("completionCount");
+    const heroWords = document.getElementById("heroWords");
+    const heroReadTime = document.getElementById("heroReadTime");
+    const heroAssets = document.getElementById("heroAssets");
+    const heroStatus = document.getElementById("heroStatus");
+    const wordCount = document.getElementById("wordCount");
+    const charCount = document.getElementById("charCount");
+    const readTime = document.getElementById("readTime");
+    const summaryTitle = document.getElementById("summaryTitle");
+    const summaryCategory = document.getElementById("summaryCategory");
+    const summaryAuthor = document.getElementById("summaryAuthor");
+    const summaryCover = document.getElementById("summaryCover");
+    const summaryGallery = document.getElementById("summaryGallery");
+    const summaryStatus = document.getElementById("summaryStatus");
+    const coverBadge = document.getElementById("coverBadge");
+    const galleryBadge = document.getElementById("galleryBadge");
+    const coverPreviewContainer = document.getElementById("coverPreviewContainer");
+    const galleryPreviewContainer = document.getElementById("galleryPreviewContainer");
+    const successState = document.getElementById("successState");
+    const closeSuccess = document.getElementById("closeSuccess");
+    const statusNote = document.getElementById("statusNote");
+
+    let mode = "write";
+    let currentStatus = "published";
+    let coverFiles = [];
+    let galleryFiles = [];
+
+    const statusMessages = {
+      published: "Published content is treated as ready for immediate release.",
+      draft: "Draft keeps the story in review mode while writers and editors refine it.",
+      scheduled: "Scheduled is ideal when the article is approved but waiting on a timed release."
+    };
+
+    const emptyPreview = () => "<p class=\"preview-empty\">Nothing to preview yet. Start writing to see the reading view.</p>";
+
+    function setMode(nextMode) {
+      mode = nextMode;
+
+      document.querySelectorAll(".tab-btn").forEach((button) => {
+        button.classList.toggle("active", button.dataset.mode === nextMode);
+      });
+
+      document.querySelectorAll(".editor-pane").forEach((pane) => {
+        pane.classList.toggle("active", pane.dataset.pane === nextMode);
+      });
+
+      toolbar.classList.toggle("hidden", nextMode !== "write");
+
+      if (nextMode === "preview") {
+        previewSurface.innerHTML = getEditorHtml() || emptyPreview();
+      }
+
+      if (nextMode === "html") {
+        htmlSource.value = getEditorHtml();
+      }
+    }
+
+    function getEditorHtml() {
+      return editor.innerHTML.trim();
+    }
+
+    function getEditorText() {
+      return (editor.innerText || "").replace(/\u00a0/g, " ").replace(/\s+/g, " ").trim();
+    }
+
+    function hasVisualContent() {
+      return Boolean(editor.querySelector("img, hr, pre, blockquote, ul, ol, h1, h2"));
+    }
+
+    function updateEditorEmptyState() {
+      const isEmpty = getEditorText().length === 0 && !hasVisualContent();
+      editor.classList.toggle("is-empty", isEmpty);
+    }
+
+    function updateDescriptionState() {
+      const count = descriptionInput.value.length;
+      descriptionCounter.textContent = count + "/160";
+      const tooLong = count > 160;
+      descriptionCounter.style.color = tooLong ? "#b45309" : "inherit";
+      descriptionHint.classList.toggle("warning", tooLong);
+      descriptionHint.textContent = tooLong
+        ? "This description is running long for search snippets. Consider tightening it."
+        : "Used in search snippets, article cards, and internal editorial review.";
+    }
+
+    function updateChecklist() {
+      const descriptionReady = descriptionInput.value.trim().length > 0;
+      const bodyReady = getEditorText().length > 10 || hasVisualContent();
+      const checks = [
+        ["checkTitle", titleInput.value.trim().length > 0],
+        ["checkDescription", descriptionReady],
+        ["checkBody", bodyReady],
+        ["checkCover", coverFiles.length > 0]
+      ];
+
+      checks.forEach(([id, complete]) => {
+        const element = document.getElementById(id);
+        element.classList.toggle("complete", complete);
+      });
+    }
+
+    function updateSummary() {
+      summaryTitle.textContent = titleInput.value.trim() || "-";
+      summaryCategory.textContent = categoryInput.value.trim() || "-";
+      summaryAuthor.textContent = authorInput.value.trim() || "-";
+      summaryCover.textContent = coverFiles.length ? "1 file selected" : "0 file(s)";
+      summaryGallery.textContent = galleryFiles.length + " / 10";
+      summaryStatus.textContent = currentStatus.charAt(0).toUpperCase() + currentStatus.slice(1);
+      coverBadge.textContent = coverFiles.length ? "Selected" : "Recommended";
+      galleryBadge.textContent = galleryFiles.length + " / 10";
+      heroAssets.textContent = String(coverFiles.length + galleryFiles.length);
+      heroStatus.textContent = currentStatus.charAt(0).toUpperCase() + currentStatus.slice(1);
+      statusNote.textContent = statusMessages[currentStatus];
+    }
+
+    function updateProgress() {
+      const filled = [
+        titleInput.value.trim(),
+        descriptionInput.value.trim(),
+        getEditorText().length > 10 || hasVisualContent() ? "body" : "",
+        coverFiles.length ? "cover" : ""
+      ].filter(Boolean).length;
+
+      completionCount.textContent = String(filled);
+      completionValue.style.width = (filled / 4) * 100 + "%";
+
+      const words = getEditorText().length ? getEditorText().split(/\s+/).filter(Boolean).length : 0;
+      const chars = (editor.innerText || "").length;
+      const minutes = words ? Math.max(1, Math.ceil(words / 200)) : 0;
+
+      heroWords.textContent = String(words);
+      heroReadTime.textContent = minutes + " min";
+      wordCount.textContent = String(words);
+      charCount.textContent = String(chars);
+      readTime.textContent = String(minutes);
+
+      publishButton.disabled = !(titleInput.value.trim() && (getEditorText().length > 0 || hasVisualContent()));
+      publishHint.textContent = publishButton.disabled
+        ? "Headline and article body are required before the publish action becomes available."
+        : "The article has the minimum content needed to move forward.";
+    }
+
+    function updateToolbarState() {
+      document.querySelectorAll(".tool-btn[data-active-command]").forEach((button) => {
+        try {
+          button.classList.toggle("active", document.queryCommandState(button.dataset.activeCommand));
+        } catch (error) {
+          button.classList.remove("active");
+        }
+      });
+
+      const selection = document.getSelection();
+      let selectedElement = null;
+
+      if (selection && selection.rangeCount) {
+        const node = selection.anchorNode;
+        if (node && editor.contains(node)) {
+          selectedElement = node.nodeType === 1 ? node : node.parentElement;
+        }
+      }
+
+      const activeBlock = selectedElement ? selectedElement.closest("h1, h2, blockquote, pre") : null;
+
+      document.querySelectorAll(".tool-btn[data-format]").forEach((button) => {
+        const format = button.dataset.format.toLowerCase();
+        button.classList.toggle("active", Boolean(activeBlock) && activeBlock.tagName.toLowerCase() === format);
+      });
+    }
+
+    function syncEditor() {
+      updateEditorEmptyState();
+      previewSurface.innerHTML = getEditorHtml() || emptyPreview();
+      if (mode !== "html") {
+        htmlSource.value = getEditorHtml();
+      }
+      updateDescriptionState();
+      updateChecklist();
+      updateSummary();
+      updateProgress();
+      updateToolbarState();
+    }
+
+    function applyCommand(command, value) {
+      editor.focus();
+      document.execCommand(command, false, value || null);
+      syncEditor();
+    }
+
+    function insertLink() {
+      const url = window.prompt("Enter a URL", "https://");
+      if (url) {
+        applyCommand("createLink", url);
+      }
+    }
+
+    function insertImage() {
+      const url = window.prompt("Paste an image URL");
+      if (url) {
+        applyCommand("insertHTML", "<img src=\"" + url + "\" alt=\"\" />");
+      }
+    }
+
+    function insertRule() {
+      applyCommand("insertHTML", "<hr />");
+    }
+
+    function formatFileSize(file) {
+      if (!file || typeof file.size !== "number") {
+        return "";
+      }
+      if (file.size < 1024 * 1024) {
+        return Math.round(file.size / 1024) + " KB";
+      }
+      return (file.size / (1024 * 1024)).toFixed(1) + " MB";
+    }
+
+    function renderCoverPreview() {
+      if (!coverFiles.length) {
+        coverPreviewContainer.innerHTML = "<div class=\"empty-media\">No cover image selected yet. A lead visual is optional, but it makes the page feel complete.</div>";
+        return;
+      }
+
+      const file = coverFiles[0];
+      const src = URL.createObjectURL(file);
+      coverPreviewContainer.innerHTML = ""
+        + "<div class=\"preview-list\">"
+        + "  <div class=\"cover-card\">"
+        + "    <button type=\"button\" class=\"remove-btn\" data-remove-cover=\"0\" aria-label=\"Remove cover image\">&times;</button>"
+        + "    <img src=\"" + src + "\" alt=\"Cover preview\" />"
+        + "    <div class=\"media-overlay\">"
+        + "      <strong>" + file.name + "</strong>"
+        + "      <span>" + formatFileSize(file) + "</span>"
+        + "    </div>"
+        + "  </div>"
+        + "</div>";
+    }
+
+    function renderGalleryPreview() {
+      if (!galleryFiles.length) {
+        galleryPreviewContainer.innerHTML = "<div class=\"empty-media\">Gallery images will appear here. Add up to ten supporting visuals.</div>";
+        return;
+      }
+
+      galleryPreviewContainer.innerHTML = ""
+        + "<div class=\"preview-grid\">"
+        + galleryFiles.map((file, index) => {
+          const src = URL.createObjectURL(file);
+          return ""
+            + "<div class=\"gallery-card\">"
+            + "  <button type=\"button\" class=\"remove-btn\" data-remove-gallery=\"" + index + "\" aria-label=\"Remove gallery image\">&times;</button>"
+            + "  <img src=\"" + src + "\" alt=\"Gallery preview " + (index + 1) + "\" />"
+            + "  <div class=\"gallery-meta\"><span>" + file.name + "</span></div>"
+            + "</div>";
+        }).join("")
+        + "</div>";
+    }
+
+    function refreshMedia() {
+      renderCoverPreview();
+      renderGalleryPreview();
+      updateChecklist();
+      updateSummary();
+      updateProgress();
+    }
+
+    function imageFilesFromList(fileList) {
+      return Array.from(fileList || []).filter((file) => file.type.startsWith("image/"));
+    }
+
+    function assignCover(files) {
+      const valid = imageFilesFromList(files);
+      coverFiles = valid.slice(0, 1);
+      refreshMedia();
+    }
+
+    function assignGallery(files) {
+      const valid = imageFilesFromList(files);
+      galleryFiles = galleryFiles.concat(valid).slice(0, 10);
+      refreshMedia();
+    }
+
+    function setupDropzone(zoneId, inputId, handler) {
+      const zone = document.getElementById(zoneId);
+      const input = document.getElementById(inputId);
+
+      zone.addEventListener("click", (event) => {
+        if (event.target.closest("[data-trigger]")) {
+          return;
+        }
+        input.click();
+      });
+
+      zone.addEventListener("dragover", (event) => {
+        event.preventDefault();
+        zone.classList.add("dragging");
+      });
+
+      zone.addEventListener("dragleave", () => {
+        zone.classList.remove("dragging");
+      });
+
+      zone.addEventListener("drop", (event) => {
+        event.preventDefault();
+        zone.classList.remove("dragging");
+        handler(event.dataTransfer.files);
+      });
+
+      input.addEventListener("change", (event) => {
+        handler(event.target.files);
+        input.value = "";
+      });
+    }
+
+    document.querySelectorAll("[data-trigger]").forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.stopPropagation();
+        const input = document.getElementById(button.dataset.trigger);
+        input.click();
+      });
+    });
+
+    document.querySelectorAll(".tab-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        setMode(button.dataset.mode);
+      });
+    });
+
+    document.querySelectorAll(".tool-btn").forEach((button) => {
+      button.addEventListener("mousedown", (event) => {
+        event.preventDefault();
+      });
+
+      button.addEventListener("click", () => {
+        if (button.dataset.command) {
+          applyCommand(button.dataset.command);
+        } else if (button.dataset.format) {
+          applyCommand("formatBlock", button.dataset.format);
+        } else if (button.dataset.action === "link") {
+          insertLink();
+        } else if (button.dataset.action === "image") {
+          insertImage();
+        } else if (button.dataset.action === "rule") {
+          insertRule();
+        }
+      });
+    });
+
+    document.querySelectorAll(".status-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        currentStatus = button.dataset.status;
+        document.querySelectorAll(".status-btn").forEach((item) => {
+          item.classList.toggle("active", item === button);
+        });
+        updateSummary();
+      });
+    });
+
+    [titleInput, categoryInput, authorInput, tagsInput, descriptionInput].forEach((input) => {
+      input.addEventListener("input", syncEditor);
+      input.addEventListener("change", syncEditor);
+    });
+
+    editor.addEventListener("input", syncEditor);
+    editor.addEventListener("keyup", syncEditor);
+    editor.addEventListener("mouseup", syncEditor);
+    editor.addEventListener("blur", syncEditor);
+
+    document.addEventListener("selectionchange", () => {
+      const selection = document.getSelection();
+      if (!selection || !selection.rangeCount) {
+        return;
+      }
+      const node = selection.anchorNode;
+      if (node && editor.contains(node)) {
+        updateToolbarState();
+      }
+    });
+
+    htmlSource.addEventListener("input", () => {
+      editor.innerHTML = htmlSource.value;
+      syncEditor();
+    });
+
+    setupDropzone("coverDropzone", "coverInput", assignCover);
+    setupDropzone("galleryDropzone", "galleryInput", assignGallery);
+
+    coverPreviewContainer.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-remove-cover]");
+      if (!button) {
+        return;
+      }
+      coverFiles = [];
+      refreshMedia();
+    });
+
+    galleryPreviewContainer.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-remove-gallery]");
+      if (!button) {
+        return;
+      }
+      const index = Number(button.dataset.removeGallery);
+      galleryFiles = galleryFiles.filter((_, itemIndex) => itemIndex !== index);
+      refreshMedia();
+    });
+
+    document.getElementById("articleForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      if (publishButton.disabled) {
+        titleInput.focus();
+        return;
+      }
+
+      publishButton.disabled = true;
+      publishLabel.textContent = "Publishing...";
+      publishIcon.innerHTML = "<span class=\"spinner\"></span>";
+
+      window.setTimeout(() => {
+        publishLabel.textContent = "Publish article";
+        publishIcon.innerHTML = ""
+          + "<svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">"
+          + "  <path d=\"M22 2L11 13\"></path>"
+          + "  <path d=\"M22 2L15 22l-4-9-9-4 20-7z\"></path>"
+          + "</svg>";
+        successState.classList.remove("hide");
+        updateProgress();
+      }, 1100);
+    });
+
+    closeSuccess.addEventListener("click", () => {
+      successState.classList.add("hide");
+    });
+
+    renderCoverPreview();
+    renderGalleryPreview();
+    setMode("write");
+    syncEditor();
+  </script>
 </body>
 </html>
