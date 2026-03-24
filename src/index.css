@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply bg-corporate-50 text-corporate-900;
+  }
+}
+
+/* Rich text editor: empty placeholder */
+[contenteditable][data-placeholder]:empty::before {
+  content: attr(data-placeholder);
+  @apply text-corporate-400 pointer-events-none;
+}
+
+/* Preview typography */
+.rich-preview h1 {
+  @apply text-2xl font-bold mt-4 mb-2 text-corporate-900;
+}
+.rich-preview h2 {
+  @apply text-xl font-semibold mt-3 mb-2 text-corporate-800;
+}
+.rich-preview p {
+  @apply my-2 text-corporate-700 leading-relaxed;
+}
+.rich-preview ul {
+  @apply list-disc pl-5 my-2;
+}
+.rich-preview ol {
+  @apply list-decimal pl-5 my-2;
+}
+.rich-preview blockquote {
+  @apply border-l-4 border-corporate-300 pl-4 my-3 italic text-corporate-600;
+}
+.rich-preview a {
+  @apply text-blue-700 underline;
+}
+.rich-preview hr {
+  @apply my-4 border-corporate-200;
+}
