@@ -1,310 +1,857 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- font  -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- tailwind and daisy ui cdn -->
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.6.0/dist/full.min.css" rel="stylesheet" type="text/css" />
-<script src="https://cdn.tailwindcss.com"></script>
-<!-- tailwind custom classes -->
-<script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            clifford: '#da373d',
-            'jewel': '#E76F51',
-            'bike-primary': '#E76F51',
-            'bike-primary-bg': ' rgba(231, 111, 81, 0.10)',
-            
-          }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Press Room - Create News Article</title>
+    <style>
+      :root {
+        --bg: #f4f5f8;
+        --card: #ffffff;
+        --text: #111827;
+        --muted: #6b7280;
+        --line: #d1d5db;
+        --brand: #111827;
+        --accent: #dc2626;
+        --success-bg: #ecfdf3;
+        --success-text: #166534;
+        --error-bg: #fef2f2;
+        --error-text: #b91c1c;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      .masthead {
+        background: var(--brand);
+        color: #fff;
+        padding: 14px 28px;
+        border-bottom: 3px solid var(--accent);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .masthead h1 {
+        margin: 0;
+        font-size: 20px;
+      }
+
+      .wrapper {
+        max-width: 1150px;
+        margin: 24px auto;
+        padding: 0 16px;
+      }
+
+      .title {
+        margin-bottom: 18px;
+      }
+
+      .title h2 {
+        margin: 0 0 8px;
+        font-size: 28px;
+      }
+
+      .title p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 1fr 340px;
+        gap: 18px;
+      }
+
+      @media (max-width: 960px) {
+        .layout {
+          grid-template-columns: 1fr;
         }
       }
-    }
-  </script>
-    <title>www.biker zone.com</title>
-    <style>
-        .font-poppins{
-            font-family: 'Poppins', sans-serif;
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        margin-bottom: 14px;
+        overflow: hidden;
+      }
+
+      .card h3 {
+        margin: 0;
+        padding: 12px 14px;
+        background: #f9fafb;
+        border-bottom: 1px solid var(--line);
+        font-size: 14px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .card-body {
+        padding: 14px;
+      }
+
+      .field {
+        margin-bottom: 12px;
+      }
+
+      .field:last-child {
+        margin-bottom: 0;
+      }
+
+      .field label {
+        display: block;
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 700;
+        margin-bottom: 6px;
+        letter-spacing: 0.03em;
+      }
+
+      input[type="text"] {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        font-size: 14px;
+      }
+
+      input[type="text"]:focus {
+        outline: 2px solid #c7d2fe;
+        border-color: #818cf8;
+      }
+
+      .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      @media (max-width: 680px) {
+        .row {
+          grid-template-columns: 1fr;
         }
+      }
+
+      .editor-shell {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        padding: 8px;
+        border-bottom: 1px solid var(--line);
+        background: #f9fafb;
+      }
+
+      .tool-btn,
+      .view-btn {
+        border: 1px solid transparent;
+        background: transparent;
+        color: #374151;
+        border-radius: 6px;
+        font-size: 12px;
+        padding: 6px 8px;
+        cursor: pointer;
+      }
+
+      .tool-btn:hover,
+      .view-btn:hover {
+        background: #f3f4f6;
+        border-color: #e5e7eb;
+      }
+
+      .view-toggle {
+        margin-left: auto;
+        display: flex;
+        gap: 4px;
+      }
+
+      .view-btn.active {
+        background: #111827;
+        color: #fff;
+      }
+
+      .editor,
+      .preview {
+        min-height: 290px;
+        padding: 12px;
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .editor:focus {
+        outline: none;
+      }
+
+      .editor:empty::before {
+        content: attr(data-placeholder);
+        color: #9ca3af;
+      }
+
+      .preview {
+        display: none;
+      }
+
+      .preview.visible {
+        display: block;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .meta-row {
+        border-top: 1px solid var(--line);
+        padding: 7px 12px;
+        font-size: 12px;
+        color: var(--muted);
+        text-align: right;
+        background: #f9fafb;
+      }
+
+      .dropzone {
+        border: 1.5px dashed #9ca3af;
+        border-radius: 8px;
+        padding: 14px;
+        text-align: center;
+        color: #4b5563;
+        cursor: pointer;
+      }
+
+      .dropzone.dragging {
+        border-color: #111827;
+        background: #f9fafb;
+      }
+
+      .dropzone p {
+        margin: 6px 0;
+        font-size: 13px;
+      }
+
+      .preview-grid {
+        margin-top: 10px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+
+      .preview-single {
+        margin-top: 10px;
+      }
+
+      .thumb {
+        position: relative;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        background: #f3f4f6;
+      }
+
+      .thumb.square {
+        aspect-ratio: 1;
+      }
+
+      .thumb.video {
+        aspect-ratio: 16 / 9;
+      }
+
+      .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .thumb button {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        width: 24px;
+        height: 24px;
+        border: 0;
+        border-radius: 999px;
+        background: rgba(17, 24, 39, 0.85);
+        color: #fff;
+        cursor: pointer;
+        font-weight: 700;
+      }
+
+      .thumb-name {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        font-size: 11px;
+        padding: 4px 6px;
+        background: rgba(17, 24, 39, 0.8);
+        color: #fff;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .progress-track {
+        height: 8px;
+        width: 100%;
+        border-radius: 999px;
+        background: #e5e7eb;
+        overflow: hidden;
+      }
+
+      .progress-bar {
+        height: 100%;
+        width: 0;
+        background: #dc2626;
+        transition: width 0.25s ease;
+      }
+
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 8px 0;
+        border-bottom: 1px dashed #e5e7eb;
+        font-size: 13px;
+      }
+
+      .summary-row:last-child {
+        border-bottom: 0;
+      }
+
+      .summary-key {
+        color: var(--muted);
+      }
+
+      .summary-value {
+        max-width: 180px;
+        text-align: right;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .status {
+        margin-bottom: 10px;
+        border-radius: 8px;
+        padding: 10px 12px;
+        font-size: 14px;
+      }
+
+      .status.success {
+        background: var(--success-bg);
+        color: var(--success-text);
+        border: 1px solid #bbf7d0;
+      }
+
+      .status.error {
+        background: var(--error-bg);
+        color: var(--error-text);
+        border: 1px solid #fecaca;
+      }
+
+      .submit-btn {
+        width: 100%;
+        border: 0;
+        border-radius: 8px;
+        padding: 12px 14px;
+        font-weight: 700;
+        font-size: 14px;
+        cursor: pointer;
+        background: #111827;
+        color: #fff;
+      }
+
+      .submit-btn:hover {
+        background: #dc2626;
+      }
     </style>
-</head>
-<body class="poppins">
-    <header class="md:container md:mx-auto">
-<nav>
-    <div class="navbar bg-base-100">
-        <div class="flex-1">
-          <div class="dropdown">
-            <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
-            </div>
-            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 text-xl rounded-box w-52">
-              <li><a>Home</a></li>
-              <li>
-                <a>Shope</a>
-              </li>
-              <li><a>News</a></li>
-              <li><a>Contact</a></li>
-            </ul>
-          </div>
-          <a class="btn btn-ghost text-4xl">Bike House</a>
-        </div>
-        <div class="navbar-center hidden lg:flex">
-          <ul class="menu menu-horizontal text-2xl px-1">
-            <li><a>Home</a></li>
-            <li>
-              <a>Shope</a>
-            </li>
-            <li><a>News</a></li>
-            <li><a>Contact</a></li>
-          </ul>
-        </div>
-        <div class="">
-          <a class="btn btn-warning bg-bike-primary text-2xl">Login</a>
-        </div>
-      </div>
-</nav>
-
-<!-- slider or carousel -->
-<div class="carousel w-full lg:h-[550px] bg-yellow-400">
-    <div id="slide1" class="carousel-item relative w-full ">
-      <div class="flex gap-28 flex-col lg:flex-row p-4 items-center justify-center">
-        <div class="flex-1 lg:pl-24 pl-10 ">
-<h2 class="lg:text-6xl text-2xl font-bold  ">
-    Ride-on R15 V4 <br> with Smile
-</h2>
-<p class="mt-3">Amet minim mollit non deserunt ullamco 
-    est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
-    <a class="btn btn-warning bg-bike-primary  text-2xl mt-4">Login</a>
-</div>
-        <div class="flex-1">
-            <img src="./images/slider/bike1.png" class="w-[400px]" />
-        </div>
-      </div>
-      <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-        <a href="#slide4" class="btn btn-circle">❮</a> 
-        <a href="#slide2" class="btn btn-circle">❯</a>
-      </div>
-    </div> 
-    <div id="slide2" class="carousel-item relative w-full">
-        <div class="flex-1 lg:pl-24 pl-10 gap-32 pt-32 ">
-            <h2 class="lg:text-6xl text-2xl font-bold  ">
-                Ride-on R15 V4 <br> with Smile
-            </h2>
-            <p class="mt-3">Amet minim mollit non deserunt ullamco 
-                est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
-                <a class="btn btn-warning bg-bike-primary  text-2xl mt-4">Login</a>
-            </div>
-                    <div class="flex-1">
-                        <img src="./images/slider/bike2.png" class="w-[400px] pt-32" />
-                    </div>
-      <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-        <a href="#slide1" class="btn btn-circle">❮</a> 
-        <a href="#slide3" class="btn btn-circle">❯</a>
-      </div>
-    </div> 
-    <div id="slide3" class="carousel-item relative w-full">
-        <div class="flex-1 lg:pl-24 gap-32 pl-10 ">
-            <h2 class="lg:text-6xl text-2xl font-bold pt-32  ">
-                Ride-on R15 V4 <br> with Smile
-            </h2>
-            <p class="mt-3">Amet minim mollit non deserunt ullamco 
-                est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
-                <a class="btn btn-warning bg-bike-primary  text-2xl mt-4">Login</a>
-            </div>
-                    <div class="flex-1">
-                        <img src="./images/slider/bike3.png" class="w-[400px] pt-32" />
-                    </div>
-      <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-        <a href="#slide2" class="btn btn-circle">❮</a> 
-        <a href="#slide4" class="btn btn-circle">❯</a>
-      </div>
-    </div> 
-    <div id="slide4" class="carousel-item relative w-full">
-        <div class="flex-1 lg:pl-24 gap-32 pl-10 ">
-            <h2 class="lg:text-6xl text-2xl font-bold pt-32 ">
-                Ride-on R15 V4 <br> with Smile
-            </h2>
-            <p class="mt-3">Amet minim mollit non deserunt ullamco 
-                est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
-                <a class="btn btn-warning bg-bike-primary  text-2xl mt-4">Login</a>
-            </div>
-                    <div class="flex-1">
-                        <img src="./images/slider/bike4.png" class="w-[400px] pt-32" />
-                    </div>
-      <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-        <a href="#slide3" class="btn btn-circle">❮</a> 
-        <a href="#slide1" class="btn btn-circle">❯</a>
-      </div>
-    </div>
-  </div>
+  </head>
+  <body>
+    <header class="masthead">
+      <h1>PressRoom</h1>
+      <span>Content Management System</span>
     </header>
-    <main class="md:container md:mx-auto">
-<!-- featured by-->
-        <section class="my-32 ">
-    <h1 class="text-5xl font-semibold text-center">latest Bikes</h1>
-<div class="lg:flex gap-20 mt-16 md:ml-4 lg:ml-24 md:flex-1">
-  <div class="card w-96 bg-base-100 shadow-xl">
-    <figure><img src="./images/others/latest1.png" alt="Shoes" /></figure>
-    <div class="card-body">
-      <h2 class="card-title font-bold">Ducati XDIAVEL S-73</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lacus, fermentum amet faucibus sed id nisi lectus at.</p>
-      <div class="card-actions justify-start mt-16">
-        <button class="btn btn-primary">Buy Now</button>
-      </div>
-    </div>
-  </div>
-  <div class="card w-96 bg-base-100 shadow-xl">
-    <figure><img src="./images/others/latest2.png" alt="Shoes" /></figure>
-    <div class="card-body">
-      <h2 class="card-title font-bold">Motorcycles & Scooters</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lacus, fermentum amet faucibus sed id nisi lectus at.</p>
-      <div class="card-actions justify-star mt-16">
-        <button class="btn btn-secondary">Buy Now</button>
-      </div>
-    </div>
-  </div>
-  <div class="card w-96 bg-base-100 shadow-xl">
-    <figure><img src="./images/others/latest3.png" alt="Shoes" /></figure>
-    <div class="card-body">
-      <h2 class="card-title font-bold">2021 Honda CBR500R</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lacus, fermentum amet faucibus sed id nisi lectus at.</p>
-      <div class="card-actions justify-start mt-16">
-        <button class="btn btn-warning">Buy Now</button>
-      </div>
-    </div>
-  </div>
-</div>
-</section>
-<section>
-  <h1 class="font-bold text-center text-5xl">Happy <span class="text-jewel">Clients says</span> </h1>
-  <div class="lg:flex md:flex-1 lg:gap-36 md:gap-16mt-20">
-  <div class=" card w-96 bg-base-100 shadow-xl">
-    <figure class="px-10 pt-10">
-      <img src="./images/others/user-1.png" alt="Shoes" class="rounded-xl" />
-    </figure>
-    <div class="card-body items-center text-center">
-      <p>Slate helps you see how 
-        many more days you need 
-        to work to reach your financial 
-        goal for the month and year.</p>
-        <div class="rating">
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked  />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-        </div>
-        <h3 class="text-center mt-3 font-bold">Jewel</h3>
-        <h4 class="text-center font-semibold mt-3">Programmer</h4>
-    </div>
-  </div>
-  <div class="card w-96 bg-base-100 shadow-xl">
-    <figure class="px-10 pt-10">
-      <img src="./images/others/user-2.png" alt="Shoes" class="rounded-xl" />
-    </figure>
-    <div class="card-body items-center text-center">
 
-      <p>Slate helps you see how 
-        many more days you need 
-        to work to reach your financial 
-        goal for the month and year.</p>
-        <div class="rating">
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked  />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+    <main class="wrapper">
+      <section class="title">
+        <h2>Create and Publish Article</h2>
+        <p>Fill in all fields, write your content, then click publish.</p>
+      </section>
+
+      <form id="newsForm">
+        <div class="layout">
+          <div>
+            <article class="card">
+              <h3>Headline</h3>
+              <div class="card-body">
+                <div class="field">
+                  <label for="title">Title *</label>
+                  <input id="title" name="title" type="text" placeholder="Enter article headline" required />
+                </div>
+              </div>
+            </article>
+
+            <article class="card">
+              <h3>Author</h3>
+              <div class="card-body">
+                <div class="row">
+                  <div class="field">
+                    <label for="author">Full Name *</label>
+                    <input id="author" name="author" type="text" placeholder="e.g. Sarah Johnson" required />
+                  </div>
+                  <div class="field">
+                    <label for="authorTitle">Title / Role</label>
+                    <input id="authorTitle" name="authorTitle" type="text" placeholder="e.g. Senior Correspondent" />
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="card">
+              <h3>Meta Description</h3>
+              <div class="card-body">
+                <div class="field">
+                  <label for="description">Short Description</label>
+                  <input
+                    id="description"
+                    name="description"
+                    type="text"
+                    placeholder="Brief summary for SEO and article listings"
+                  />
+                </div>
+              </div>
+            </article>
+
+            <article class="card">
+              <h3>Article Body</h3>
+              <div class="card-body">
+                <label class="field">
+                  <span style="display: block; margin-bottom: 6px; font-size: 12px; font-weight: 700; color: #6b7280">
+                    Content *
+                  </span>
+                </label>
+                <div class="editor-shell">
+                  <div class="toolbar">
+                    <button class="tool-btn" type="button" data-cmd="bold"><b>B</b></button>
+                    <button class="tool-btn" type="button" data-cmd="italic"><i>I</i></button>
+                    <button class="tool-btn" type="button" data-cmd="underline"><u>U</u></button>
+                    <button class="tool-btn" type="button" data-block="H1">H1</button>
+                    <button class="tool-btn" type="button" data-block="H2">H2</button>
+                    <button class="tool-btn" type="button" data-cmd="insertUnorderedList">UL</button>
+                    <button class="tool-btn" type="button" data-cmd="insertOrderedList">OL</button>
+                    <button class="tool-btn" type="button" data-block="BLOCKQUOTE">"</button>
+                    <button class="tool-btn" type="button" data-cmd="insertHorizontalRule">HR</button>
+                    <button class="tool-btn" type="button" id="linkBtn">Link</button>
+
+                    <div class="view-toggle">
+                      <button class="view-btn active" type="button" id="editModeBtn">Edit</button>
+                      <button class="view-btn" type="button" id="previewModeBtn">Preview</button>
+                    </div>
+                  </div>
+                  <div
+                    id="editor"
+                    class="editor"
+                    contenteditable="true"
+                    data-placeholder="Write full article body content here..."
+                  ></div>
+                  <div id="preview" class="preview"></div>
+                  <div class="meta-row"><span id="wordCount">0</span> words</div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <aside>
+            <article class="card">
+              <h3>Completion</h3>
+              <div class="card-body">
+                <div class="progress-track">
+                  <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <p id="progressText" style="font-size: 13px; color: #6b7280; margin: 10px 0 0">
+                  Fill in required fields to publish.
+                </p>
+              </div>
+            </article>
+
+            <article class="card">
+              <h3>Cover Image</h3>
+              <div class="card-body">
+                <div class="dropzone" id="coverDropzone">
+                  <p><strong>Drag and drop</strong> or click to browse</p>
+                  <p>PNG / JPG / WEBP - 1 file max</p>
+                  <input id="coverInput" type="file" accept="image/*" class="hidden" />
+                </div>
+                <div class="preview-single" id="coverPreview"></div>
+              </div>
+            </article>
+
+            <article class="card">
+              <h3>Asset Gallery (max 10)</h3>
+              <div class="card-body">
+                <div class="dropzone" id="galleryDropzone">
+                  <p><strong>Drag and drop</strong> or click to browse</p>
+                  <p>PNG / JPG / WEBP - up to 10 files</p>
+                  <input id="galleryInput" type="file" accept="image/*" multiple class="hidden" />
+                </div>
+                <div class="preview-grid" id="galleryPreview"></div>
+              </div>
+            </article>
+
+            <article class="card">
+              <h3>Submission Summary</h3>
+              <div class="card-body" id="summary"></div>
+            </article>
+
+            <div id="status" class="status hidden"></div>
+            <button type="submit" class="submit-btn" id="publishBtn">Publish to Console</button>
+          </aside>
         </div>
-        <h3 class="text-center mt-3 font-bold">Shamima</h3>
-        <h4 class="text-center font-semibold mt-3">Teacher</h4>
-    </div>
-  </div>
-  <div class="card w-96 bg-base-100 shadow-xl">
-    <figure class="px-10 pt-10">
-      <img src="./images/others/user-3.png" alt="Shoes" class="rounded-xl" />
-    </figure>
-    <div class="card-body items-center text-center">
-      
-      <p>Slate helps you see how 
-        many more days you need 
-        to work to reach your financial 
-        goal for the month and year.</p>
-        <div class="rating">
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked  />
-          <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-        </div>
-        <h3 class="text-center mt-3 font-bold">Faria</h3>
-      <h4 class="text-center font-semibold mt-3">Banker</h4>
-    </div>
-  </div>
-  </div>
-</section>
-<section>
-  <h1 class="text-center font-bold text-5xl mt-20">Frequently Asked <span class="text-jewel">Questions</span> </h1>
-  <div  class="lg:flex md:flex-1 items-center gap-60 mt-20">
-    <div>
-<img src="./images/others/faq.png" alt="">
-    </div>
-    <div>
-      <div class="join join-vertical lg:w-[760px] ">
-        <div class="collapse collapse-arrow join-item border border-base-300">
-          <input type="radio" name="my-accordion-4" checked="checked" /> 
-          <div class="collapse-title text-xl font-medium">
-           Do you have bike than Click me
-          </div>
-          <div class="collapse-content"> 
-            <p>hello sir,<br>
-              This is trusted shop if you buy any bike safely 
-            </p>
-          </div>
-        </div>
-        <div class="collapse collapse-arrow join-item border border-base-300">
-          <input type="radio" name="my-accordion-4" /> 
-          <div class="collapse-title text-xl font-medium">
-            Do you provide gurantee card with bike
-          </div>
-          <div class="collapse-content"> 
-            <p>Yes sir, we provide safe card</p>
-          </div>
-        </div>
-        <div class="collapse collapse-arrow join-item border border-base-300">
-          <input type="radio" name="my-accordion-4" /> 
-          <div class="collapse-title text-xl font-medium">
-          What's your shop location
-          </div>
-          <div class="collapse-content"> 
-            <p>Our shop located uttara sector-10</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+      </form>
     </main>
-    <footer>
-      <footer class="footer p-10 bg-neutral text-neutral-content h-[400px] mt-20">
-        <aside>
-          <svg width="50" height="50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" class="fill-current"><path d="M22.672 15.226l-2.432.811.841 2.515c.33 1.019-.209 2.127-1.23 2.456-1.15.325-2.148-.321-2.463-1.226l-.84-2.518-5.013 1.677.84 2.517c.391 1.203-.434 2.542-1.831 2.542-.88 0-1.601-.564-1.86-1.314l-.842-2.516-2.431.809c-1.135.328-2.145-.317-2.463-1.229-.329-1.018.211-2.127 1.231-2.456l2.432-.809-1.621-4.823-2.432.808c-1.355.384-2.558-.59-2.558-1.839 0-.817.509-1.582 1.327-1.846l2.433-.809-.842-2.515c-.33-1.02.211-2.129 1.232-2.458 1.02-.329 2.13.209 2.461 1.229l.842 2.515 5.011-1.677-.839-2.517c-.403-1.238.484-2.553 1.843-2.553.819 0 1.585.509 1.85 1.326l.841 2.517 2.431-.81c1.02-.33 2.131.211 2.461 1.229.332 1.018-.21 2.126-1.23 2.456l-2.433.809 1.622 4.823 2.433-.809c1.242-.401 2.557.484 2.557 1.838 0 .819-.51 1.583-1.328 1.847m-8.992-6.428l-5.01 1.675 1.619 4.828 5.011-1.674-1.62-4.829z"></path></svg>
-          <p>ACME Industries Ltd.<br/>Providing reliable tech since 1992</p>
-        </aside> 
-        <nav>
-          <header class="footer-title">Get The App</header> 
-          <div class="grid grid-cols-1 gap-5">
-           <a><img class="w-[140px]" src="./images/others/android.png" alt=""></a>
-           <a><img class="w-[140px]" src="./images/others/ios.png" alt=""></a>
-          
-          </div>
-        </nav>
-      </footer>
-    </footer>
-</body>
+
+    <script>
+      const state = {
+        title: "",
+        author: "",
+        authorTitle: "",
+        description: "",
+        content: "",
+        coverFiles: [],
+        galleryFiles: [],
+      };
+
+      const formEl = document.getElementById("newsForm");
+      const editorEl = document.getElementById("editor");
+      const previewEl = document.getElementById("preview");
+      const wordCountEl = document.getElementById("wordCount");
+      const editModeBtn = document.getElementById("editModeBtn");
+      const previewModeBtn = document.getElementById("previewModeBtn");
+      const progressBarEl = document.getElementById("progressBar");
+      const progressTextEl = document.getElementById("progressText");
+      const summaryEl = document.getElementById("summary");
+      const statusEl = document.getElementById("status");
+
+      const coverDropzone = document.getElementById("coverDropzone");
+      const galleryDropzone = document.getElementById("galleryDropzone");
+      const coverInput = document.getElementById("coverInput");
+      const galleryInput = document.getElementById("galleryInput");
+      const coverPreview = document.getElementById("coverPreview");
+      const galleryPreview = document.getElementById("galleryPreview");
+
+      const inputs = ["title", "author", "authorTitle", "description"];
+
+      function stripHtml(html) {
+        const tmp = document.createElement("div");
+        tmp.innerHTML = html || "";
+        return (tmp.textContent || tmp.innerText || "").trim();
+      }
+
+      function wordCountFromHtml(html) {
+        const plain = stripHtml(html);
+        return plain ? plain.split(/\s+/).length : 0;
+      }
+
+      function getProgress() {
+        let score = 0;
+        if (state.title.trim()) score += 25;
+        if (state.author.trim()) score += 20;
+        if (state.description.trim()) score += 15;
+        if (stripHtml(state.content)) score += 25;
+        if (state.coverFiles.length > 0) score += 15;
+        return score;
+      }
+
+      function setStatus(type, message) {
+        statusEl.className = "status " + type;
+        statusEl.textContent = message;
+      }
+
+      function clearStatus() {
+        statusEl.className = "status hidden";
+        statusEl.textContent = "";
+      }
+
+      function updateSummary() {
+        const rows = [
+          ["Title", state.title || "--"],
+          ["Author", state.author || "--"],
+          ["Description", state.description || "--"],
+          ["Cover Image", state.coverFiles.length ? state.coverFiles.length + " file" : "--"],
+          ["Gallery", state.galleryFiles.length ? state.galleryFiles.length + " file(s)" : "--"],
+          ["Word Count", String(wordCountFromHtml(state.content))],
+        ];
+
+        summaryEl.innerHTML = "";
+        rows.forEach((entry) => {
+          const row = document.createElement("div");
+          row.className = "summary-row";
+          row.innerHTML = '<span class="summary-key"></span><span class="summary-value"></span>';
+          row.querySelector(".summary-key").textContent = entry[0];
+          row.querySelector(".summary-value").textContent = entry[1];
+          summaryEl.appendChild(row);
+        });
+      }
+
+      function updateProgress() {
+        const progress = getProgress();
+        progressBarEl.style.width = progress + "%";
+        if (progress < 60) {
+          progressTextEl.textContent = "Fill in required fields to publish.";
+        } else if (progress < 100) {
+          progressTextEl.textContent = "Almost ready - add remaining details.";
+        } else {
+          progressTextEl.textContent = "All fields complete. Ready to publish!";
+        }
+      }
+
+      function syncEditorState() {
+        state.content = editorEl.innerHTML;
+        wordCountEl.textContent = String(wordCountFromHtml(state.content));
+        if (previewEl.classList.contains("visible")) {
+          previewEl.innerHTML =
+            state.content || '<p style="color:#9ca3af;font-style:italic">Nothing to preview yet.</p>';
+        }
+        updateSummary();
+        updateProgress();
+      }
+
+      function runCommand(cmd, value) {
+        editorEl.focus();
+        document.execCommand(cmd, false, value || null);
+        syncEditorState();
+      }
+
+      function setPreviewMode(enabled) {
+        if (enabled) {
+          previewEl.classList.add("visible");
+          editorEl.classList.add("hidden");
+          previewEl.innerHTML =
+            state.content || '<p style="color:#9ca3af;font-style:italic">Nothing to preview yet.</p>';
+          previewModeBtn.classList.add("active");
+          editModeBtn.classList.remove("active");
+        } else {
+          previewEl.classList.remove("visible");
+          editorEl.classList.remove("hidden");
+          editModeBtn.classList.add("active");
+          previewModeBtn.classList.remove("active");
+        }
+      }
+
+      function revokeEntries(entries) {
+        entries.forEach((entry) => URL.revokeObjectURL(entry.url));
+      }
+
+      function toEntries(fileList) {
+        return Array.from(fileList || [])
+          .filter((f) => f.type.startsWith("image/"))
+          .map((file) => ({ file, url: URL.createObjectURL(file) }));
+      }
+
+      function renderCoverPreview() {
+        coverPreview.innerHTML = "";
+        if (!state.coverFiles.length) return;
+        const entry = state.coverFiles[0];
+        const box = document.createElement("div");
+        box.className = "thumb video";
+        box.innerHTML =
+          '<img alt="cover preview"><button type="button" aria-label="remove">x</button><div class="thumb-name"></div>';
+        box.querySelector("img").src = entry.url;
+        box.querySelector(".thumb-name").textContent = entry.file.name;
+        box.querySelector("button").addEventListener("click", () => {
+          revokeEntries(state.coverFiles);
+          state.coverFiles = [];
+          renderCoverPreview();
+          updateSummary();
+          updateProgress();
+        });
+        coverPreview.appendChild(box);
+      }
+
+      function renderGalleryPreview() {
+        galleryPreview.innerHTML = "";
+        state.galleryFiles.forEach((entry, index) => {
+          const box = document.createElement("div");
+          box.className = "thumb square";
+          box.innerHTML =
+            '<img alt="gallery preview"><button type="button" aria-label="remove">x</button><div class="thumb-name"></div>';
+          box.querySelector("img").src = entry.url;
+          box.querySelector(".thumb-name").textContent = entry.file.name;
+          box.querySelector("button").addEventListener("click", () => {
+            URL.revokeObjectURL(entry.url);
+            state.galleryFiles = state.galleryFiles.filter((_, i) => i !== index);
+            renderGalleryPreview();
+            updateSummary();
+          });
+          galleryPreview.appendChild(box);
+        });
+      }
+
+      function applyDropzoneBehavior(dropzoneEl, inputEl, onFiles) {
+        dropzoneEl.addEventListener("click", () => inputEl.click());
+        dropzoneEl.addEventListener("dragover", (event) => {
+          event.preventDefault();
+          dropzoneEl.classList.add("dragging");
+        });
+        dropzoneEl.addEventListener("dragleave", () => {
+          dropzoneEl.classList.remove("dragging");
+        });
+        dropzoneEl.addEventListener("drop", (event) => {
+          event.preventDefault();
+          dropzoneEl.classList.remove("dragging");
+          onFiles(event.dataTransfer.files);
+        });
+      }
+
+      inputs.forEach((name) => {
+        document.getElementById(name).addEventListener("input", (event) => {
+          state[name] = event.target.value;
+          updateSummary();
+          updateProgress();
+          clearStatus();
+        });
+      });
+
+      editorEl.addEventListener("input", () => {
+        syncEditorState();
+        clearStatus();
+      });
+
+      document.querySelectorAll(".tool-btn[data-cmd]").forEach((btn) => {
+        btn.addEventListener("mousedown", (event) => {
+          event.preventDefault();
+          runCommand(btn.dataset.cmd);
+        });
+      });
+
+      document.querySelectorAll(".tool-btn[data-block]").forEach((btn) => {
+        btn.addEventListener("mousedown", (event) => {
+          event.preventDefault();
+          runCommand("formatBlock", btn.dataset.block);
+        });
+      });
+
+      document.getElementById("linkBtn").addEventListener("mousedown", (event) => {
+        event.preventDefault();
+        const url = window.prompt("Enter URL");
+        if (url) runCommand("createLink", url);
+      });
+
+      editModeBtn.addEventListener("click", () => setPreviewMode(false));
+      previewModeBtn.addEventListener("click", () => setPreviewMode(true));
+
+      applyDropzoneBehavior(coverDropzone, coverInput, (files) => {
+        revokeEntries(state.coverFiles);
+        state.coverFiles = toEntries(files).slice(0, 1);
+        renderCoverPreview();
+        updateSummary();
+        updateProgress();
+      });
+
+      applyDropzoneBehavior(galleryDropzone, galleryInput, (files) => {
+        const incoming = toEntries(files);
+        const merged = state.galleryFiles.concat(incoming).slice(0, 10);
+        if (merged.length < state.galleryFiles.length + incoming.length) {
+          // Release object URLs for files that were not accepted because of max limit.
+          incoming.slice(Math.max(0, 10 - state.galleryFiles.length)).forEach((entry) => URL.revokeObjectURL(entry.url));
+        }
+        state.galleryFiles = merged;
+        renderGalleryPreview();
+        updateSummary();
+      });
+
+      coverInput.addEventListener("change", (event) => {
+        revokeEntries(state.coverFiles);
+        state.coverFiles = toEntries(event.target.files).slice(0, 1);
+        renderCoverPreview();
+        updateSummary();
+        updateProgress();
+        event.target.value = "";
+      });
+
+      galleryInput.addEventListener("change", (event) => {
+        const incoming = toEntries(event.target.files);
+        const merged = state.galleryFiles.concat(incoming).slice(0, 10);
+        if (merged.length < state.galleryFiles.length + incoming.length) {
+          incoming.slice(Math.max(0, 10 - state.galleryFiles.length)).forEach((entry) => URL.revokeObjectURL(entry.url));
+        }
+        state.galleryFiles = merged;
+        renderGalleryPreview();
+        updateSummary();
+        event.target.value = "";
+      });
+
+      formEl.addEventListener("submit", (event) => {
+        event.preventDefault();
+        clearStatus();
+        syncEditorState();
+
+        if (!state.title.trim() || !state.author.trim() || !stripHtml(state.content)) {
+          setStatus("error", "Please fill in required fields: title, author, and content.");
+          return;
+        }
+
+        const payload = {
+          title: state.title.trim(),
+          author: state.author.trim(),
+          authorTitle: state.authorTitle.trim(),
+          description: state.description.trim(),
+          contentHtml: state.content,
+          contentText: stripHtml(state.content),
+          coverFiles: state.coverFiles.map((entry) => ({
+            name: entry.file.name,
+            type: entry.file.type,
+            size: entry.file.size,
+          })),
+          galleryFiles: state.galleryFiles.map((entry) => ({
+            name: entry.file.name,
+            type: entry.file.type,
+            size: entry.file.size,
+          })),
+          createdAt: new Date().toISOString(),
+        };
+
+        const formData = new FormData();
+        formData.append("title", payload.title);
+        formData.append("author", payload.author);
+        formData.append("authorTitle", payload.authorTitle);
+        formData.append("description", payload.description);
+        formData.append("content", payload.contentHtml);
+        state.coverFiles.forEach((entry) => formData.append("coverImage", entry.file));
+        state.galleryFiles.forEach((entry) => formData.append("images", entry.file));
+
+        console.groupCollapsed("Publish payload");
+        console.log("Object payload:", payload);
+        console.log("FormData entries:");
+        for (const pair of formData.entries()) {
+          console.log(" -", pair[0], pair[1]);
+        }
+        console.groupEnd();
+
+        setStatus("success", "Published. All data has been printed in the browser console.");
+      });
+
+      window.addEventListener("beforeunload", () => {
+        revokeEntries(state.coverFiles);
+        revokeEntries(state.galleryFiles);
+      });
+
+      updateSummary();
+      updateProgress();
+      syncEditorState();
+    </script>
+  </body>
 </html>
