@@ -9,7 +9,7 @@ void main() {
 
 class BanglaWeatherApp extends StatelessWidget {
   BanglaWeatherApp({super.key, WeatherRepository? repository})
-      : repository = repository ?? OpenMeteoWeatherRepository();
+    : repository = repository ?? OpenMeteoWeatherRepository();
 
   final WeatherRepository repository;
 
@@ -19,15 +19,16 @@ class BanglaWeatherApp extends StatelessWidget {
       useMaterial3: true,
       brightness: Brightness.dark,
     );
-    final colorScheme = ColorScheme.fromSeed(
-      seedColor: const Color(0xFF4AA8FF),
-      brightness: Brightness.dark,
-    ).copyWith(
-      primary: const Color(0xFF62B7FF),
-      secondary: const Color(0xFF82E4AF),
-      surface: const Color(0xFF101C30),
-      onSurface: Colors.white,
-    );
+    final colorScheme =
+        ColorScheme.fromSeed(
+          seedColor: const Color(0xFF4AA8FF),
+          brightness: Brightness.dark,
+        ).copyWith(
+          primary: const Color(0xFF62B7FF),
+          secondary: const Color(0xFF82E4AF),
+          surface: const Color(0xFF101C30),
+          onSurface: Colors.white,
+        );
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -46,35 +47,35 @@ class BanglaWeatherApp extends StatelessWidget {
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
           fillColor: const Color(0xFF101C31),
-          hintStyle: TextStyle(color: Colors.white.withOpacity(0.54)),
+          hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.54)),
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 18,
             vertical: 16,
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(18),
-            borderSide: BorderSide(color: Colors.white.withOpacity(0.08)),
+            borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.08)),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(18),
-            borderSide: BorderSide(color: Colors.white.withOpacity(0.08)),
+            borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.08)),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(18),
             borderSide: BorderSide(
-              color: colorScheme.primary.withOpacity(0.85),
+              color: colorScheme.primary.withValues(alpha: 0.85),
             ),
           ),
         ),
         chipTheme: ChipThemeData(
           backgroundColor: const Color(0xFF13213A),
-          selectedColor: colorScheme.primary.withOpacity(0.16),
+          selectedColor: colorScheme.primary.withValues(alpha: 0.16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
-            side: BorderSide(color: Colors.white.withOpacity(0.08)),
+            side: BorderSide(color: Colors.white.withValues(alpha: 0.08)),
           ),
           labelStyle: const TextStyle(color: Colors.white),
-          side: BorderSide(color: Colors.white.withOpacity(0.06)),
+          side: BorderSide(color: Colors.white.withValues(alpha: 0.06)),
         ),
       ),
       home: WeatherDashboardPage(repository: repository),
@@ -97,7 +98,7 @@ class WeatherRepositoryException implements Exception {
 
 class OpenMeteoWeatherRepository implements WeatherRepository {
   OpenMeteoWeatherRepository({http.Client? client})
-      : _client = client ?? http.Client();
+    : _client = client ?? http.Client();
 
   final http.Client _client;
   static const _requestTimeout = Duration(seconds: 15);
@@ -170,16 +171,16 @@ class OpenMeteoWeatherRepository implements WeatherRepository {
     );
 
     final nameEn = (bangladeshMatch['name'] as String? ?? query).trim();
-    final regionEn = (bangladeshMatch['admin1'] as String? ?? 'Bangladesh').trim();
-    final countryEn =
-        (bangladeshMatch['country'] as String? ?? 'Bangladesh').trim();
+    final regionEn = (bangladeshMatch['admin1'] as String? ?? 'Bangladesh')
+        .trim();
+    final countryEn = (bangladeshMatch['country'] as String? ?? 'Bangladesh')
+        .trim();
 
     return CityLocation(
       nameEn: nameEn,
       nameBn: banglaCityNameFor(nameEn),
       latitude: ((bangladeshMatch['latitude'] as num?) ?? 23.8103).toDouble(),
-      longitude:
-          ((bangladeshMatch['longitude'] as num?) ?? 90.4125).toDouble(),
+      longitude: ((bangladeshMatch['longitude'] as num?) ?? 90.4125).toDouble(),
       regionEn: regionEn,
       regionBn: banglaRegionNameFor(regionEn),
       countryEn: countryEn,
@@ -407,7 +408,8 @@ class _WeatherDashboardPageState extends State<WeatherDashboardPage> {
                     selectedCityName: report?.city.nameEn ?? _activeQuery,
                     onSubmitted: (_) => _submitSearch(),
                     onSearchPressed: _submitSearch,
-                    onPresetSelected: (city) => _loadWeather(query: city.nameEn),
+                    onPresetSelected: (city) =>
+                        _loadWeather(query: city.nameEn),
                   ),
                   const SizedBox(height: 20),
                   if (_isLoading && report == null)
@@ -429,7 +431,8 @@ class _WeatherDashboardPageState extends State<WeatherDashboardPage> {
                     const SizedBox(height: 20),
                     const _SectionHeader(
                       title: 'বর্তমান সূচক',
-                      subtitle: 'আজকের সিদ্ধান্ত নেওয়ার জন্য মূল অপারেশনাল ডেটা',
+                      subtitle:
+                          'আজকের সিদ্ধান্ত নেওয়ার জন্য মূল অপারেশনাল ডেটা',
                     ),
                     const SizedBox(height: 12),
                     _MetricsGrid(report: report),
@@ -452,7 +455,8 @@ class _WeatherDashboardPageState extends State<WeatherDashboardPage> {
                     const SizedBox(height: 20),
                     const _SectionHeader(
                       title: 'এক্সিকিউটিভ ব্রিফ',
-                      subtitle: 'দ্রুত প্রস্তুতি, সূর্য সময়সূচি ও লোকেশন স্ন্যাপশট',
+                      subtitle:
+                          'দ্রুত প্রস্তুতি, সূর্য সময়সূচি ও লোকেশন স্ন্যাপশট',
                     ),
                     const SizedBox(height: 12),
                     _ExecutiveBriefSection(report: report),
@@ -510,15 +514,15 @@ class _HeaderBar extends StatelessWidget {
             children: [
               Text(
                 'বাংলা ওয়েদার ব্রিফ',
-                style: Theme.of(
-                  context,
-                ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.w800,
+                ),
               ),
               const SizedBox(height: 4),
               Text(
                 'কর্পোরেট আবহাওয়া ড্যাশবোর্ড',
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: Colors.white.withOpacity(0.74),
+                  color: Colors.white.withValues(alpha: 0.74),
                 ),
               ),
               if (hasData && lastUpdated != null) ...[
@@ -526,7 +530,7 @@ class _HeaderBar extends StatelessWidget {
                 Text(
                   'সর্বশেষ আপডেট: ${BanglaFormatters.longDate(lastUpdated!)} • ${BanglaFormatters.time(lastUpdated!)}',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Colors.white.withOpacity(0.6),
+                    color: Colors.white.withValues(alpha: 0.6),
                   ),
                 ),
               ],
@@ -599,7 +603,8 @@ class _SearchPanel extends StatelessWidget {
             children: bangladeshCityPresets.map((city) {
               return ChoiceChip(
                 label: Text(city.nameBn),
-                selected: _normalize(selectedCityName) == _normalize(city.nameEn),
+                selected:
+                    _normalize(selectedCityName) == _normalize(city.nameEn),
                 onSelected: (_) => onPresetSelected(city),
               );
             }).toList(),
@@ -608,7 +613,7 @@ class _SearchPanel extends StatelessWidget {
           Text(
             'বাংলাদেশের প্রধান শহরগুলোর জন্য লাইভ ডেটা এবং সংক্ষিপ্ত নির্বাহী বিশ্লেষণ।',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Colors.white.withOpacity(0.68),
+              color: Colors.white.withValues(alpha: 0.68),
             ),
           ),
         ],
@@ -635,13 +640,13 @@ class _HeroCard extends StatelessWidget {
       gradient: LinearGradient(
         colors: [
           const Color(0xFF102342),
-          descriptor.accent.withOpacity(0.22),
+          descriptor.accent.withValues(alpha: 0.22),
           const Color(0xFF0D1830),
         ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
-      borderColor: descriptor.accent.withOpacity(0.35),
+      borderColor: descriptor.accent.withValues(alpha: 0.35),
       child: LayoutBuilder(
         builder: (context, constraints) {
           final wide = constraints.maxWidth >= 780;
@@ -654,7 +659,7 @@ class _HeroCard extends StatelessWidget {
                   vertical: 8,
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.08),
+                  color: Colors.white.withValues(alpha: 0.08),
                   borderRadius: BorderRadius.circular(14),
                 ),
                 child: Row(
@@ -691,7 +696,7 @@ class _HeroCard extends StatelessWidget {
               Text(
                 'অনুভূত তাপমাত্রা ${BanglaFormatters.temperature(report.current.apparentTemperatureC)} • আজকের বৃষ্টির ঝুঁকি ${BanglaFormatters.percentage(report.today.rainChance)}',
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: Colors.white.withOpacity(0.8),
+                  color: Colors.white.withValues(alpha: 0.8),
                 ),
               ),
               const SizedBox(height: 16),
@@ -726,9 +731,9 @@ class _HeroCard extends StatelessWidget {
             margin: EdgeInsets.only(top: wide ? 0 : 22),
             padding: const EdgeInsets.all(18),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.07),
+              color: Colors.white.withValues(alpha: 0.07),
               borderRadius: BorderRadius.circular(22),
-              border: Border.all(color: Colors.white.withOpacity(0.1)),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -740,9 +745,8 @@ class _HeroCard extends StatelessWidget {
                     Expanded(
                       child: Text(
                         'অপারেশনাল আউটলুক',
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(fontWeight: FontWeight.w700),
                       ),
                     ),
                   ],
@@ -751,7 +755,7 @@ class _HeroCard extends StatelessWidget {
                 Text(
                   executiveSummary(report),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Colors.white.withOpacity(0.82),
+                    color: Colors.white.withValues(alpha: 0.82),
                     height: 1.45,
                   ),
                 ),
@@ -759,7 +763,7 @@ class _HeroCard extends StatelessWidget {
                 Text(
                   planningNote(report),
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Colors.white.withOpacity(0.64),
+                    color: Colors.white.withValues(alpha: 0.64),
                     height: 1.4,
                   ),
                 ),
@@ -835,7 +839,11 @@ class _MetricsGrid extends StatelessWidget {
     ];
 
     final width = MediaQuery.of(context).size.width;
-    final crossAxisCount = width >= 720 ? 3 : 2;
+    final crossAxisCount = width >= 960
+        ? 3
+        : width >= 720
+        ? 2
+        : 1;
 
     return GridView.builder(
       shrinkWrap: true,
@@ -844,7 +852,11 @@ class _MetricsGrid extends StatelessWidget {
         crossAxisCount: crossAxisCount,
         crossAxisSpacing: 14,
         mainAxisSpacing: 14,
-        childAspectRatio: width >= 720 ? 1.55 : 1.08,
+        childAspectRatio: width >= 960
+            ? 1.55
+            : width >= 720
+            ? 1.22
+            : 2.05,
       ),
       itemCount: items.length,
       itemBuilder: (context, index) {
@@ -857,7 +869,7 @@ class _MetricsGrid extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.06),
+                  color: Colors.white.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(14),
                 ),
                 child: Icon(
@@ -875,15 +887,15 @@ class _MetricsGrid extends StatelessWidget {
               const SizedBox(height: 6),
               Text(
                 item.value,
-                style: Theme.of(
-                  context,
-                ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.w800,
+                ),
               ),
               const SizedBox(height: 6),
               Text(
                 item.footnote,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Colors.white.withOpacity(0.62),
+                  color: Colors.white.withValues(alpha: 0.62),
                   height: 1.35,
                 ),
               ),
@@ -903,7 +915,7 @@ class _HourlySection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 160,
+      height: 184,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: hourly.length,
@@ -923,7 +935,7 @@ class _HourlySection extends StatelessWidget {
                 Text(
                   BanglaFormatters.time(forecast.time),
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Colors.white.withOpacity(0.64),
+                    color: Colors.white.withValues(alpha: 0.64),
                   ),
                 ),
                 const Spacer(),
@@ -939,7 +951,7 @@ class _HourlySection extends StatelessWidget {
                 Text(
                   'বৃষ্টি ${BanglaFormatters.percentage(forecast.rainChance)}',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Colors.white.withOpacity(0.72),
+                    color: Colors.white.withValues(alpha: 0.72),
                   ),
                 ),
               ],
@@ -974,15 +986,14 @@ class _DailyForecastSection extends StatelessWidget {
                     children: [
                       Text(
                         BanglaFormatters.weekdayShort(forecast.date),
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(fontWeight: FontWeight.w700),
                       ),
                       const SizedBox(height: 4),
                       Text(
                         BanglaFormatters.monthDay(forecast.date),
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Colors.white.withOpacity(0.6),
+                          color: Colors.white.withValues(alpha: 0.6),
                         ),
                       ),
                     ],
@@ -994,9 +1005,9 @@ class _DailyForecastSection extends StatelessWidget {
                   flex: 3,
                   child: Text(
                     descriptor.shortLabel,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -1008,15 +1019,14 @@ class _DailyForecastSection extends StatelessWidget {
                       Text(
                         '${BanglaFormatters.temperature(forecast.maxTempC)} / ${BanglaFormatters.temperature(forecast.minTempC)}',
                         textAlign: TextAlign.end,
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(fontWeight: FontWeight.w700),
                       ),
                       const SizedBox(height: 4),
                       Text(
                         'বৃষ্টি ${BanglaFormatters.percentage(forecast.rainChance)}',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Colors.white.withOpacity(0.6),
+                          color: Colors.white.withValues(alpha: 0.6),
                         ),
                       ),
                     ],
@@ -1059,7 +1069,11 @@ class _ExecutiveBriefSection extends StatelessWidget {
     ];
 
     final width = MediaQuery.of(context).size.width;
-    final crossAxisCount = width >= 720 ? 3 : 1;
+    final crossAxisCount = width >= 960
+        ? 3
+        : width >= 720
+        ? 2
+        : 1;
 
     return GridView.builder(
       shrinkWrap: true,
@@ -1069,7 +1083,11 @@ class _ExecutiveBriefSection extends StatelessWidget {
         crossAxisCount: crossAxisCount,
         crossAxisSpacing: 14,
         mainAxisSpacing: 14,
-        childAspectRatio: width >= 720 ? 1.5 : 2.4,
+        childAspectRatio: width >= 960
+            ? 1.5
+            : width >= 720
+            ? 1.25
+            : 2.3,
       ),
       itemBuilder: (context, index) {
         final card = cards[index];
@@ -1081,7 +1099,7 @@ class _ExecutiveBriefSection extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.06),
+                  color: Colors.white.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(14),
                 ),
                 child: Icon(
@@ -1100,7 +1118,7 @@ class _ExecutiveBriefSection extends StatelessWidget {
               Text(
                 card.body,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Colors.white.withOpacity(0.78),
+                  color: Colors.white.withValues(alpha: 0.78),
                   height: 1.45,
                 ),
               ),
@@ -1133,7 +1151,7 @@ class _SectionHeader extends StatelessWidget {
         Text(
           subtitle,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: Colors.white.withOpacity(0.64),
+            color: Colors.white.withValues(alpha: 0.64),
           ),
         ),
       ],
@@ -1197,15 +1215,15 @@ class _Panel extends StatelessWidget {
             gradient ??
             LinearGradient(
               colors: [
-                const Color(0xFF12203A).withOpacity(0.95),
-                const Color(0xFF0C172B).withOpacity(0.94),
+                const Color(0xFF12203A).withValues(alpha: 0.95),
+                const Color(0xFF0C172B).withValues(alpha: 0.94),
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
         borderRadius: BorderRadius.circular(28),
         border: Border.all(
-          color: borderColor ?? Colors.white.withOpacity(0.08),
+          color: borderColor ?? Colors.white.withValues(alpha: 0.08),
         ),
         boxShadow: const [
           BoxShadow(
@@ -1236,7 +1254,7 @@ class _MiniPill extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.08),
+        color: Colors.white.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(14),
       ),
       child: Row(
@@ -1348,7 +1366,8 @@ class BanglaFormatters {
 
   static String wind(num value) => '${number(value.round())} কিমি/ঘ';
 
-  static String visibility(num value) => '${number(value, fractionDigits: 1)} কিমি';
+  static String visibility(num value) =>
+      '${number(value, fractionDigits: 1)} কিমি';
 
   static String pressure(num value) => '${number(value.round())} hPa';
 
@@ -1356,9 +1375,11 @@ class BanglaFormatters {
 
   static String weekdayLong(DateTime date) => _weekdaysLong[date.weekday - 1];
 
-  static String monthDay(DateTime date) => '${digits(date.day)} ${_months[date.month - 1]}';
+  static String monthDay(DateTime date) =>
+      '${digits(date.day)} ${_months[date.month - 1]}';
 
-  static String longDate(DateTime date) => '${weekdayLong(date)}, ${monthDay(date)}';
+  static String longDate(DateTime date) =>
+      '${weekdayLong(date)}, ${monthDay(date)}';
 
   static String time(DateTime date) {
     final hour = date.hour;
@@ -1815,7 +1836,8 @@ CityLocation? matchBangladeshCity(String query) {
 
   final normalized = _normalize(trimmed);
   for (final city in bangladeshCityPresets) {
-    if (_normalize(city.nameEn) == normalized || city.nameBn.contains(trimmed)) {
+    if (_normalize(city.nameEn) == normalized ||
+        city.nameBn.contains(trimmed)) {
       return city;
     }
   }
